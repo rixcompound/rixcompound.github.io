@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rix Compound | Pit Bike Track</title>
+
+<style>
+:root{
+  --orange:#ff8c00;
+  --black:#0a0a0a;
+  --dark:#111;
+  --section-bg:#0a0a0a;
+  --section-alt:#111;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',Arial,sans-serif;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--black);
+  color:#fff;
+  line-height:1.6;
+}
+
+/* NAVIGATION */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.3);        /* consistent transparency */
+  backdrop-filter: blur(15px);        /* smooth blur */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px 6%;
+  z-index: 1000;
+  gap: 20px;
+  flex-wrap: nowrap;                   /* prevent wrapping */
+  transition: background 0.3s ease, height 0.3s ease;
+}
+
+nav h1 {
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 2.5rem;  /* smaller heading */
+  font-weight: bold;
+  margin-left: 5px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+
+nav h1 span {
+  color: var(--orange);
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+nav a:hover {
+  color: var(--orange);
+  transform: scale(1.1);
+  text-shadow: 0 0 10px var(--orange);
+}
+/* NAV LINKS — unified style for desktop & mobile */
+.nav-links {
+  position: fixed;            
+  top: 80px;                   /* slightly below navbar */
+  right: 20px;                 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;      
+  gap: 12px;                   
+  pointer-events: auto;       
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 1200;
+  background: transparent; /* no background behind buttons */
+}
+
+/* Nav links buttons */
+.nav-links a {
+  background: rgba(15,15,15,0.7);
+  backdrop-filter: blur(8px);
+  border: 2px solid var(--orange);
+  padding: 10px 25px;
+  border-radius: 25px;
+  color: #fff;
+  font-size: 1rem;
+  white-space: nowrap;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+  box-shadow: 0 0 15px var(--orange);
+  transform: scale(1.05);
+  border-color: var(--orange);
+}
+
+/* Optional: hide hamburger on desktop */
+@media(min-width:901px){
+  .hamburger {
+    display: none;
+  }
+}
+
+
+/* PROFILE PICTURE */
+#profile-container {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+#profile-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--orange);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.wheel-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 55px;
+  height: 55px;
+  transform-origin: 50% 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  animation: spinWheel 3s linear infinite;
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  margin-left: auto;
+  z-index: 1100;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: #fff;
+  border-radius: 5px;
+  transition: 0.4s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:900px){
+  nav {
+    padding: 12px 5%;
+  }
+
+  nav h1 {
+    font-size: 3rem;
+    margin-bottom: 0;
+  }
+
+  nav a {
+    font-size: 0.95rem;
+    margin-left: 10px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 40px 0;
+    opacity: 0;
+    transform: translateY(-30px);
+    pointer-events: none;
+    transition: 0.4s ease;
+  }
+
+  .nav-links.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: menuFade 0.4s forwards;
+  }
+
+  .nav-links.active a:nth-child(1){ animation-delay:.1s; }
+  .nav-links.active a:nth-child(2){ animation-delay:.15s; }
+  .nav-links.active a:nth-child(3){ animation-delay:.2s; }
+  .nav-links.active a:nth-child(4){ animation-delay:.25s; }
+  .nav-links.active a:nth-child(5){ animation-delay:.3s; }
+  .nav-links.active a:nth-child(6){ animation-delay:.35s; }
+}
+
+@keyframes menuFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* PROFILE PICTURE */
+#profile-container{
+  width:60px;
+  height:60px;
+  flex-shrink:0;
+  position:relative;
+}
+
+#profile-container img{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid var(--orange);
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:2;
+}
+
+/* Wheel overlay */
+.wheel-overlay{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:55px;
+  height:55px;
+  transform-origin:50% 50%;
+  transform:translate(-50%,-50%);
+  z-index:1;
+  animation:spinWheel 3s linear infinite;
+}
+
+@keyframes spinWheel{
+  from{transform:translate(-50%,-50%) rotate(0deg);}
+  to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* BUTTON */
+.btn{
+  margin-top:30px;
+  background:var(--orange);
+  color:#000;
+  border:none;
+  padding:15px 35px;
+  border-radius:40px;
+  font-weight:bold;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:.4s;
+}
+.btn::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,.2);
+  transition:.4s;
+}
+.btn:hover::before{left:100%;}
+.btn:hover{
+  transform:translateY(-5px) scale(1.05);
+  box-shadow:0 0 20px var(--orange);
+}
+
+/* SECTIONS */
+section{
+  padding:180px 6% 120px 6%;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s ease;
+  background: var(--section-bg);
+  position:relative;
+}
+section::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:80px;
+  background: linear-gradient(to bottom, rgba(10,10,10,0), var(--section-alt));
+  pointer-events:none;
+}
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+h2{
+  font-size:clamp(2rem,5vw,2.6rem);
+  margin-bottom:30px;
+  text-transform:uppercase;
+  text-align:center;
+}
+h2 span:last-child{
+  color:var(--orange);
+}
+
+/* HOME SUB-SECTIONS */
+.home-sub{
+  margin-bottom:60px;
+  position:relative;
+}
+.home-sub p{
+  max-width:700px;
+  margin:20px auto;
+  font-size:1rem;
+}
+.home-sub img, #track img{
+  width:70%;
+  max-width:500px;
+  border-radius:25px;
+  margin-top:20px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  transition:transform 0.3s ease-out;
+}
+
+/* PRICING MODERN */
+.pricing-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+  max-width:1200px;
+  margin:0 auto;
+}
+.pricing-card{
+  background:var(--dark);
+  border:2px solid #222;
+  border-radius:25px;
+  padding:25px;
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
+}
+.pricing-card:hover{
+  transform:translateY(-12px) scale(1.03);
+  border-color:var(--orange);
+  box-shadow:0 0 25px var(--orange);
+}
+.pricing-card h3{
+  color:#fff;
+  margin-bottom:10px;
+}
+.pricing-card h3 span:last-child{
+  color:var(--orange);
+}
+.pricing-card p, .pricing-card small, .pricing-card ul li{
+  font-size:1rem;
+  margin:5px 0;
+  line-height:1.4;
+}
+
+/* EVENTS */
+.events{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+/* DYNAMIC ABOUT SECTION */
+.about-dynamic{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:40px;
+  max-width:1200px;
+  margin:0 auto;
+  align-items:start;
+}
+.about-card{
+  background:var(--dark);
+  border-radius:25px;
+  padding:25px;
+  border:2px solid #222;
+  transition:.5s;
+}
+.about-card:hover{
+  transform:translateY(-10px) scale(1.02);
+  border-color:var(--orange);
+  box-shadow:0 0 25px var(--orange);
+}
+.about-card h3{
+  color:var(--orange);
+  margin-bottom:15px;
+  font-size:1.5rem;
+}
+.about-card p, .about-card ul li{
+  font-size:1rem;
+  margin-bottom:12px;
+  line-height:1.5;
+}
+.about-card ul{
+  list-style:none;
+  padding-left:0;
+}
+.about-card ul li::before{
+  content:"✔️";
+  margin-right:8px;
+}
+.about-image img{
+  width:100%;
+  border-radius:25px;
+  display:block;
+  margin:auto;
+}
+
+/* CONTACT */
+.contact{
+  background:var(--dark);
+  padding:35px;
+  border-radius:30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+.contact div, .contact p{
+  margin-bottom:15px;
+}
+.contact h3{
+  margin-bottom:10px;
+  color:var(--orange);
+}
+.contact p a{
+  color:var(--orange);
+  text-decoration:none;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  padding:30px;
+  text-align:center;
+  opacity:.8;
+}
+
+/* ANIMATIONS */
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* MOBILE OPTIMIZATION */
+@media(max-width:900px){
+  body{font-size:0.95rem;}
+  nav{
+    padding:12px 5%;
+    flex-wrap:wrap;
+    height:auto;
+  }
+   nav h1 {
+    font-size: 1.8rem;  /* smaller heading for mobile */
+    margin-bottom: 10px;
+  }
+  nav a{
+    margin-left:10px;
+    font-size:0.95rem;
+  }
+
+  section{padding:120px 5% 80px 5%;}
+  .home-sub{margin-bottom:40px;}
+  .home-sub img, #track img{width:100%; max-width:none;}
+  .pricing-container{grid-template-columns:1fr; gap:20px;}
+  .pricing-card{padding:20px;}
+  .events{grid-template-columns:1fr; gap:20px;}
+  .about-dynamic{grid-template-columns:1fr; gap:30px;}
+  .about-card{padding:20px;}
+  .about-card h3{font-size:1.3rem;}
+  .contact{grid-template-columns:1fr; gap:20px;}
+  footer{padding:20px; font-size:0.9rem;}
+
+  /* Reduce scroll parallax for small screens */
+  .dynamic-img{transform: translateY(0px) !important;}
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+  display: flex;              
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  margin-left: auto;
+  z-index: 1300;               
+  position: relative;          
+}
+}
+.hamburger span{
+  width:28px;
+  height:3px;
+  background:#fff;
+  border-radius:5px;
+  transition:0.4s ease;
+}
+
+/* Animate hamburger into X */
+.hamburger.active span:nth-child(1){
+  transform:translateY(9px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+.hamburger.active span:nth-child(3){
+  transform:translateY(-9px) rotate(-45deg);
+}
+
+/* NAV LINKS */
+.nav-links{
+  display:flex;
+}
+
+/* MOBILE MENU */
+/* Right-side floating menu — dark blurred buttons, no underline */
+@media(max-width:900px){
+  .nav-links{
+    position: fixed;            
+    top: 60px;                  
+    right: 20px;                
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;      
+    gap: 12px;                  
+    pointer-events: none;       
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
+    z-index: 1200;
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  .nav-links.active{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-links a{
+    background: rgba(15,15,15,0.7);
+    backdrop-filter: blur(8px);
+    border: 2px solid var(--orange);
+    padding: 8px 20px;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 1rem;
+    white-space: nowrap;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+
+    /* Force remove underline */
+    text-decoration: none !important;
+  }
+
+  .nav-links a:hover{
+    color: #fff;
+    box-shadow: 0 0 15px var(--orange);
+    transform: scale(1.05);
+    border-color: var(--orange);
+    text-decoration: none !important;
+  }
+
+  /* Remove underline for all other link states */
+  .nav-links a:focus,
+  .nav-links a:active {
+    text-decoration: none !important;
+    outline: none !important;
+  }
+
+  /* Drop-down animation */
+  .nav-links a{
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  .nav-links.active a{
+    animation: dropMenu 0.35s forwards;
+  }
+  .nav-links.active a:nth-child(1){ animation-delay:0.05s; }
+  .nav-links.active a:nth-child(2){ animation-delay:0.1s; }
+  .nav-links.active a:nth-child(3){ animation-delay:0.15s; }
+  .nav-links.active a:nth-child(4){ animation-delay:0.2s; }
+  .nav-links.active a:nth-child(5){ animation-delay:0.25s; }
+  .nav-links.active a:nth-child(6){ animation-delay:0.3s; }
+}
+
+@keyframes dropMenu{
+  to {
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+
+/* GOOGLE MAP EMBED */
+.map-box{
+  width:100%;
+  height:320px;
+  margin-top:20px;
+  border-radius:25px;
+  overflow:hidden;
+  border:2px solid #222;
+  box-shadow:0 0 25px rgba(255,140,0,0.4);
+}
+.map-box iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* DYNAMIC VIDEO CARD */
+.video-card{
+  position:relative;
+  display:block;
+  margin-top:35px;
+  border-radius:28px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:0.4s ease;
+}
+
+.video-card img{
+  width:100%;
+  display:block;
+  transition:0.6s ease;
+}
+
+.video-glow{
+  position:absolute;
+  inset:0;
+  border-radius:28px;
+  box-shadow:0 0 40px rgba(255,140,0,0.6);
+  opacity:0.6;
+  animation:pulseGlow 2.5s infinite alternate;
+  pointer-events:none;
+}
+
+@keyframes pulseGlow{
+  from{opacity:0.3;}
+  to{opacity:0.7;}
+}
+
+/* YouTube-style play button */
+.yt-play-btn{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:68px;
+  height:48px;
+  opacity:0.9;
+  transition:0.3s ease;
+}
+
+.video-card:hover .yt-play-btn{
+  transform:translate(-50%,-50%) scale(1.15);
+  opacity:1;
+}
+
+/* Hover effects */
+.video-card:hover{
+  transform:scale(1.02) rotateX(2deg);
+}
+.video-card:hover img{
+  transform:scale(1.05);
+}
+
+.video-label{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  background:rgba(0,0,0,0.7);
+  padding:10px 18px;
+  border-radius:20px;
+  font-weight:bold;
+  letter-spacing:1px;
+  font-size:0.95rem;
+}
+
+/* WhatsApp contact form */
+.whatsapp-form{
+  background:var(--dark);
+  padding:25px;
+  border-radius:25px;
+  max-width:500px;
+  margin:30px auto 0;
+  box-shadow:0 0 25px rgba(255,140,0,0.4);
+}
+
+.whatsapp-form h3{
+  color:var(--orange);
+  margin-bottom:15px;
+  text-align:center;
+}
+
+.whatsapp-form input,
+.whatsapp-form textarea{
+  width:100%;
+  padding:12px 15px;
+  margin-bottom:15px;
+  border-radius:15px;
+  border:1px solid #222;
+  background:#111;
+  color:#fff;
+  font-size:1rem;
+  outline:none;
+  transition:.3s;
+}
+
+.whatsapp-form input:focus,
+.whatsapp-form textarea:focus{
+  border-color:var(--orange);
+}
+
+.whatsapp-form textarea{
+  resize:none;
+  height:100px;
+}
+
+.whatsapp-form .btn{
+  width:100%;
+  text-align:center;
+}
+
+/* Upcoming Events Image */
+.event-image-container{
+  text-align:center;
+  margin-top:20px;
+}
+
+.event-image-container img{
+  width:90%;
+  max-width:800px;
+  border-radius:25px;
+  border:2px solid var(--orange); /* Thin orange border added */
+  box-shadow:0 0 25px rgba(255,140,0,0.5);
+  transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.event-image-container img:hover{
+  transform:scale(1.03);
+  box-shadow:0 0 40px rgba(255,140,0,0.7);
+  border-color:var(--orange); /* Keeps border visible on hover */
+}
+
+.instagram-contact{
+  margin-top:20px;
+  display:flex;
+  align-items:center;
+}
+
+.instagram-contact a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:bold;
+  font-size:1.05rem;
+  transition:0.3s ease;
+}
+
+.instagram-icon{
+  width:26px;
+  height:26px;
+  fill:#fff;
+  transition:0.3s ease;
+}
+
+.instagram-contact a:hover{
+  color:var(--orange);
+}
+
+.instagram-contact a:hover .instagram-icon{
+  fill:var(--orange);
+  transform:scale(1.15);
+  filter:drop-shadow(0 0 8px var(--orange));
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div id="profile-container">
+    <img src="https://i.postimg.cc/GhTnJcSP/social-cat-instagram-instagram-5.jpg" alt="Profile Picture">
+    <svg class="wheel-overlay" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="28" fill="none" stroke="var(--orange)" stroke-width="4" stroke-dasharray="4 8"/>
+    </svg>
+  </div>
+
+  <h1>Rix <span>Compound</span></h1>
+
+  <!-- Hamburger -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Nav Links -->
+  <div class="nav-links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#track">The Track</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#events">Events</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact/Booking</a>
+  </div>
+</nav>
+
+
+
+<!-- HOME -->
+<section id="home" class="show">
+  <div style="position:relative;z-index:2;width:100%;max-width:900px;margin:auto;text-align:center;">
+
+    <div class="home-sub">
+      <h2>Welcome to the <span>Compound</span></h2>
+      <p>
+        A private pit bike & junior MX track in the Cape Winelands. Bring your bike,
+        bring your crew, and enjoy open days, weekend rides, and adrenaline-filled
+        sessions for all skill levels. Follow us for updates and ride highlights.
+        <strong>See you on the dirt!</strong>
+      </p>
+      <img src="https://i.postimg.cc/KYG36gnP/IMG_20251112_WA0108_1024x683.jpg" alt="Welcome Image" class="dynamic-img">
+    </div>
+
+    <div class="home-sub" id="track">
+      <h2>The <span>Track</span></h2>
+      <p>
+        Experience the thrill of our purpose-built pit bike track — perfect for riders of all levels.
+      </p>
+      <img src="https://i.postimg.cc/J44p3K6T/Chat-GPT-Image-Jan-7-2026-03-01-22-PM.png" alt="The Track Image">
+    </div>
+
+ <a href="https://youtu.be/vgHBEpjlTRU" target="_blank" class="video-card">
+  <div class="video-glow"></div>
+
+  <img src="https://img.youtube.com/vi/vgHBEpjlTRU/maxresdefault.jpg" alt="Track Video">
+
+  <!-- YouTube-style play button -->
+  <div class="yt-play-btn">
+    <svg viewBox="0 0 68 48" width="68" height="48">
+      <path d="M66.52,7.57a8,8,0,0,0-5.63-5.65C56.06,0,34,0,34,0S11.94,0,7.11,1.92a8,8,0,0,0-5.63,5.65A83.08,83.08,0,0,0,0,24a83.08,83.08,0,0,0,1.48,16.43,8,8,0,0,0,5.63,5.65C11.94,48,34,48,34,48s22.06,0,26.89-1.92a8,8,0,0,0,5.63-5.65A83.08,83.08,0,0,0,68,24,83.08,83.08,0,0,0,66.52,7.57Z" fill="rgba(255,255,255,0.8)"></path>
+      <polygon points="45,24 27,14 27,34" fill="var(--orange)"/>
+    </svg>
+  </div>
+</a>
+
+    <div class="home-sub">
+      <h2>The <span>Experience</span></h2>
+      <p>
+        Perfect for birthday parties, team-building events, and group rides for all
+        ages. We handle the bikes and gear — you bring the energy. Compact track,
+        safe and thrilling for everyone.
+      </p>
+      <img src="https://i.postimg.cc/k5TRqXcx/20240217042740_IMG_7973.jpg" alt="Experience Image" class="dynamic-img">
+    </div>
+
+    <div class="home-sub">
+      <h2>Safety <span>First</span></h2>
+      <p>
+        Safety comes first. Helmets, briefing, and bike checks included. Staff guide
+        everyone for confident, safe riding.
+      </p>
+      <img src="https://i.postimg.cc/vmYxJ6W9/IMG_20251112_WA0128_1024x683.jpg" alt="Safety Image" class="dynamic-img">
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <h2>Pricing & <span>Packages</span></h2>
+  <div class="pricing-container">
+    <div class="pricing-card">
+      <h3>Half-Day <span>Packages</span></h3>
+      <ul>
+        <li>5 Bikes – R8000</li>
+        <li>10 Bikes – R12000</li>
+      </ul>
+      <p>Includes stretch tent & braai facilities</p>
+      <small>50% deposit required • Riders 14+ • No drinking & driving</small>
+    </div>
+    <div class="pricing-card">
+      <h3>30-Minute <span>Rides</span></h3>
+      <ul>
+        <li>5 Bikes – R1750</li>
+        <li>10 Bikes – R3000</li>
+      </ul>
+    </div>
+    <div class="pricing-card">
+      <h3>60-Minute <span>Rides</span></h3>
+      <ul>
+        <li>5 Bikes – R3000</li>
+        <li>10 Bikes – R5000</li>
+      </ul>
+    </div>
+    <div class="pricing-card">
+      <h3>Group <span>Adventures</span></h3>
+      <p>
+        At Rix Compound, your safety always comes first.
+      </p>
+      <p>
+        Every rental includes:<br>
+        ✔️ Protective gear (helmet)<br>
+        ✔️ A detailed safety briefing<br>
+        ✔️ A full equipment inspection before riding<br>
+        ✔️ Guidance on bike controls, track rules, and safe riding techniques
+      </p>
+      <p>
+        Whether you’re new to riding or already experienced, our trained team and well-maintained bikes ensure a smooth, safe, and exciting experience from start to finish.
+      </p>
+      <p>📲 Bookings essential • <a href="https://wa.me/0768299919" target="_blank">📞 Call/WhatsApp: 0768299919</a> • 📸 Follow us: @RixCompound</p>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <h2>Upcoming <span>Events</span></h2>
+  <div class="events">
+  <div class="event-image-container">
+    
+	<img src="https://lh3.googleusercontent.com/d/1T1wcEUFgq5E6Gg4_SAw0wh7dvJhpCW-K" class="dynamic-img" alt=".">
+	<img src="https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW" class="dynamic-img" alt=".">
+
+  </div>
+</div>
+
+
+</section>
+
+<!-- DYNAMIC ABOUT SECTION -->
+<section id="about">
+  <h2>About <span>Rix Compound</span></h2>
+  <div class="about-dynamic">
+
+    <div class="about-card">
+      <h3>Where Every Ride Becomes an Adventure! 🏁🔥</h3>
+      <p>
+        Nestled in the heart of the Cape Winelands, Rix Compound is a private pit bike and junior MX track designed for riders of all ages and skill levels. 
+        Whether you’re hopping on a bike for the first time or you’re a seasoned rider craving dust and adrenaline, our track offers the perfect blend of fun, excitement, and challenge.
+      </p>
+      <p>
+        We host open days, weekend rides, and Sunday Funday sessions — grab your bike, bring your friends, and enjoy the thrill of the dirt. 
+        Follow our page for track updates, event announcements, and ride highlights. 🏍️🔥
+      </p>
+    </div>
+
+    <div class="about-card">
+      <h3>Looking for a Unique Day Out? 🎉</h3>
+      <p>
+        Break the routine and experience something unforgettable! Our pit bike rentals are perfect for families, groups of friends, parties, or team-building sessions. 
+        We provide everything you need for a safe and thrilling riding experience — just arrive ready to have fun!
+      </p>
+    </div>
+
+    <div class="about-card">
+      <h3>The Experience 🤝</h3>
+      <p>Our purpose-built compound is designed for pure enjoyment and group excitement. Perfect for:</p>
+      <ul>
+        <li>🎉 Birthday Parties packed with energy and laughter</li>
+        <li>🤝 Team-Building Events that inspire competition and camaraderie</li>
+        <li>👨‍👩‍👧‍👦 Group Outings for both kids and adults</li>
+      </ul>
+      <p>
+        We supply all the equipment — you just bring the energy. Our track is compact, controlled, and family-friendly, making it the ideal environment for kids learning to ride while adults enjoy the thrill. 
+        No big bikes allowed — just manageable, confidence-building fun for everyone.
+      </p>
+      <p>
+        We tailor our rental packages to suit any group size or occasion, providing an outdoor experience you’ll want to repeat.
+      </p>
+    </div>
+
+    <div class="about-card about-image">
+      <img src="https://i.postimg.cc/GpXTdhQx/RC-LOGO.jpg" alt="About Image" class="dynamic-img">
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact <span>Us</span></h2>
+  <div class="contact">
+   <div class="whatsapp-form">
+  <h3>Book Now</h3>
+  <form id="waForm">
+    <input type="text" id="waName" placeholder="Your Name" required>
+    <input type="email" id="waEmail" placeholder="Your Email" required>
+    <textarea id="waMessage" placeholder="Your Booking" required></textarea>
+    <button type="submit" class="btn">Send via WhatsApp</button>
+  </form>
+</div>
+   <div>
+      <h3>Address</h3>
+      <p>Rix Compound Bottelary Road, Protea Farms, Cape Town.</p>
+
+<div class="map-box">
+  <iframe 
+    src="https://www.google.com/maps?q=Rix+Compound+Bottelary+Road+Protea+Farms+Cape+Town&output=embed"
+    allowfullscreen
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+	  <h3>Sosials</h3>
+	  <div class="instagram-contact">
+  <a href="https://www.instagram.com/rixcompound" target="_blank" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" class="instagram-icon">
+      <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
+    </svg>
+    <span class="instagram-handle">@rixcompound</span>
+  </a>
+</div>
+
+</a>
+
+      <h3>Email</h3>
+      <p><a href="mailto:rixcompound@gmail.com">rixcompound@gmail.com</a></p>
+
+      <h3>Call / WhatsApp</h3>
+      <p><a href="https://wa.me/27768299919" target="_blank">27768299919</a></p>
+    </div>
+
+
+    <div>
+      <h3>Business Hours</h3>
+      <p><strong>Book & Drive every Weekend:</strong><br>
+      Saturday: 9am – 6pm<br>
+      Sunday: 10am – 5pm</p>
+
+      <p><strong>Bookings During the Week:</strong><br>
+      Monday & Tuesday: Closed<br>
+      Wednesday to Friday: on request (Min 2hr booking)</p>
+
+      <p><strong>Booking Office:</strong><br>
+      Monday to Sunday: 8am – 5pm</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Rix Compound • Ride • Race • Repeat
+
+</footer>
+
+<script>
+// Scroll reveal + parallax
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+  sections.forEach(sec=>{
+    const top=sec.getBoundingClientRect().top;
+    if(top<window.innerHeight-100) sec.classList.add("show");
+  });
+  document.querySelectorAll('.dynamic-img').forEach(img=>{
+    const rect = img.getBoundingClientRect();
+    const offset = rect.top / window.innerHeight;
+    img.style.transform = `translateY(${offset * 20}px)`; 
+  });
+});
+
+// Animated Hamburger Menu
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  navLinks.classList.toggle("active");
+});
+
+// Close menu when clicking a link
+document.querySelectorAll(".nav-links a").forEach(link=>{
+  link.addEventListener("click", ()=>{
+    hamburger.classList.remove("active");
+    navLinks.classList.remove("active");
+  });
+});
+
+// WhatsApp form
+document.getElementById("waForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("waName").value.trim();
+  const email = document.getElementById("waEmail").value.trim();
+  const message = document.getElementById("waMessage").value.trim();
+
+  if(!name || !email || !message){
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  // Correct WhatsApp number in international format (no +)
+  const phone = "27768299919"; 
+  const text = `Hello! My name is ${name} (${email}).\n\n${message}`;
+  const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+  // Open WhatsApp in new tab
+  window.open(waURL, "_blank");
+  
+  const navBar = document.querySelector('nav');
+
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 50){
+    navBar.style.background = "rgba(0,0,0,0.35)";
+  } else {
+    navBar.style.background = "rgba(0,0,0,0.3)";
+  }
+});
+
+});
+
+
+</script>
+
+</body>
+</html>
