@@ -819,18 +819,31 @@ footer{
   box-shadow:0 0 40px rgba(255,140,0,0.7);
   border-color:var(--orange); /* Keeps border visible on hover */
 }
-
+.gallery-instagram{
+  display:flex;
+  justify-content:center;   /* ✅ centers ONLY this one */
+  margin-top:20px;
+}
+.gallery-instagram a{
+  display:flex;
+  align-items:center;
+  gap:1px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:bold;
+  font-size:1.05rem;
+  transition:0.3s ease;
+}
 .instagram-contact{
   margin-top:20px;
   display:flex;
-   justify-content:center;
   align-items:center;
 }
 
 .instagram-contact a{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:1px;
   text-decoration:none;
   color:#fff;
   font-weight:bold;
@@ -1032,6 +1045,15 @@ footer{
       <p>Includes stretch tent & braai facilities</p>
       <small>50% deposit required • Riders 14+ • No drinking & driving</small>
     </div>
+	
+	<div class="pricing-card">
+      <h3>60-Minute <span>Rides</span></h3>
+      <ul>
+        <li>5 Bikes – R3000</li>
+        <li>10 Bikes – R5000</li>
+      </ul>
+    </div>
+	
     <div class="pricing-card">
       <h3>30-Minute <span>Rides</span></h3>
       <ul>
@@ -1039,21 +1061,8 @@ footer{
         <li>10 Bikes – R3000</li>
       </ul>
     </div>
-    <div class="pricing-card">
-      <h3>60-Minute <span>Rides</span></h3>
-      <ul>
-        <li>5 Bikes – R3000</li>
-        <li>10 Bikes – R5000</li>
-      </ul>
-    </div>
-    <div class="pricing-card">
-		<div class="pricing-card">
-      <h3>60-Minute <span>Rides</span></h3>
-      <ul>
-        <li>5 Bikes – R3000</li>
-        <li>10 Bikes – R5000</li>
-      </ul>
-    </div>
+    
+	<div class="pricing-card">
       <h3>Group <span>Adventures</span></h3>
       <p>
         At Rix Compound, your safety always comes first.
@@ -1068,8 +1077,7 @@ footer{
       <p>
         Whether you’re new to riding or already experienced, our trained team and well-maintained bikes ensure a smooth, safe, and exciting experience from start to finish.
       </p>
-      <p>📲 Bookings essential • <a href="https://wa.me/0768299919" target="_blank">📞 Call/WhatsApp: 0768299919</a> • 📸 Follow us: @RixCompound</p>
-    </div>
+      <p><a href="#contact"><h3><span>📲 Bookings essential</span></h3></a>
   </div>
 </section>
 
@@ -1155,14 +1163,16 @@ footer{
     <img src="img9.jpg">
   </div>
   
-  <div class="instagram-contact">
-  <a href="https://www.instagram.com/_ir.photo_" target="_blank" aria-label="Instagram _ir.photo_">
-    <svg viewBox="0 0 24 24" class="instagram-icon">
+<div class="gallery-instagram">
+  <a href="https://instagram.com/irphoto" target="_blank" class="instagram-contact">
+   <svg viewBox="0 0 24 24" class="instagram-icon">
       <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
     </svg>
-    <span>@_ir.photo_</span>
+    <i class="fab fa-instagram"></i>
+    _ir.photo_
   </a>
 </div>
+
 
 </section>
 
@@ -1205,7 +1215,7 @@ footer{
     <svg viewBox="0 0 24 24" class="instagram-icon">
       <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
     </svg>
-    <span class="instagram-handle">@rixcompound</span>
+    <span class="instagram-handle">rixcompound</span>
   </a>
 </div>
 
@@ -1215,7 +1225,7 @@ footer{
       <p><a href="mailto:rixcompound@gmail.com">rixcompound@gmail.com</a></p>
 
       <h3>Call / WhatsApp</h3>
-      <p><a href="https://wa.me/27768299919" target="_blank">27768299919</a></p>
+      <p><a href="https://wa.me/27768299919" target="_blank">0768299919</a></p>
     </div>
 
 
@@ -1332,4 +1342,3 @@ lightbox.addEventListener('click',(e)=>{
 
 </body>
 </html>
-
