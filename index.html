@@ -6,138 +6,142 @@
 <title>Rix Compound | Pit Bike Track</title>
 
 <style>
-:root{
-  --orange:#ff8c00;
-  --black:#0a0a0a;
-  --dark:#111;
-  --section-bg:#0a0a0a;
-  --section-alt:#111;
+
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+  --orange: #ff8c00;
+  --black: #0a0a0a;
+  --dark: #111;
+  --section-bg: #0a0a0a;
+  --section-alt: #111;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',Arial,sans-serif;
-  scroll-behavior:smooth;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
-body{
-  background:var(--black);
-  color:#fff;
-  line-height:1.6;
+body {
+  background: var(--black);
+  color: #fff;
+  line-height: 1.6;
 }
 
-/* NAVIGATION */
+/* =========================================
+   2. REIMAGINED DYNAMIC NAVIGATION
+   ========================================= */
 nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.3);        /* consistent transparency */
-  backdrop-filter: blur(15px);        /* smooth blur */
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 15px 6%;
-  z-index: 1000;
-  gap: 20px;
-  flex-wrap: nowrap;                   /* prevent wrapping */
-  transition: background 0.3s ease, height 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6%;
+    z-index: 2000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Glass effect on scroll - triggered by JS */
+nav.scrolled {
+    height: 70px;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
 
 nav h1 {
-  color: #fff;
-  letter-spacing: 1px;
-  font-size: 2.5rem;  /* smaller heading */
-  font-weight: bold;
-  margin-left: 5px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
-
 
 nav h1 span {
-  color: var(--orange);
+    color: var(--orange);
+    text-shadow: 0 0 15px rgba(255, 140, 0, 0.3);
 }
 
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 20px;
-  position: relative;
-  transition: 0.3s ease;
-}
-
-nav a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background: var(--orange);
-  left: 0;
-  bottom: -5px;
-  transition: 0.3s;
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-nav a:hover {
-  color: var(--orange);
-  transform: scale(1.1);
-  text-shadow: 0 0 10px var(--orange);
-}
-/* NAV LINKS — unified style for desktop & mobile */
+/* Desktop Menu */
 .nav-links {
-  position: fixed;            
-  top: 80px;                   /* slightly below navbar */
-  right: 20px;                 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;      
-  gap: 12px;                   
-  pointer-events: auto;       
-  opacity: 1;
-  transform: translateY(0);
-  z-index: 1200;
-  background: transparent; /* no background behind buttons */
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
-/* Nav links buttons */
 .nav-links a {
-  background: rgba(15,15,15,0.7);
-  backdrop-filter: blur(8px);
-  border: 2px solid var(--orange);
-  padding: 10px 25px;
-  border-radius: 25px;
-  color: #fff;
-  font-size: 1rem;
-  white-space: nowrap;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
-  text-decoration: none !important;
-  transition: all 0.3s ease;
+    position: relative;
+    padding: 10px 20px;
+    color: #eee;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+/* Moving Liquid Background Effect */
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--orange);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    border-radius: 50px;
+}
+
+.nav-links a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .nav-links a:hover {
-  color: #fff;
-  box-shadow: 0 0 15px var(--orange);
-  transform: scale(1.05);
-  border-color: var(--orange);
+    color: #000;
+    letter-spacing: 1px;
 }
 
-/* Optional: hide hamburger on desktop */
-@media(min-width:901px){
-  .hamburger {
+/* Mobile Toggle */
+.hamburger {
     display: none;
-  }
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 10px;
 }
 
+.hamburger span {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
 
-/* PROFILE PICTURE */
+/* Hamburger Animations */
+.hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--orange); }
+.hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+.hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--orange); }
+
+/* =========================================
+   3. PROFILE PICTURE & ANIMATION
+   ========================================= */
 #profile-container {
   width: 60px;
   height: 60px;
@@ -170,797 +174,762 @@ nav a:hover {
   animation: spinWheel 3s linear infinite;
 }
 
-/* HAMBURGER MENU */
-.hamburger {
-  display: none;
-  flex-direction: column;
+@keyframes spinWheel {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* =========================================
+   4. GENERAL UI COMPONENTS
+   ========================================= */
+/* Buttons */
+.btn {
+  margin-top: 30px;
+  background: var(--orange);
+  color: #000;
+  border: none;
+  padding: 15px 35px;
+  border-radius: 40px;
+  font-weight: bold;
   cursor: pointer;
-  gap: 6px;
-  margin-left: auto;
-  z-index: 1100;
+  position: relative;
+  overflow: hidden;
+  transition: .4s;
 }
 
-.hamburger span {
-  width: 28px;
-  height: 3px;
-  background: #fff;
-  border-radius: 5px;
-  transition: 0.4s ease;
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, .2);
+  transition: .4s;
 }
 
-.hamburger.active span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
+.btn:hover::before {
+  left: 100%;
 }
 
-.hamburger.active span:nth-child(2) {
+.btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 20px var(--orange);
+}
+
+/* Sections */
+section {
+  padding: 180px 6% 120px 6%;
   opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg);
-}
-
-/* NAV LINKS */
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-/* MOBILE RESPONSIVE */
-@media(max-width:900px){
-  nav {
-    padding: 12px 5%;
-  }
-
-  nav h1 {
-    font-size: 3rem;
-    margin-bottom: 0;
-  }
-
-  nav a {
-    font-size: 0.95rem;
-    margin-left: 10px;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(12px);
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    padding: 40px 0;
-    opacity: 0;
-    transform: translateY(-30px);
-    pointer-events: none;
-    transition: 0.4s ease;
-  }
-
-  .nav-links.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  .nav-links a {
-    opacity: 0;
-    transform: translateY(10px);
-    animation: menuFade 0.4s forwards;
-  }
-
-  .nav-links.active a:nth-child(1){ animation-delay:.1s; }
-  .nav-links.active a:nth-child(2){ animation-delay:.15s; }
-  .nav-links.active a:nth-child(3){ animation-delay:.2s; }
-  .nav-links.active a:nth-child(4){ animation-delay:.25s; }
-  .nav-links.active a:nth-child(5){ animation-delay:.3s; }
-  .nav-links.active a:nth-child(6){ animation-delay:.35s; }
-}
-
-@keyframes menuFade {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* PROFILE PICTURE */
-#profile-container{
-  width:60px;
-  height:60px;
-  flex-shrink:0;
-  position:relative;
-}
-
-#profile-container img{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid var(--orange);
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  z-index:2;
-}
-
-/* Wheel overlay */
-.wheel-overlay{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:55px;
-  height:55px;
-  transform-origin:50% 50%;
-  transform:translate(-50%,-50%);
-  z-index:1;
-  animation:spinWheel 3s linear infinite;
-}
-
-@keyframes spinWheel{
-  from{transform:translate(-50%,-50%) rotate(0deg);}
-  to{transform:translate(-50%,-50%) rotate(360deg);}
-}
-
-/* BUTTON */
-.btn{
-  margin-top:30px;
-  background:var(--orange);
-  color:#000;
-  border:none;
-  padding:15px 35px;
-  border-radius:40px;
-  font-weight:bold;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-  transition:.4s;
-}
-.btn::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:rgba(255,255,255,.2);
-  transition:.4s;
-}
-.btn:hover::before{left:100%;}
-.btn:hover{
-  transform:translateY(-5px) scale(1.05);
-  box-shadow:0 0 20px var(--orange);
-}
-
-/* SECTIONS */
-section{
-  padding:180px 6% 120px 6%;
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s ease;
+  transform: translateY(40px);
+  transition: 1s ease;
   background: var(--section-bg);
-  position:relative;
-}
-section::after{
-  content:'';
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:80px;
-  background: linear-gradient(to bottom, rgba(10,10,10,0), var(--section-alt));
-  pointer-events:none;
-}
-section.show{
-  opacity:1;
-  transform:translateY(0);
-}
-h2{
-  font-size:clamp(2rem,5vw,2.6rem);
-  margin-bottom:30px;
-  text-transform:uppercase;
-  text-align:center;
-}
-h2 span:last-child{
-  color:var(--orange);
+  position: relative;
 }
 
-/* HOME SUB-SECTIONS */
-.home-sub{
-  margin-bottom:60px;
-  position:relative;
-}
-.home-sub p{
-  max-width:700px;
-  margin:20px auto;
-  font-size:1rem;
-}
-.home-sub img, #track img{
-  width:70%;
-  max-width:500px;
-  border-radius:25px;
-  margin-top:20px;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-  transition:transform 0.3s ease-out;
+section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0), var(--section-alt));
+  pointer-events: none;
 }
 
-/* PRICING MODERN */
-.pricing-container{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
-  max-width:1200px;
-  margin:0 auto;
-}
-.pricing-card{
-  background:var(--dark);
-  border:2px solid #222;
-  border-radius:25px;
-  padding:25px;
-  transition:.4s;
-  position:relative;
-  overflow:hidden;
-}
-.pricing-card:hover{
-  transform:translateY(-12px) scale(1.03);
-  border-color:var(--orange);
-  box-shadow:0 0 25px var(--orange);
-}
-.pricing-card h3{
-  color:#fff;
-  margin-bottom:10px;
-}
-.pricing-card h3 span:last-child{
-  color:var(--orange);
-}
-.pricing-card p, .pricing-card small, .pricing-card ul li{
-  font-size:1rem;
-  margin:5px 0;
-  line-height:1.4;
+section.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* EVENTS */
-.events{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
+h2 {
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  text-align: center;
 }
 
-/* DYNAMIC ABOUT SECTION */
-.about-dynamic{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:40px;
-  max-width:1200px;
-  margin:0 auto;
-  align-items:start;
-}
-.about-card{
-  background:var(--dark);
-  border-radius:25px;
-  padding:25px;
-  border:2px solid #222;
-  transition:.5s;
-}
-.about-card:hover{
-  transform:translateY(-10px) scale(1.02);
-  border-color:var(--orange);
-  box-shadow:0 0 25px var(--orange);
-}
-.about-card h3{
-  color:var(--orange);
-  margin-bottom:15px;
-  font-size:1.5rem;
-}
-.about-card p, .about-card ul li{
-  font-size:1rem;
-  margin-bottom:12px;
-  line-height:1.5;
-}
-.about-card ul{
-  list-style:none;
-  padding-left:0;
-}
-.about-card ul li::before{
-  content:"✔️";
-  margin-right:8px;
-}
-.about-image img{
-  width:100%;
-  border-radius:25px;
-  display:block;
-  margin:auto;
+h2 span:last-child {
+  color: var(--orange);
 }
 
-/* CONTACT */
-.contact{
-  background:var(--dark);
-  padding:35px;
-  border-radius:30px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:25px;
-}
-.contact div, .contact p{
-  margin-bottom:15px;
-}
-.contact h3{
-  margin-bottom:10px;
-  color:var(--orange);
-}
-.contact p a{
-  color:var(--orange);
-  text-decoration:none;
+/* Home Sub-sections */
+.home-sub {
+  margin-bottom: 60px;
+  position: relative;
 }
 
-/* FOOTER */
-footer{
-  background:#000;
-  padding:30px;
-  text-align:center;
-  opacity:.8;
+.home-sub p {
+  max-width: 700px;
+  margin: 20px auto;
+  font-size: 1rem;
 }
 
-/* ANIMATIONS */
-@keyframes fadeDown{
-  from{opacity:0;transform:translateY(-40px);}
-  to{opacity:1;transform:translateY(0);}
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(40px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* MOBILE OPTIMIZATION */
-@media(max-width:900px){
-  body{font-size:0.95rem;}
-  nav{
-    padding:12px 5%;
-    flex-wrap:wrap;
-    height:auto;
-  }
-   nav h1 {
-    font-size: 1.8rem;  /* smaller heading for mobile */
-    margin-bottom: 10px;
-  }
-  nav a{
-    margin-left:10px;
-    font-size:0.95rem;
-  }
-
-  section{padding:120px 5% 80px 5%;}
-  .home-sub{margin-bottom:40px;}
-  .home-sub img, #track img{width:100%; max-width:none;}
-  .pricing-container{grid-template-columns:1fr; gap:20px;}
-  .pricing-card{padding:20px;}
-  .events{grid-template-columns:1fr; gap:20px;}
-  .about-dynamic{grid-template-columns:1fr; gap:30px;}
-  .about-card{padding:20px;}
-  .about-card h3{font-size:1.3rem;}
-  .contact{grid-template-columns:1fr; gap:20px;}
-  footer{padding:20px; font-size:0.9rem;}
-
-  /* Reduce scroll parallax for small screens */
-  .dynamic-img{transform: translateY(0px) !important;}
-}
-
-/* HAMBURGER MENU */
-.hamburger {
-  display: flex;              
-  flex-direction: column;
-  cursor: pointer;
-  gap: 6px;
+.home-sub img,
+#track img {
+  width: 70%;
+  max-width: 500px;
+  border-radius: 25px;
+  margin-top: 20px;
+  display: block;
   margin-left: auto;
-  z-index: 1300;               
-  position: relative;          
-}
-.hamburger span{
-  width:28px;
-  height:3px;
-  background:#fff;
-  border-radius:5px;
-  transition:0.4s ease;
+  margin-right: auto;
+  transition: transform 0.3s ease-out;
 }
 
-/* Animate hamburger into X */
-.hamburger.active span:nth-child(1){
-  transform:translateY(9px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2){
-  opacity:0;
-}
-.hamburger.active span:nth-child(3){
-  transform:translateY(-9px) rotate(-45deg);
-}
-
-/* NAV LINKS */
-.nav-links{
-  display:flex;
+/* =========================================
+   5. PAGE SECTIONS (Pricing, About, Etc.)
+   ========================================= */
+/* Pricing */
+.pricing-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* MOBILE MENU */
-/* Right-side floating menu — dark blurred buttons, no underline */
-@media(max-width:900px){
-  .nav-links{
-    position: fixed;            
-    top: 60px;                  
-    right: 20px;                
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;      
-    gap: 12px;                  
-    pointer-events: none;       
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.4s ease;
-    z-index: 1200;
-    background: transparent !important;
-    backdrop-filter: none !important;
-  }
-
-  .nav-links.active{
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-
-  .nav-links a{
-    background: rgba(15,15,15,0.7);
-    backdrop-filter: blur(8px);
-    border: 2px solid var(--orange);
-    padding: 8px 20px;
-    border-radius: 25px;
-    color: #fff;
-    font-size: 1rem;
-    white-space: nowrap;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-
-    /* Force remove underline */
-    text-decoration: none !important;
-  }
-
-  .nav-links a:hover{
-    color: #fff;
-    box-shadow: 0 0 15px var(--orange);
-    transform: scale(1.05);
-    border-color: var(--orange);
-    text-decoration: none !important;
-  }
-
-  /* Remove underline for all other link states */
-  .nav-links a:focus,
-  .nav-links a:active {
-    text-decoration: none !important;
-    outline: none !important;
-  }
-
-  /* Drop-down animation */
-  .nav-links a{
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  .nav-links.active a{
-    animation: dropMenu 0.35s forwards;
-  }
-  .nav-links.active a:nth-child(1){ animation-delay:0.05s; }
-  .nav-links.active a:nth-child(2){ animation-delay:0.1s; }
-  .nav-links.active a:nth-child(3){ animation-delay:0.15s; }
-  .nav-links.active a:nth-child(4){ animation-delay:0.2s; }
-  .nav-links.active a:nth-child(5){ animation-delay:0.25s; }
-  .nav-links.active a:nth-child(6){ animation-delay:0.3s; }
+.pricing-card {
+  background: var(--dark);
+  border: 2px solid #222;
+  border-radius: 25px;
+  padding: 25px;
+  transition: .4s;
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes dropMenu{
-  to {
-    opacity:1;
-    transform: translateY(0);
-  }
+.pricing-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  border-color: var(--orange);
+  box-shadow: 0 0 25px var(--orange);
 }
 
-
-/* GOOGLE MAP EMBED */
-.map-box{
-  width:100%;
-  height:320px;
-  margin-top:20px;
-  border-radius:25px;
-  overflow:hidden;
-  border:2px solid #222;
-  box-shadow:0 0 25px rgba(255,140,0,0.4);
-}
-.map-box iframe{
-  width:100%;
-  height:100%;
-  border:0;
+.pricing-card h3 {
+  color: #fff;
+  margin-bottom: 10px;
 }
 
-/* DYNAMIC VIDEO CARD */
-.video-card{
-  position:relative;
-  display:block;
-  margin-top:35px;
-  border-radius:28px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:0.4s ease;
+.pricing-card h3 span:last-child {
+  color: var(--orange);
 }
 
-.video-card img{
-  width:100%;
-  display:block;
-  transition:0.6s ease;
+.pricing-card p,
+.pricing-card small,
+.pricing-card ul li {
+  font-size: 1rem;
+  margin: 5px 0;
+  line-height: 1.4;
 }
 
-.video-glow{
-  position:absolute;
-  inset:0;
-  border-radius:28px;
-  box-shadow:0 0 40px rgba(255,140,0,0.6);
-  opacity:0.6;
-  animation:pulseGlow 2.5s infinite alternate;
-  pointer-events:none;
+/* Events */
+.events {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
 }
 
-@keyframes pulseGlow{
-  from{opacity:0.3;}
-  to{opacity:0.7;}
+.event-image-container {
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* YouTube-style play button */
-.yt-play-btn{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:68px;
-  height:48px;
-  opacity:0.9;
-  transition:0.3s ease;
+.event-image-container img {
+  width: 90%;
+  max-width: 800px;
+  border-radius: 25px;
+  border: 2px solid var(--orange);
+  box-shadow: 0 0 25px rgba(255, 140, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.video-card:hover .yt-play-btn{
-  transform:translate(-50%,-50%) scale(1.15);
-  opacity:1;
+.event-image-container img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 40px rgba(255, 140, 0, 0.7);
+  border-color: var(--orange);
 }
 
-/* Hover effects */
-.video-card:hover{
-  transform:scale(1.02) rotateX(2deg);
-}
-.video-card:hover img{
-  transform:scale(1.05);
-}
-
-.video-label{
-  position:absolute;
-  bottom:20px;
-  left:20px;
-  background:rgba(0,0,0,0.7);
-  padding:10px 18px;
-  border-radius:20px;
-  font-weight:bold;
-  letter-spacing:1px;
-  font-size:0.95rem;
+/* Dynamic About Section */
+.about-dynamic {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
 }
 
-/* WhatsApp contact form */
-.whatsapp-form{
-  background:var(--dark);
-  padding:25px;
-  border-radius:25px;
-  max-width:500px;
-  margin:30px auto 0;
-  box-shadow:0 0 25px rgba(255,140,0,0.4);
+.about-card {
+  background: var(--dark);
+  border-radius: 25px;
+  padding: 25px;
+  border: 2px solid #222;
+  transition: .5s;
 }
 
-.whatsapp-form h3{
-  color:var(--orange);
-  margin-bottom:15px;
-  text-align:center;
+.about-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--orange);
+  box-shadow: 0 0 25px var(--orange);
+}
+
+.about-card h3 {
+  color: var(--orange);
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.about-card p,
+.about-card ul li {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.about-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-card ul li::before {
+  content: "✔️";
+  margin-right: 8px;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 25px;
+  display: block;
+  margin: auto;
+}
+
+/* Contact */
+.contact {
+  background: var(--dark);
+  padding: 35px;
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.contact div,
+.contact p {
+  margin-bottom: 15px;
+}
+
+.contact h3 {
+  margin-bottom: 10px;
+  color: var(--orange);
+}
+
+.contact p a {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+/* WhatsApp Form */
+.whatsapp-form {
+  background: var(--dark);
+  padding: 25px;
+  border-radius: 25px;
+  max-width: 500px;
+  margin: 30px auto 0;
+  box-shadow: 0 0 25px rgba(255, 140, 0, 0.4);
+}
+
+.whatsapp-form h3 {
+  color: var(--orange);
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .whatsapp-form input,
-.whatsapp-form textarea{
-  width:100%;
-  padding:12px 15px;
-  margin-bottom:15px;
-  border-radius:15px;
-  border:1px solid #222;
-  background:#111;
-  color:#fff;
-  font-size:1rem;
-  outline:none;
-  transition:.3s;
+.whatsapp-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  border: 1px solid #222;
+  background: #111;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: .3s;
 }
 
 .whatsapp-form input:focus,
-.whatsapp-form textarea:focus{
-  border-color:var(--orange);
+.whatsapp-form textarea:focus {
+  border-color: var(--orange);
 }
 
-.whatsapp-form textarea{
-  resize:none;
-  height:100px;
+.whatsapp-form textarea {
+  resize: none;
+  height: 100px;
 }
 
-.whatsapp-form .btn{
-  width:100%;
-  text-align:center;
+.whatsapp-form .btn {
+  width: 100%;
+  text-align: center;
 }
 
-/* Upcoming Events Image */
-.event-image-container{
-  text-align:center;
-  margin-top:20px;
+.whatsapp-form select,
+.whatsapp-form input[type="date"],
+.whatsapp-form input[type="time"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  border: 1px solid #222;
+  background: #111;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: .3s;
 }
 
-.event-image-container img{
-  width:90%;
-  max-width:800px;
-  border-radius:25px;
-  border:2px solid var(--orange); /* Thin orange border added */
-  box-shadow:0 0 25px rgba(255,140,0,0.5);
-  transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+.whatsapp-form select:focus,
+.whatsapp-form input:focus {
+  border-color: var(--orange);
 }
 
-.event-image-container img:hover{
-  transform:scale(1.03);
-  box-shadow:0 0 40px rgba(255,140,0,0.7);
-  border-color:var(--orange); /* Keeps border visible on hover */
-}
-.gallery-instagram{
-  display:flex;
-  justify-content:center;   /* ✅ centers ONLY this one */
-  margin-top:20px;
-}
-.gallery-instagram a{
-  display:flex;
-  align-items:center;
-  gap:1px;
-  text-decoration:none;
-  color:#fff;
-  font-weight:bold;
-  font-size:1.05rem;
-  transition:0.3s ease;
-}
-.instagram-contact{
-  margin-top:20px;
-  display:flex;
-  align-items:center;
+.whatsapp-form input,
+.whatsapp-form select {
+  height: 52px;
+  padding: 12px 15px;
+  box-sizing: border-box;
 }
 
-.instagram-contact a{
-  display:flex;
-  align-items:center;
-  gap:1px;
-  text-decoration:none;
-  color:#fff;
-  font-weight:bold;
-  font-size:1.05rem;
-  transition:0.3s ease;
+.date-field {
+  position: relative;
 }
 
-.instagram-icon{
-  width:26px;
-  height:26px;
-  fill:#fff;
-  transition:0.3s ease;
+/* Calendar icon on the right */
+.calendar-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.25rem;
+  color: var(--orange);
+  line-height: 1;
 }
 
-.instagram-contact a:hover{
-  color:var(--orange);
-}
-
-.instagram-contact a:hover .instagram-icon{
-  fill:var(--orange);
-  transform:scale(1.15);
-  filter:drop-shadow(0 0 8px var(--orange));
-}
-
-/* GALLERY – FORCE 3x3 GRID */
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr); /* ALWAYS 3 columns */
-  grid-template-rows:repeat(3, 1fr);
-  gap:20px;
-  max-width:1100px;
-  margin:0 auto;
-}
-
-.gallery-grid img{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-  border-radius:20px;
-  cursor:pointer;
-  border:2px solid #222;
-  transition:0.35s ease;
-}
-
-.gallery-grid img:hover{
-  transform:scale(1.05);
-  border-color:var(--orange);
-  box-shadow:0 0 20px rgba(255,140,0,0.6);
-}
-
-/* LIGHTBOX */
-.lightbox{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.9);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:0.4s ease;
-  z-index:2000;
-}
-
-.lightbox.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.lightbox img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:25px;
-  box-shadow:0 0 40px rgba(255,140,0,0.8);
-}
-
-.lightbox-close{
-  position:absolute;
-  top:25px;
-  right:35px;
-  font-size:3rem;
-  color:#fff;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.lightbox-close:hover{
-  color:var(--orange);
+/* Make room for the icon */
+.date-field input[type="date"] {
+  padding-right: 48px;
+  height: 52px;
+  display: flex;
+  align-items: center;
 }
 
 
+/* Push text so it doesn't overlap the icon */
+.date-field input[type="date"] {
+  padding-left: 42px;
+  height: 52px;
+}
+.date-field input[type="date"]:valid ~ .calendar-icon {
+  opacity: 0.3;
+}
+
+.price-glow {
+  margin: 25px 0;
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--orange);
+  text-shadow:
+    0 0 10px rgba(255, 140, 0, 0.6),
+    0 0 20px rgba(255, 140, 0, 0, 0.45),
+    0 0 40px rgba(255, 140, 0, 0, 0.25);
+  animation: pricePulse 2s infinite ease-in-out;
+}
+
+/* Normalize date input height on mobile */
+.whatsapp-form input[type="date"] {
+  height: 52px;
+  padding: 12px 15px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Subtle pulse – doesn't interfere with existing animations */
+@keyframes pricePulse {
+  0% {
+    transform: scale(1);
+    text-shadow:
+      0 0 10px rgba(255, 140, 0, 0, 0.6),
+      0 0 20px rgba(255, 140, 0, 0, 0.45),
+      0 0 40px rgba(255, 140, 0, 0, 0.25);
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow:
+      0 0 15px rgba(255, 140, 0, 0, 0.8),
+      0 0 30px rgba(255, 140, 0, 0, 0.6),
+      0 0 60px rgba(255, 140, 0, 0, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow:
+      0 0 10px rgba(255, 140, 0, 0, 0.6),
+      0 0 20px rgba(255, 140, 0, 0, 0.45),
+      0 0 40px rgba(255, 140, 0, 0, 0.25);
+  }
+}
+
+
+/* Map */
+.map-box {
+  width: 100%;
+  height: 320px;
+  margin-top: 20px;
+  border-radius: 25px;
+  overflow: hidden;
+  border: 2px solid #222;
+  box-shadow: 0 0 25px rgba(255, 140, 0, 0.4);
+}
+
+.map-box iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Footer */
+footer {
+  background: #000;
+  padding: 30px;
+  text-align: center;
+  opacity: .8;
+}
+
+/* =========================================
+   6. MEDIA & GALLERY
+   ========================================= */
+/* Video Card */
+.video-card {
+  position: relative;
+  display: block;
+  margin-top: 35px;
+  border-radius: 28px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.video-card img {
+  width: 100%;
+  display: block;
+  transition: 0.6s ease;
+}
+
+.video-card:hover {
+  transform: scale(1.02) rotateX(2deg);
+}
+
+.video-card:hover img {
+  transform: scale(1.05);
+}
+
+.video-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  box-shadow: 0 0 40px rgba(255, 140, 0, 0.6);
+  opacity: 0.6;
+  animation: pulseGlow 2.5s infinite alternate;
+  pointer-events: none;
+}
+
+.video-label {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 0.95rem;
+}
+
+.yt-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 48px;
+  opacity: 0.9;
+  transition: 0.3s ease;
+}
+
+.video-card:hover .yt-play-btn {
+  transform: translate(-50%, -50%) scale(1.15);
+  opacity: 1;
+}
+
+/* Instagram & Gallery */
+.gallery-instagram {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.gallery-instagram a,
+.instagram-contact a {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.05rem;
+  transition: 0.3s ease;
+}
+
+.instagram-contact {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.instagram-icon {
+  width: 26px;
+  height: 26px;
+  fill: #fff;
+  transition: 0.3s ease;
+}
+
+.instagram-contact a:hover {
+  color: var(--orange);
+}
+
+.instagram-contact a:hover .instagram-icon {
+  fill: var(--orange);
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px var(--orange));
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 2px solid #222;
+  transition: 0.35s ease;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
+  border-color: var(--orange);
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s ease;
+  z-index: 2000;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(255, 140, 0, 0.8);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  font-size: 3rem;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.lightbox-close:hover {
+  color: var(--orange);
+}
+
+/* =========================================
+   7. ANIMATIONS
+   ========================================= */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes menuFade {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dropMenu {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  from { opacity: 0.3; }
+  to { opacity: 0.7; }
+}
+
+/* =========================================
+   MOBILE RESPONSIVE NAVIGATION ( < 900px )
+   ========================================= */
+@media (max-width: 900px) {
+    .hamburger { display: flex; }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(circle at top right, #1a1a1a, #0a0a0a);
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        transition: 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: -1;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.8rem;
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    .nav-links.active a {
+        opacity: 1;
+        transform: translateX(0);
+        /* Staggered Entrance */
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Cascade Timing */
+    .nav-links.active a:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links.active a:nth-child(2) { transition-delay: 0.2s; }
+    .nav-links.active a:nth-child(3) { transition-delay: 0.3s; }
+    .nav-links.active a:nth-child(4) { transition-delay: 0.4s; }
+    .nav-links.active a:nth-child(5) { transition-delay: 0.5s; }
+}
+
+  /* Section Adjustments */
+  section { padding: 120px 5% 80px 5%; }
+  .home-sub { margin-bottom: 40px; }
+  .home-sub img, #track img { width: 100%; max-width: none; }
+  .pricing-container { grid-template-columns: 1fr; gap: 20px; }
+  .pricing-card { padding: 20px; }
+  .events { grid-template-columns: 1fr; gap: 20px; }
+  .about-dynamic { grid-template-columns: 1fr; gap: 30px; }
+  .about-card { padding: 20px; }
+  .about-card h3 { font-size: 1.3rem; }
+  .contact { grid-template-columns: 1fr; gap: 20px; }
+  footer { padding: 20px; font-size: 0.9rem; }
+  .dynamic-img { transform: translateY(0px) !important; }
+}
+/* =========================================
+   CUSTOM SCROLLBAR (GLOW STYLE)
+   ========================================= */
+
+/* 1. The width/height of the track */
+::-webkit-scrollbar {
+    width: 10px; /* Vertical scrollbar width */
+    height: 10px; /* Horizontal scrollbar height (if any) */
+}
+
+/* 2. The background track */
+::-webkit-scrollbar-track {
+    background: var(--black);
+}
+
+/* 3. The moving handle (Thumb) */
+::-webkit-scrollbar-thumb {
+    background: #333; /* Subtle dark grey */
+    border-radius: 10px;
+    border: 2px solid var(--black); /* Creates a "floating" effect */
+    transition: background 0.3s ease;
+}
+
+/* 4. Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--orange);
+    box-shadow: 0 0 10px var(--orange);
+}
+
+/* Firefox Support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #333 var(--black);
+}
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(to right, var(--orange), #ff4500);
+    z-index: 3000; /* Higher than the nav */
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px var(--orange);
+}
 
 </style>
-</head>
+
+<head>
 
 <body>
 
 <!-- NAV -->
-<nav>
-  <div id="profile-container">
-    <img src="https://i.postimg.cc/GhTnJcSP/social-cat-instagram-instagram-5.jpg" alt="Profile Picture">
-    <svg class="wheel-overlay" viewBox="0 0 60 60">
+<nav id="mainNav">
+    <div id="profile-container">
+       <svg class="wheel-overlay" viewBox="0 0 60 60">
       <circle cx="30" cy="30" r="28" fill="none" stroke="var(--orange)" stroke-width="4" stroke-dasharray="4 8"/>
     </svg>
-  </div>
+        <img src="https://i.postimg.cc/GhTnJcSP/social-cat-instagram-instagram-5.jpg" alt="Profile Picture">
+    </div>
+    
+    <h1>RIX<span>Compound</span></h1>
 
-  <h1>Rix <span>Compound</span></h1>
-
-  <!-- Hamburger -->
-  <div class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Nav Links -->
-  <div class="nav-links" id="navLinks">
+    <div class="nav-links" id="navMenu">
     <a href="#home">Home</a>
     <a href="#track">The Track</a>
     <a href="#pricing">Pricing</a>
@@ -969,9 +938,15 @@ footer{
     <a href="#about">About</a>
     <a href="#contact">Contact/Booking</a>
   </div>
+
+    <div class="hamburger" id="mobToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 </nav>
 
-
+<div id="scroll-progress"></div>
 
 <!-- HOME -->
 <section id="home" class="show">
@@ -990,12 +965,18 @@ footer{
 
     <div class="home-sub" id="track">
       <h2>The <span>Track</span></h2>
+	  <h3>PitBike Track<h3>
       <p>
         Experience the thrill of our purpose-built pit bike track — perfect for riders of all levels.
       </p>
       <img src="https://i.postimg.cc/J44p3K6T/Chat-GPT-Image-Jan-7-2026-03-01-22-PM.png" alt="The Track Image">
-    </div>
-
+		
+		</p><h3>Flat Track<h3>
+      <img src="https://i.postimg.cc/xdmTR1fj/Chat-GPT-Image-Mar-4-2026-10-12-06-AM.png" alt="The Track Image">
+	
+	</div>
+		
+		
  <a href="https://youtu.be/vgHBEpjlTRU" target="_blank" class="video-card">
   <div class="video-glow"></div>
 
@@ -1036,34 +1017,51 @@ footer{
 <section id="pricing">
   <h2>Pricing & <span>Packages</span></h2>
   <div class="pricing-container">
-    <div class="pricing-card">
-      <h3>Half-Day <span>Packages</span></h3>
-      <ul>
-        <li>5 Bikes – R8000</li>
-        <li>10 Bikes – R12000</li>
-      </ul>
-      <p>Includes stretch tent & braai facilities</p>
-      <small>50% deposit required • Riders 14+ • No drinking & driving</small>
-    </div>
-	
-	<div class="pricing-card">
-      <h3>60-Minute <span>Rides</span></h3>
-      <ul>
-        <li>5 Bikes – R3000</li>
-        <li>10 Bikes – R5000</li>
-      </ul>
-    </div>
-	
-    <div class="pricing-card">
-      <h3>30-Minute <span>Rides</span></h3>
-      <ul>
-        <li>5 Bikes – R1750</li>
-        <li>10 Bikes – R3000</li>
-      </ul>
-    </div>
     
 	<div class="pricing-card">
-      <h3>Group <span>Adventures</span></h3>
+      <h3>30min <span>Package</span></h3>
+      <ul>
+        <li><b>5</b> Bikes – <b>R1500</b></li>
+        <li><b>10</b> Bikes – <b>R3000</b></li>
+      </ul>
+	  <br>• Wednesday - Friday 
+	  <br>• Booking Required
+    </div>
+	
+	<div class="pricing-card">
+      <h3>60min <span>Package</span></h3>
+      <ul>
+        <li><b>5</b> Bikes – <b>R3000</b></li>
+        <li><b>10</b> Bikes – <b>R5000</b></li>
+      </ul>
+	  <br>• Wednesday - Friday 
+	  <br>• Booking Required
+    </div>
+	
+	<div class="pricing-card">
+      <h3>4hour <span>Package</span></h3>
+      <ul>
+        <li><b>5</b> Bikes – <b>R8000</b></li>
+        <li><b>10</b> Bikes – <b>R15200</b></li>
+      </ul>
+	  <br>• Wednesday - Friday 
+	  <br>• Booking Required
+    </div>
+	
+	<div class="pricing-card">
+      <h3>Weekend <span>Rides</span></h3>
+      <ul>
+        <li><b>R250</b>pp<p>9am-3pm Bike Rental</li>
+		<li><b>R150</b>pp<p>9am-3pm Own Bike</li>
+      </ul>
+	  <br>• Only available on Saterdays & Sundays! 
+	  <br>• Show up and RIDE!
+	  <br>• Open 9am - 3pm
+    </div>
+	
+    
+	<div class="pricing-card">
+      <h3>Important <span>Notice</span></h3>
       <p>
         At Rix Compound, your safety always comes first.
       </p>
@@ -1095,6 +1093,7 @@ footer{
 
 
 </section>
+
 
 <!-- DYNAMIC ABOUT SECTION -->
 <section id="about">
@@ -1150,26 +1149,26 @@ footer{
   <h2>Photo <span>Gallery</span></h2>
 
   <div class="gallery-grid">
-    <img src="https://i.postimg.cc/GpXTdhQx/RC-LOGO.jpg">
-    <img src="https://i.postimg.cc/GpXTdhQx/RC-LOGO.jpg">
-    <img src="https://i.postimg.cc/GpXTdhQx/RC-LOGO.jpg">
+    <img src="https://lh3.googleusercontent.com/d/1R9OYQT8Oe161DYKUpb1xMiQ4bAjRUbWs">
+    <img src="https://lh3.googleusercontent.com/d/17oCnPzDF_N1YU2ZSbDoh-vTdvHcNi69Z">
+    <img src="https://lh3.googleusercontent.com/d/1vgj5Jv6519sz5ioIppFYFbOTXNqUWPJU">
 
-    <img src="https://i.postimg.cc/GpXTdhQx/RC-LOGO.jpg">
-    <img src="img5.jpg">
-    <img src="img6.jpg">
+    <img src="https://lh3.googleusercontent.com/d/1opRk9DVra42yLuZUDqxuq9ijEWQURugE">
+    <img src="https://lh3.googleusercontent.com/d/1jqdT4pedi3b5aaw2biEmFfxtVm5XpxSj">
+    <img src="https://lh3.googleusercontent.com/d/108-4wXp6z2yCSjZnLj-e2vuE-rr-WFeB">
 
-    <img src="img7.jpg">
-    <img src="img8.jpg">
-    <img src="img9.jpg">
+    <img src="https://lh3.googleusercontent.com/d/1ndv4CQUciUdf0E9QIDsASSNXYzoOMUY-">
+   <img src="https://lh3.googleusercontent.com/d/1b5QTW9_Y3L3UyqpcldbhKDvg4A2CWcXf">
+   <img src="https://lh3.googleusercontent.com/d/1qx7fYGB2UaBKrlTKYHcAHsLCJrUBG5fk">
   </div>
   
 <div class="gallery-instagram">
-  <a href="https://instagram.com/irphoto" target="_blank" class="instagram-contact">
+  <a href="https://instagram.com/_rix.visuals_" target="_blank" class="instagram-contact">
    <svg viewBox="0 0 24 24" class="instagram-icon">
       <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
     </svg>
     <i class="fab fa-instagram"></i>
-    _ir.photo_
+    RixVisuals
   </a>
 </div>
 
@@ -1190,12 +1189,51 @@ footer{
   <div class="contact">
    <div class="whatsapp-form">
   <h3>Book Now</h3>
+  <center>Check <a href="#pricing">Pricing</a> Before Booking</center>
+  <br/>
   <form id="waForm">
-    <input type="text" id="waName" placeholder="Your Name" required>
-    <input type="email" id="waEmail" placeholder="Your Email" required>
-    <textarea id="waMessage" placeholder="Your Booking" required></textarea>
-    <button type="submit" class="btn">Send via WhatsApp</button>
-  </form>
+  <input type="text" id="waName" placeholder="Name & Surname" required>
+
+  <select id="waPackage" required>
+    <option value="">Select Package</option>
+    <option value="30">30min Package</option>
+    <option value="60">60min Package</option>
+    <option value="240">4 Hour Package</option>
+  </select>
+
+  <select id="waBikes" required>
+  <option value="">Select Amount of Bikes</option>
+  <option value="5">5 Bikes</option>
+  <option value="10">10 Bikes</option>
+</select>
+
+
+  <div class="date-field">
+  <span class="calendar-icon">📅</span>
+  <input type="date" id="waDate" required>
+</div>
+
+
+  <select id="waTime" required>
+    <option value="">Select Time</option>
+    <option value="09:00">09:00</option>
+    <option value="10:00">10:00</option>
+    <option value="11:00">11:00</option>
+    <option value="12:00">12:00</option>
+    <option value="13:00">13:00</option>
+    <option value="14:00">14:00</option>
+    <option value="15:00">15:00</option>
+  </select>
+
+ <div id="priceDisplay" class="price-glow">
+  R0
+</div>
+
+
+  <button type="submit" class="btn">Send Booking via WhatsApp</button>
+</form>
+
+
 </div>
    <div>
       <h3>Address</h3>
@@ -1237,20 +1275,26 @@ footer{
 
       <p><strong>Bookings During the Week:</strong><br>
       Monday & Tuesday: Closed<br>
-      Wednesday to Friday: on request (Min 2hr booking)</p>
+      Wednesday to Friday: Booking Required</p>
 
       <p><strong>Booking Office:</strong><br>
-      Monday to Sunday: 8am – 5pm</p>
+      Monday to Sunday: 9am – 3pm</p>
     </div>
   </div>
 </section>
 
 <footer>
-  © 2026 Rix Compound • Ride • Race • Repeat • HeHe
+  © 2026 Rix Compound • Ride • Race • Repeat
 
 </footer>
 
 <script>
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById("scroll-progress").style.width = scrolled + "%";
+});
 // Scroll reveal + parallax
 const sections=document.querySelectorAll("section");
 window.addEventListener("scroll",()=>{
@@ -1265,55 +1309,111 @@ window.addEventListener("scroll",()=>{
   });
 });
 
-// Animated Hamburger Menu
-const hamburger = document.getElementById("hamburger");
-const navLinks = document.getElementById("navLinks");
+// Navigation Functionality
+const mobToggle = document.getElementById('mobToggle');
+const navMenu = document.getElementById('navMenu');
+const mainNav = document.getElementById('mainNav');
+const navLinks = document.querySelectorAll('.nav-links a');
 
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  navLinks.classList.toggle("active");
+// Toggle Mobile Menu
+mobToggle.addEventListener('click', () => {
+    mobToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    // Prevent scrolling when menu is open
+    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
 });
 
-// Close menu when clicking a link
-document.querySelectorAll(".nav-links a").forEach(link=>{
-  link.addEventListener("click", ()=>{
-    hamburger.classList.remove("active");
-    navLinks.classList.remove("active");
-  });
+// Close menu when a link is clicked
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        mobToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+});
+
+// Scroll Effect
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        mainNav.classList.add('scrolled');
+    } else {
+        mainNav.classList.remove('scrolled');
+    }
 });
 
 // WhatsApp form
 document.getElementById("waForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  const name = document.getElementById("waName").value.trim();
-  const email = document.getElementById("waEmail").value.trim();
-  const message = document.getElementById("waMessage").value.trim();
+  const name = waName.value.trim();
+  const pkg = pkgSelect.options[pkgSelect.selectedIndex].text;
+  const bikes = bikesInput.value;
+  const date = waDate.value;
+  const time = waTime.value;
+  const total = priceDisplay.textContent.replace("Total Price: ", "");
 
-  if(!name || !email || !message){
+  if(!name || !pkg || !bikes || !date || !time){
     alert("Please fill out all fields.");
     return;
   }
 
-  // Correct WhatsApp number in international format (no +)
-  const phone = "27768299919"; 
-  const text = `Hello! My name is ${name} (${email}).\n\n${message}`;
-  const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+  const phone = "27768299919";
+  const text =
+`🔥 RIX COMPOUND BOOKING 🔥
 
-  // Open WhatsApp in new tab
-  window.open(waURL, "_blank");
-  
-  const navBar = document.querySelector('nav');
+Name: ${name}
+Package: ${pkg}
+Bikes: ${bikes}
+Date: ${date}
+Time: ${time}
+Total: ${total}
 
-window.addEventListener('scroll', () => {
-  if(window.scrollY > 50){
-    navBar.style.background = "rgba(0,0,0,0.35)";
-  } else {
-    navBar.style.background = "rgba(0,0,0,0.3)";
+Please confirm availability.`;
+
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+});
+
+
+const dateInput = document.getElementById("waDate");
+
+dateInput.addEventListener("input", () => {
+  const selected = new Date(dateInput.value);
+  const day = selected.getDay(); // 0 = Sun
+
+  if (day < 3 || day > 5) {
+    alert("Bookings are only available from Wednesday to Friday.");
+    dateInput.value = "";
   }
 });
 
-});
+const pkgSelect = document.getElementById("waPackage");
+const bikesInput = document.getElementById("waBikes");
+const priceDisplay = document.getElementById("priceDisplay");
+
+function calculatePrice() {
+  const pkg = pkgSelect.value;
+  const bikes = parseInt(bikesInput.value);
+
+  if (!pkg || !bikes) {
+    priceDisplay.textContent = "R0";
+    return;
+  }
+
+  let total = 0;
+
+  // Pricing based on your packages
+  if (pkg === "30") total = bikes === 5 ? 1500 : 3000;
+  if (pkg === "60") total = bikes === 5 ? 3000 : 5000;
+  if (pkg === "240") total = bikes === 5 ? 8000 : 15200;
+
+  priceDisplay.textContent = `R${total}`;
+}
+
+
+pkgSelect.addEventListener("change", calculatePrice);
+bikesInput.addEventListener("input", calculatePrice);
+
+
 
 // Gallery Lightbox
 const galleryImages = document.querySelectorAll('.gallery-grid img');
@@ -1342,4 +1442,3 @@ lightbox.addEventListener('click',(e)=>{
 
 </body>
 </html>
-
