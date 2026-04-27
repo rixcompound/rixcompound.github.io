@@ -947,11 +947,11 @@ footer {
     <div class="nav-links" id="navMenu">
     <a href="#home">Home</a>
     <a href="#track">The Track</a>
-    <a href="#pricing">Pricing</a>
+    <a href="#pricing">Pricing and Booking</a>
     <a href="#events">Events</a>
 	<a href="#gallery">Gallery</a>
     <a href="#about">About</a>
-    <a href="#contact">Contact/Booking</a>
+    <a href="#contact">Contact</a>
   </div>
 
     <div class="hamburger" id="mobToggle">
@@ -1032,46 +1032,54 @@ footer {
 <section id="pricing">
   <h2>Pricing & <span>Packages</span></h2>
   <div class="pricing-container">
+  
+  <div class="pricing-card">
+   <h2>Weekends</h2>
+     <h3>Rental Pit<span>Bike</span>:</h3>
+        <li>30min-<b>R250</b>pp
+		<br/><br/><br/>
+	 <h3>Rental Quad<span>Bike</span>:</h3>
+        <li>30min-<b>R300</b>pp</li>
+		<br/><br/>
+	<h3>Your Own <span>Bike</span>:</h3>
+		<li>9am-3pm Own Bike <b>R150</b>pp<p></li>
+		<br/><br/>
+      </ul>
+	  <br>• Only available on Saterdays & Sundays! 
+	  <br>• Show up and RIDE!
+	  <br>• Open 9am - 3pm
+    </div>
     
+	
 	<div class="pricing-card">
+	<h2>Weekdays</h2>
       <h3>30min <span>Package</span></h3>
       <ul>
         <li><b>5</b> Bikes – <b>R1500</b></li>
         <li><b>10</b> Bikes – <b>R3000</b></li>
       </ul>
-	  <br>• Wednesday - Friday 
-	  <br>• Booking Required
-    </div>
-	
-	<div class="pricing-card">
+<br/><br/>
       <h3>60min <span>Package</span></h3>
       <ul>
         <li><b>5</b> Bikes – <b>R3000</b></li>
         <li><b>10</b> Bikes – <b>R5000</b></li>
       </ul>
-	  <br>• Wednesday - Friday 
-	  <br>• Booking Required
-    </div>
-	
-	<div class="pricing-card">
+<br/><br/>
       <h3>4hour <span>Package</span></h3>
       <ul>
         <li><b>5</b> Bikes – <b>R8000</b></li>
         <li><b>10</b> Bikes – <b>R15200</b></li>
       </ul>
-	  <br>• Wednesday - Friday 
-	  <br>• Booking Required
+	  </br>•Mon-Fri
+	  </br>•Booking Required-<a href="#contact">Contact</a>
     </div>
 	
-	<div class="pricing-card">
-      <h3>Weekend <span>Rides</span></h3>
-      <ul>
-        <li><b>R250</b>pp<p>9am-3pm Bike Rental</li>
-		<li><b>R150</b>pp<p>9am-3pm Own Bike</li>
-      </ul>
-	  <br>• Only available on Saterdays & Sundays! 
-	  <br>• Show up and RIDE!
-	  <br>• Open 9am - 3pm
+	<div class="about-card">
+      <h3>Looking for a Unique Day Out? 🎉</h3>
+      <p>
+        Break the routine and experience something unforgettable! Our pit bike rentals are perfect for families, groups of friends, parties, or team-building sessions. 
+        We provide everything you need for a safe and thrilling riding experience — just arrive ready to have fun!
+      </p>
     </div>
 	
     
@@ -1127,13 +1135,7 @@ footer {
       </p>
     </div>
 
-    <div class="about-card">
-      <h3>Looking for a Unique Day Out? 🎉</h3>
-      <p>
-        Break the routine and experience something unforgettable! Our pit bike rentals are perfect for families, groups of friends, parties, or team-building sessions. 
-        We provide everything you need for a safe and thrilling riding experience — just arrive ready to have fun!
-      </p>
-    </div>
+    
 
     <div class="about-card">
       <h3>The Experience 🤝</h3>
@@ -1202,54 +1204,6 @@ footer {
 <section id="contact">
   <h2>Contact <span>Us</span></h2>
   <div class="contact">
-   <div class="whatsapp-form">
-  <h3>Book Now</h3>
-  <center>Check <a href="#pricing">Pricing</a> Before Booking</center>
-  <br/>
-  <form id="waForm">
-  <input type="text" id="waName" placeholder="Name & Surname" required>
-
-  <select id="waPackage" required>
-    <option value="">Select Package</option>
-    <option value="30">30min Package</option>
-    <option value="60">60min Package</option>
-    <option value="240">4 Hour Package</option>
-  </select>
-
-  <select id="waBikes" required>
-  <option value="">Select Amount of Bikes</option>
-  <option value="5">5 Bikes</option>
-  <option value="10">10 Bikes</option>
-</select>
-
-
-  <div class="date-field">
-  <span class="calendar-icon">📅</span>
-  <input type="date" id="waDate" required>
-</div>
-
-
-  <select id="waTime" required>
-    <option value="">Select Time</option>
-    <option value="09:00">09:00</option>
-    <option value="10:00">10:00</option>
-    <option value="11:00">11:00</option>
-    <option value="12:00">12:00</option>
-    <option value="13:00">13:00</option>
-    <option value="14:00">14:00</option>
-    <option value="15:00">15:00</option>
-  </select>
-
- <div id="priceDisplay" class="price-glow">
-  R0
-</div>
-
-
-  <button type="submit" class="btn">Send Booking via WhatsApp</button>
-</form>
-
-
-</div>
    <div>
       <h3>Address</h3>
       <p>Rix Compound Bottelary Road, Protea Farms, Cape Town.</p>
@@ -1284,16 +1238,13 @@ footer {
 
     <div>
       <h3>Business Hours</h3>
-      <p><strong>Book & Drive every Weekend:</strong><br>
-      Saturday: 9am – 6pm<br>
-      Sunday: 10am – 5pm</p>
+      <p><strong>Show up & Drive every Weekend:</strong><br>
+      Saturday: 9am – 3pm<br>
+      Sunday: 9am – 3pm</p>
 
       <p><strong>Bookings During the Week:</strong><br>
-      Monday & Tuesday: Closed<br>
-      Wednesday to Friday: Booking Required</p>
+      Monday to Friday: Booking Required</p>
 
-      <p><strong>Booking Office:</strong><br>
-      Monday to Sunday: 9am – 3pm</p>
     </div>
   </div>
 </section>
