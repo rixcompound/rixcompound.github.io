@@ -34,8 +34,7 @@ export default function Hero() {
             
             <a
               href="#public-holidays-flyer"
-              className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand hover:bg-brand-light text-black font-extrabold text-xs sm:text-[13px] uppercase tracking-wider rounded-full shadow-[0_0_20px_rgba(255,140,0,0.7)] animate-pulse hover:animate-none transition-all ring-2 ring-brand/60 transform hover:scale-105"
-            >
+              className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full"            >
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">🔥 Public Holiday Hours • Open Wed to Fri</span>
             </a>
           </div>
