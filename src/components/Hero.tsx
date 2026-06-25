@@ -30,13 +30,14 @@ export default function Hero() {
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-neutral-900 border border-neutral-800 text-neutral-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">
                 <CalendarDays className="w-3 h-3" /> Sat 9am-3pm • Sun 9am-2:30pm
               </span>
-            </div>
+           
             
             <a
               href="#public-holidays-flyer"
               className="flex flex-wrap justify-center lg:justify-start gap-2"
             >
-              <span>🔥 Public Holiday Hours • Open Wed to Fri</span>
+               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">
+                <Compass className="w-3 h-3" />🔥 Public Holiday Hours • Open Wed to Fri</span>
             </a>
           </div>
 
