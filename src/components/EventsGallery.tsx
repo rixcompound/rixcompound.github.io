@@ -38,8 +38,8 @@ export default function EventsGallery() {
     },
     {
       imgUrl: "https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW",
-      title: "Weekend Open Session Flyer",
-      badge: "Weekend Session"
+      title: "Next Upcoming event",
+      badge: "Events"
     },
     {
       imgUrl: "https://lh3.googleusercontent.com/d/1CioRbH66qdBVbZsrrPH28PgqQuZcV58E",
