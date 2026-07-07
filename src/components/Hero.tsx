@@ -34,8 +34,11 @@ export default function Hero() {
             
             <a
               href="#public-holidays-flyer"
-              className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full"            >
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">🔥 Public Holiday Hours • Open Wed to Fri</span>
+              className="flex flex-wrap justify-center lg:justify-start gap-2"
+            >
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">
+                <Compass className="w-3 h-3" /> 🔥 Public Holiday Hours • Open Wed to Fri
+              </span>
             </a>
           </div>
 

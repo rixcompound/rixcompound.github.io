@@ -33,13 +33,13 @@ export default function EventsGallery() {
   const upcomingEvents: EventItem[] = [
     {
       imgUrl: "https://lh3.googleusercontent.com/d/1T1wcEUFgq5E6Gg4_SAw0wh7dvJhpCW-K",
-      title: "Events Showcase Flyer",
-      badge: "Featured Events"
+      title: "Track Showcase Flyer",
+      badge: "Featured Event"
     },
     {
       imgUrl: "https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW",
-      title: "Next Upcoming event",
-      badge: "Events"
+      title: "Weekend Open Session Flyer",
+      badge: "Weekend Session"
     },
     {
       imgUrl: "https://lh3.googleusercontent.com/d/1CioRbH66qdBVbZsrrPH28PgqQuZcV58E",
