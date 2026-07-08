@@ -179,7 +179,7 @@ export default function PricingCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 mb-8 sm:mb-16">
           
           {/* Rider Requirements Box with High-Contrast Caution Layout */}
-          <div className="bg-neutral-950/80 rounded-xl sm:rounded-3xl border-2 border-amber-500 p-4 sm:p-8 relative overflow-hidden shadow-[0_0_35px_rgba(234,179,8,0.15)]">
+          <div id="rental-requirements" className="bg-neutral-950/80 rounded-xl sm:rounded-3xl border-2 border-amber-500 p-4 sm:p-8 relative overflow-hidden shadow-[0_0_35px_rgba(234,179,8,0.15)] scroll-mt-24">
             {/* Caution stripes design */}
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-[repeating-linear-gradient(-45deg,#f59e0b,#f59e0b_10px,#000_10px,#000_20px)]" />
             
