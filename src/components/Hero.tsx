@@ -31,6 +31,7 @@ export default function Hero() {
                 <CalendarDays className="w-2.5 h-2.5" /> Sat 9am-3pm • Sun 9am-2:30pm
               </span>
             </div>
+          </div> {/* <-- Added the missing closing div here */}
 
           <div>
             <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white uppercase italic leading-[1.1]">
