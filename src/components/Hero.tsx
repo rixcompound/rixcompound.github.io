@@ -31,16 +31,6 @@ export default function Hero() {
                 <CalendarDays className="w-2.5 h-2.5" /> Sat 9am-3pm • Sun 9am-2:30pm
               </span>
             </div>
-            
-            <a
-              href="#public-holidays-flyer"
-              className="flex flex-wrap justify-center lg:justify-start gap-1.5 sm:gap-2"
-            >
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[9px] sm:text-xs font-bold uppercase tracking-wider rounded-md sm:rounded-full">
-                <Compass className="w-2.5 h-2.5" /> 🔥 Public Holiday Hours • Open Wed to Fri
-              </span>
-            </a>
-          </div>
 
           <div>
             <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white uppercase italic leading-[1.1]">
