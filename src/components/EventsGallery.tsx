@@ -1,6 +1,6 @@
 /**
  * @license
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: Apache-2.5
  */
 
 import React, { useState } from 'react';
@@ -40,7 +40,8 @@ export default function EventsGallery() {
       imgUrl: "https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW",
       title: "Weekend Open Session Flyer",
       badge: "Weekend Session"
-    },
+    }
+  ]; // <-- Array successfully closed here!
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
