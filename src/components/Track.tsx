@@ -25,11 +25,11 @@ export default function Track() {
   ];
 
   return (
-    <section id="track" className="py-10 bg-neutral-950/60 border-y border-neutral-900/60 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="track" className="py-6 sm:py-10 bg-neutral-950/60 border-y border-neutral-900/60 relative">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
           <h2 className="font-display text-xs font-bold uppercase tracking-widest text-brand mb-2">
             The Compound Circuits
           </h2>
@@ -40,11 +40,11 @@ export default function Track() {
         </div>
 
         {/* Tracks Grid - side by side on desktop, stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto mb-8 sm:mb-12">
           {tracks.map((track, idx) => (
             <div 
               key={idx}
-              className={`rounded-2xl border p-4 transition-all group relative overflow-hidden ${
+              className={`rounded-xl sm:rounded-2xl border p-3 sm:p-4 transition-all group relative overflow-hidden ${
                 track.underConstruction 
                   ? 'border-yellow-500/50 bg-neutral-950/90 shadow-[0_0_30px_rgba(234,179,8,0.2)]' 
                   : 'bg-neutral-900/30 border-neutral-850 hover:border-brand/35'
@@ -69,7 +69,7 @@ export default function Track() {
               )}
 
               {/* Image Container */}
-              <div className="relative rounded-xl overflow-hidden aspect-[1.6] mb-4 border border-neutral-800">
+              <div className="relative rounded-lg sm:rounded-xl overflow-hidden aspect-[1.6] mb-3 sm:mb-4 border border-neutral-800">
                 <img 
                   src={track.image} 
                   alt={track.title}
@@ -111,7 +111,7 @@ export default function Track() {
 
               {/* Title & Description Area */}
               <div className="relative">
-                <h3 className={`font-display text-lg font-bold mb-1 uppercase transition-colors ${
+                <h3 className={`font-display text-base sm:text-lg font-bold mb-1 uppercase transition-colors ${
                   track.underConstruction 
                     ? 'text-yellow-500' 
                     : 'text-white group-hover:text-brand'
@@ -138,7 +138,7 @@ export default function Track() {
         <div className="max-w-3xl mx-auto">
           <div 
             onClick={() => setIsPlayingVideo(true)}
-            className="relative rounded-xl overflow-hidden aspect-video border border-neutral-850 bg-neutral-900 cursor-pointer group shadow-xl transition-all hover:border-brand/40"
+            className="relative rounded-lg sm:rounded-xl overflow-hidden aspect-video border border-neutral-850 bg-neutral-900 cursor-pointer group shadow-xl transition-all hover:border-brand/40"
           >
             <img 
               src="https://img.youtube.com/vi/vgHBEpjlTRU/maxresdefault.jpg" 

@@ -41,8 +41,6 @@ export default function EventsGallery() {
       title: "Weekend Open Session Flyer",
       badge: "Weekend Session"
     },
-    }
-  ];
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -61,14 +59,14 @@ export default function EventsGallery() {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6 sm:space-y-10">
       
       {/* 1. Upcoming Events Section */}
-      <section id="events" className="py-10 bg-neutral-950/40 relative border-t border-neutral-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="events" className="py-6 sm:py-10 bg-neutral-950/40 relative border-t border-neutral-900">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           
           {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
             <h2 className="font-display text-xs font-bold uppercase tracking-widest text-brand mb-2">
               Action & Events
             </h2>
@@ -79,12 +77,12 @@ export default function EventsGallery() {
           </div>
 
           {/* Compact visual grids of the event posters side-by-side or stacked on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-sm sm:max-w-3xl lg:max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-sm sm:max-w-3xl lg:max-w-6xl mx-auto">
             {upcomingEvents.map((event, idx) => (
               <div 
                 key={idx} 
                 id={event.highlight ? "public-holidays-flyer" : undefined}
-                className={`group relative overflow-hidden rounded-xl p-3 sm:p-4 transition-all block flex flex-col justify-between ${
+                className={`group relative overflow-hidden rounded-lg sm:rounded-xl p-2.5 sm:p-4 transition-all block flex flex-col justify-between ${
                   event.highlight 
                     ? 'border-2 border-brand bg-gradient-to-b from-brand/20 via-neutral-900/90 to-neutral-950 shadow-[0_0_30px_rgba(255,140,0,0.35)] ring-2 ring-brand/50 transform scale-[1.02]' 
                     : 'border border-neutral-850 bg-neutral-900/30 hover:border-brand/35'
@@ -92,7 +90,7 @@ export default function EventsGallery() {
               >
                 <div>
                   {/* Image flyer */}
-                  <div className={`rounded-lg overflow-hidden bg-neutral-950 relative ${event.highlight ? 'ring-2 ring-brand shadow-lg' : ''}`}>
+                  <div className={`rounded-md sm:rounded-lg overflow-hidden bg-neutral-950 relative ${event.highlight ? 'ring-2 ring-brand shadow-lg' : ''}`}>
                     <img
                       src={event.imgUrl}
                       alt={event.title}
@@ -100,7 +98,7 @@ export default function EventsGallery() {
                       className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
                     />
                     {/* Badge */}
-                    <div className={`absolute top-2 left-2 text-[8px] sm:text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded z-10 ${
+                    <div className={`absolute top-2 left-2 text-[8px] sm:text-[10px] font-extrabold uppercase tracking-widest px-2 py-0.5 sm:px-2.5 sm:py-1 rounded z-10 ${
                       event.highlight
                         ? 'bg-brand text-black shadow-md animate-pulse'
                         : 'bg-black/85 border border-brand/20 text-brand'
@@ -109,29 +107,29 @@ export default function EventsGallery() {
                     </div>
                   </div>
 
-                  <div className="mt-3 flex justify-between items-center px-0.5">
-                    <h3 className={`font-display font-extrabold text-sm sm:text-base tracking-wide uppercase ${event.highlight ? 'text-brand drop-shadow' : 'text-neutral-300'}`}>
+                  <div className="mt-2.5 flex justify-between items-center px-0.5">
+                    <h3 className={`font-display font-extrabold text-xs sm:text-base tracking-wide uppercase ${event.highlight ? 'text-brand drop-shadow' : 'text-neutral-300'}`}>
                       {event.title}
                     </h3>
                     <a 
                       href="#contact"
-                      className="text-brand flex items-center gap-0.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap ml-1 bg-black/40 hover:bg-brand hover:text-black px-2 py-1 rounded transition-colors"
+                      className="text-brand flex items-center gap-0.5 text-[9px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap ml-1 bg-black/40 hover:bg-brand hover:text-black px-2 py-1 rounded transition-colors"
                     >
-                      Ask <ArrowUpRight className="w-3 h-3" />
+                      Ask <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 h-3" />
                     </a>
                   </div>
                 </div>
 
                 {/* Schedule list underneath flyer if highlighted / scheduled */}
                 {event.schedule && (
-                  <div className="mt-4 pt-3.5 border-t-2 border-brand/40 bg-black/60 rounded-xl p-3 shadow-inner">
-                    <div className="text-[10px] uppercase font-mono tracking-wider text-brand mb-2 font-bold flex items-center gap-1">
-                      <span>🕒 Operating Hours</span>
+                  <div className="mt-3.5 pt-3 border-t-2 border-brand/40 bg-black/60 rounded-md sm:rounded-xl p-2.5 sm:p-3 shadow-inner">
+                    <div className="text-[9px] sm:text-[10px] uppercase font-mono tracking-wider text-brand mb-1.5 font-bold flex items-center gap-1">
+                      <span></span>
                     </div>
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-1">
                       {event.schedule.map((item, sIdx) => (
-                        <li key={sIdx} className="text-xs sm:text-[13px] text-white font-semibold flex items-center gap-2 bg-neutral-900/80 px-2.5 py-1.5 rounded border border-neutral-800">
-                          <span className="w-2 h-2 rounded-full bg-brand shadow-[0_0_8px_rgba(255,140,0,0.8)] flex-shrink-0" />
+                        <li key={sIdx} className="text-[11px] sm:text-[13px] text-white font-semibold flex items-center gap-1.5 bg-neutral-900/80 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded border border-neutral-800">
+                          <span className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_8px_rgba(255,140,0,0.8)] flex-shrink-0" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -146,11 +144,11 @@ export default function EventsGallery() {
       </section>
 
       {/* 2. Photo Gallery Section */}
-      <section id="gallery" className="py-10 bg-neutral-900/10 border-y border-neutral-900/60 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="gallery" className="py-6 sm:py-10 bg-neutral-900/10 border-y border-neutral-900/60 relative">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           
           {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
             <h2 className="font-display text-xs font-bold uppercase tracking-widest text-brand mb-2">
               Action Captured
             </h2>
@@ -161,12 +159,12 @@ export default function EventsGallery() {
           </div>
 
           {/* Grid layout - Strictly 3x3 block on all screens */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-4 max-w-4xl mx-auto">
             {galleryImages.map((img, index) => (
               <div
                 key={index}
                 onClick={() => setActiveLightboxIndex(index)}
-                className="group relative aspect-square rounded-lg sm:rounded-xl overflow-hidden border border-neutral-850 bg-neutral-900 cursor-pointer shadow hover:border-brand/45 transition-all duration-300"
+                className="group relative aspect-square rounded-md sm:rounded-xl overflow-hidden border border-neutral-850 bg-neutral-900 cursor-pointer shadow hover:border-brand/45 transition-all duration-300"
               >
                 {/* Visual Image */}
                 <img
@@ -178,8 +176,8 @@ export default function EventsGallery() {
 
                 {/* Overlaid expansion icon on hover */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="bg-brand text-black p-1.5 rounded-full shadow">
-                    <Eye className="w-3.5 h-3.5" />
+                  <div className="bg-brand text-black p-1 sm:p-1.5 rounded-full shadow">
+                    <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   </div>
                 </div>
               </div>
