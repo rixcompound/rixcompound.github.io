@@ -10,54 +10,15 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Sprocket & Chain Animation Refs
-  const bigSprocketRef = useRef<SVGGElement>(null);
-  const smallSprocketRef = useRef<SVGGElement>(null);
-  const chainRef = useRef<SVGPathElement>(null);
-
-  const angleRef = useRef(0);
-  const speedRef = useRef(0.43); // base target speed: ~0.43 degrees per frame
-  const targetSpeed = 0.43;
-
-  useEffect(() => {
-    let animationFrameId: number;
-
-    const update = () => {
-      // Smooth deceleration back to base speed
-      if (speedRef.current > targetSpeed) {
-        speedRef.current = speedRef.current - (speedRef.current - targetSpeed) * 0.03; // decay factor
-        if (speedRef.current - targetSpeed < 0.01) {
-          speedRef.current = targetSpeed;
-        }
-      }
-
-      // Rotate/Move
-      angleRef.current = (angleRef.current + speedRef.current) % 360000;
-
-      const bigAngle = angleRef.current;
-      const smallAngle = bigAngle * (20 / 6.5);
-      const chainOffset = (bigAngle / 360) * -127.5;
-
-      // Apply style transforms directly to elements for performance
-      if (bigSprocketRef.current) {
-        bigSprocketRef.current.style.transform = `rotate(${bigAngle}deg)`;
-      }
-      if (smallSprocketRef.current) {
-        smallSprocketRef.current.style.transform = `rotate(${smallAngle}deg)`;
-      }
-      if (chainRef.current) {
-        chainRef.current.style.strokeDashoffset = `${chainOffset}px`;
-      }
-
-      animationFrameId = requestAnimationFrame(update);
-    };
-
-    animationFrameId = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  // Sprocket & Chain Animation state (Turbo triggered on clicks/nav)
+  const [isTurbo, setIsTurbo] = useState(false);
 
   const triggerTurbo = () => {
-    speedRef.current = 6.5; // Instant high speed acceleration
+    setIsTurbo(true);
+    const timer = setTimeout(() => {
+      setIsTurbo(false);
+    }, 1500);
+    return () => clearTimeout(timer);
   };
 
   useEffect(() => {
@@ -137,9 +98,9 @@ export default function Navigation() {
                       strokeLinecap="round"
                     />
 
-                    {/* 2. Outer Chain Plates / Rollers (Dashed Moving Line) */}
+                     {/* 2. Outer Chain Plates / Rollers (Dashed Moving Line) */}
                     <path
-                      ref={chainRef}
+                      className={isTurbo ? "animate-chain-turbo" : "animate-chain-slow"}
                       d={pathD}
                       fill="none"
                       stroke="#ff8c00"
@@ -149,7 +110,7 @@ export default function Navigation() {
                     />
 
                     {/* 3. Big Sprocket Group (Behind we go, centered at 24, 24) */}
-                    <g ref={bigSprocketRef} style={{ transformOrigin: '24px 24px' }}>
+                    <g className={isTurbo ? "animate-spin-big-turbo" : "animate-spin-big-slow"}>
                       {/* Sprocket Base Ring */}
                       <circle cx="24" cy="24" r="18" fill="none" stroke="#ff8c00" strokeWidth="1" className="opacity-90" />
                       <circle cx="24" cy="24" r="14.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" className="opacity-75" />
@@ -197,7 +158,7 @@ export default function Navigation() {
                     </g>
 
                     {/* 4. Small Sprocket Group (Centered at 94.5, 24) */}
-                    <g ref={smallSprocketRef} style={{ transformOrigin: '94.5px 24px' }}>
+                    <g className={isTurbo ? "animate-spin-small-turbo" : "animate-spin-small-slow"}>
                       <circle cx="94.5" cy="24" r="5" fill="none" stroke="#ff8c00" strokeWidth="1" />
                       <circle cx="94.5" cy="24" r="2.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" />
                       

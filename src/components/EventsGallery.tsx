@@ -93,7 +93,7 @@ export default function EventsGallery() {
                   {/* Image flyer */}
                   <div className={`rounded-md sm:rounded-lg overflow-hidden bg-neutral-950 relative ${event.highlight ? 'ring-2 ring-brand shadow-lg' : ''}`}>
                     <img
-                      src={event.imgUrl}
+                      src={`${event.imgUrl}=s800`}
                       alt={event.title}
                       loading="lazy"
                       className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
@@ -169,7 +169,7 @@ export default function EventsGallery() {
               >
                 {/* Visual Image */}
                 <img
-                  src={img.url}
+                  src={`${img.url}=s800`}
                   alt={img.alt}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -231,7 +231,7 @@ export default function EventsGallery() {
             className="max-w-4xl w-full max-h-[80vh] flex flex-col items-center justify-center relative"
           >
             <img 
-              src={galleryImages[activeLightboxIndex].url} 
+              src={`${galleryImages[activeLightboxIndex].url}=s1600`} 
               alt={galleryImages[activeLightboxIndex].alt}
               className="max-w-full max-h-[70vh] object-contain rounded-lg border border-neutral-800 shadow-2xl"
             />

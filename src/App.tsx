@@ -4,7 +4,6 @@
  */
 
 import { useState } from 'react';
-import { motion } from 'motion/react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Track from './components/Track';
@@ -24,31 +23,8 @@ export default function App() {
 
       {/* Floating Notification Bubble for Rental Requirements */}
       {showNotification && (
-        <motion.div
-          initial={{ opacity: 0, x: -50, scale: 0.9 }}
-          animate={{ 
-            opacity: 1, 
-            x: 0, 
-            scale: 1,
-            y: [0, -8, 0],
-            rotate: [-1.5, 1.5, -1.5]
-          }}
-          transition={{
-            opacity: { duration: 0.5 },
-            x: { duration: 0.5 },
-            scale: { duration: 0.5 },
-            y: {
-              duration: 4.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            },
-            rotate: {
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }
-          }}
-          className="fixed top-24 left-4 sm:left-6 lg:left-8 z-40 cursor-pointer max-w-[210px] sm:max-w-[240px] group select-none"
+        <div
+          className="fixed top-24 left-4 sm:left-6 lg:left-8 z-40 cursor-pointer max-w-[210px] sm:max-w-[240px] group select-none animate-float-rotate transition-all duration-300"
           onClick={(e) => {
             if ((e.target as HTMLElement).closest('.close-btn')) return;
             document.getElementById('rental-requirements')?.scrollIntoView({ behavior: 'smooth' });
@@ -94,7 +70,7 @@ export default function App() {
               <X className="w-3 h-3" />
             </button>
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* Main Grid content flow */}

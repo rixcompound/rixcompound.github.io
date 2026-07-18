@@ -47,3 +47,80 @@ body {
   background: var(--color-brand);
   color: #000000;
 }
+
+/* GPU-Accelerated CSS Animations for Sprocket/Chain and floating bubbles */
+@keyframes float-rotate {
+  0%, 100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+.animate-float-rotate {
+  will-change: transform;
+  animation: float-rotate 4.5s ease-in-out infinite;
+}
+
+@keyframes spin-big {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-small {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(calc(360deg * (20 / 6.5)));
+  }
+}
+
+@keyframes move-chain {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: -127.5px;
+  }
+}
+
+.animate-spin-big-slow {
+  will-change: transform;
+  transform-origin: 24px 24px;
+  animation: spin-big 25s linear infinite;
+}
+
+.animate-spin-big-turbo {
+  will-change: transform;
+  transform-origin: 24px 24px;
+  animation: spin-big 1.5s linear infinite;
+}
+
+.animate-spin-small-slow {
+  will-change: transform;
+  transform-origin: 94.5px 24px;
+  animation: spin-small 25s linear infinite;
+}
+
+.animate-spin-small-turbo {
+  will-change: transform;
+  transform-origin: 94.5px 24px;
+  animation: spin-small 1.5s linear infinite;
+}
+
+.animate-chain-slow {
+  will-change: stroke-dashoffset;
+  animation: move-chain 25s linear infinite;
+}
+
+.animate-chain-turbo {
+  will-change: stroke-dashoffset;
+  animation: move-chain 1.5s linear infinite;
+}
+
