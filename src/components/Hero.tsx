@@ -9,72 +9,77 @@ export default function Hero() {
   return (
     <section 
       id="home" 
-      className="relative min-h-[70vh] sm:min-h-[80vh] pt-24 sm:pt-32 lg:pt-36 pb-4 sm:pb-6 px-3 sm:px-6 lg:px-8 flex flex-col justify-center overflow-hidden"
+      className="relative pt-20 pb-10 sm:pt-24 sm:pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#12161A]"
     >
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-brand/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-brand-dark/10 rounded-full blur-[100px]" />
+      {/* Precision hairline grid lines */}
+      <div className="absolute inset-0 opacity-15 pointer-events-none">
+        <div className="absolute left-[15%] top-0 bottom-0 w-px bg-neutral-800" />
+        <div className="absolute left-[50%] top-0 bottom-0 w-px bg-neutral-800" />
+        <div className="absolute left-[85%] top-0 bottom-0 w-px bg-neutral-800" />
+        <div className="absolute top-[40%] left-0 right-0 h-px bg-neutral-800" />
       </div>
 
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-12 items-center relative z-10">
+      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch relative z-10">
         
-        {/* Left: Content */}
-        <div className="lg:col-span-7 flex flex-col gap-3 sm:gap-5 text-center lg:text-left">
-          
-          <div className="flex flex-col items-center lg:items-start gap-2 sm:gap-3">
-            <div className="flex flex-wrap justify-center lg:justify-start gap-1.5 sm:gap-2">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-brand/10 border border-brand/30 text-brand text-[9px] sm:text-xs font-bold uppercase tracking-wider rounded-md sm:rounded-full">
-                <Compass className="w-2.5 h-2.5" /> Stellenbosch Winelands
+        {/* Left Column: Core content card with sharp borders */}
+        <div className="lg:col-span-7 bg-[#1F242A] border border-neutral-800/80 p-5 sm:p-7 rounded flex flex-col justify-between shadow-sm relative overflow-hidden">
+          {/* Subtle brand marker */}
+          <div className="absolute top-0 left-0 w-1.5 h-full bg-[#FF6600]" />
+
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-1.5">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-300 text-[9px] font-mono tracking-wider uppercase rounded">
+                <Compass className="w-3 h-3 text-[#FF6600]" /> Stellenbosch Winelands
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-neutral-900 border border-neutral-800 text-neutral-300 text-[9px] sm:text-xs font-bold uppercase tracking-wider rounded-md sm:rounded-full">
-                <CalendarDays className="w-2.5 h-2.5" /> Sat 9am-3pm • Sun 9am-2:30pm
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-400 text-[9px] font-mono tracking-wider uppercase rounded">
+                <CalendarDays className="w-3 h-3 text-[#FF6600]" /> Sat 9am-3pm • Sun 9am-2:30pm
               </span>
             </div>
-          </div> {/* <-- Added the missing closing div here */}
 
-          <div>
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white uppercase italic leading-[1.1]">
-              Welcome to <br />
-              <span className="text-brand">
-                RixCompound
+            <div>
+              <span className="text-neutral-500 font-mono text-[9px] uppercase tracking-[0.2em] block mb-1 font-semibold">
+                Bottelary Road Moto Park
               </span>
-            </h1>
-            <p className="mt-2 text-xs sm:text-sm md:text-base text-neutral-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              A private pit bike and junior MX track on Bottelary Road. Bring your own bike (R150) or rent ours for a thrilling, secure day out on the dirt. Simple as that!
-            </p>
+              <h1 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-[#F8F9FA] uppercase leading-[1.05]">
+                Welcome to <span className="text-[#FF6600] italic font-extrabold">RixCompound</span>
+              </h1>
+              <p className="mt-2 text-xs text-neutral-400 leading-relaxed font-sans max-w-lg">
+                A private pit bike and junior MX track on Bottelary Road. Bring your own bike (R150) or rent ours for a thrilling, secure day out on the dirt. Simple as that!
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 mt-0.5">
+          <div className="flex flex-col sm:flex-row items-center gap-2 mt-5">
             <a
               href="#pricing"
-              className="w-full sm:w-auto text-center px-5 py-2.5 sm:px-6 sm:py-3 bg-brand hover:bg-brand-light text-black font-extrabold uppercase tracking-wider rounded-md sm:rounded-lg shadow-md hover:shadow-brand/20 transition-all text-[10px] sm:text-xs"
+              className="w-full sm:w-auto text-center px-4 py-2.5 bg-[#FF6600] hover:bg-white text-black font-mono text-[10px] font-semibold uppercase tracking-wider rounded transition-all duration-300"
             >
               Packages & Contact
             </a>
             <a
               href="#track"
-              className="w-full sm:w-auto text-center px-5 py-2.5 sm:px-6 sm:py-3 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 font-bold uppercase tracking-wider rounded-md sm:rounded-lg transition-all text-[10px] sm:text-xs"
+              className="w-full sm:w-auto text-center px-4 py-2.5 bg-transparent hover:bg-[#12161A] text-neutral-300 border border-neutral-800 hover:border-neutral-700 font-mono text-[10px] font-semibold uppercase tracking-wider rounded transition-all duration-300"
             >
               Track Layouts
             </a>
           </div>
-
         </div>
 
-        {/* Right: Beautiful main showcase image card */}
-        <div className="lg:col-span-5 relative w-full flex justify-center">
-          <div className="relative group max-w-sm lg:max-w-none w-full">
-            <div className="absolute -inset-0.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-brand to-brand-dark opacity-20 blur-lg group-hover:opacity-40 transition duration-1000" />
-            <div className="relative rounded-lg sm:rounded-xl overflow-hidden border border-neutral-850 p-1 sm:p-2 bg-neutral-900/40">
-              <div className="relative rounded-md sm:rounded-lg overflow-hidden aspect-[1.5]">
-                <img
-                  src="https://i.postimg.cc/KYG36gnP/IMG_20251112_WA0108_1024x683.jpg"
-                  alt="Riders on the dirt at Rix Compound"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+        {/* Right Column: High-density showcase media */}
+        <div className="lg:col-span-5 bg-[#1F242A] border border-neutral-800/80 p-2.5 rounded shadow-sm flex flex-col justify-between">
+          <div className="relative rounded overflow-hidden aspect-[1.4] bg-[#12161A] border border-neutral-850">
+            <img
+              src="https://i.postimg.cc/KYG36gnP/IMG_20251112_WA0108_1024x683.jpg"
+              alt="Riders on the dirt at Rix Compound"
+              className="w-full h-full object-cover transition-all duration-500 hover:scale-103"
+              decoding="async"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+          
+          <div className="pt-2 px-1.5 flex justify-between items-center text-[10px] font-mono text-neutral-400">
+            <span>📍 PROTEA FARMS, STELLENBOSCH</span>
+            <span className="text-neutral-500">EST. 2024</span>
           </div>
         </div>
 

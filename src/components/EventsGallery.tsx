@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { ArrowUpRight, X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function EventsGallery() {
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
@@ -41,7 +42,7 @@ export default function EventsGallery() {
       title: "Weekend Open Session Flyer",
       badge: "Weekend Session"
     }
-  ]; // <-- Array successfully closed here!
+  ];
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -60,77 +61,72 @@ export default function EventsGallery() {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-10">
+    <div className="space-y-4">
       
       {/* 1. Upcoming Events Section */}
-      <section id="events" className="py-6 sm:py-10 bg-neutral-950/40 relative border-t border-neutral-900">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <section id="events" className="py-10 sm:py-14 bg-[#1F242A] relative border-t border-neutral-800/60">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-            <h2 className="font-display text-xs font-bold uppercase tracking-widest text-brand mb-2">
-              Action & Events
-            </h2>
-            <p className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight uppercase">
-              Upcoming <span className="text-brand">Events</span>
-            </p>
-            <div className="w-12 h-0.5 bg-brand mx-auto mt-3 rounded-full" />
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-neutral-800 pb-3 mb-6">
+            <div>
+              <span className="text-neutral-400 font-mono text-[9px] uppercase tracking-[0.15em] block mb-0.5">
+                Action & Events
+              </span>
+              <h2 className="font-display text-lg sm:text-xl font-bold text-[#F8F9FA] uppercase tracking-tight">
+                Upcoming <span className="text-brand italic font-extrabold">Events</span>
+              </h2>
+            </div>
+            <div className="text-[10px] text-neutral-400 font-mono mt-1 sm:mt-0 uppercase">
+              Limited Availability
+            </div>
           </div>
 
           {/* Compact visual grids of the event posters side-by-side or stacked on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-sm sm:max-w-3xl lg:max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {upcomingEvents.map((event, idx) => (
               <div 
                 key={idx} 
                 id={event.highlight ? "public-holidays-flyer" : undefined}
-                className={`group relative overflow-hidden rounded-lg sm:rounded-xl p-2.5 sm:p-4 transition-all block flex flex-col justify-between ${
-                  event.highlight 
-                    ? 'border-2 border-brand bg-gradient-to-b from-brand/20 via-neutral-900/90 to-neutral-950 shadow-[0_0_30px_rgba(255,140,0,0.35)] ring-2 ring-brand/50 transform scale-[1.02]' 
-                    : 'border border-neutral-850 bg-neutral-900/30 hover:border-brand/35'
-                }`}
+                className="group relative overflow-hidden rounded p-3 transition-all duration-300 flex flex-col justify-between border border-neutral-800 bg-[#12161A] hover:border-brand/60 shadow-sm"
               >
                 <div>
                   {/* Image flyer */}
-                  <div className={`rounded-md sm:rounded-lg overflow-hidden bg-neutral-950 relative ${event.highlight ? 'ring-2 ring-brand shadow-lg' : ''}`}>
+                  <div className="rounded overflow-hidden bg-[#1F242A] relative aspect-[4/5] border border-neutral-800 shadow-sm">
                     <img
                       src={`${event.imgUrl}=s800`}
                       alt={event.title}
                       loading="lazy"
-                      className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
+                      decoding="async"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transition-transform duration-550 group-hover:scale-[1.03]"
                     />
                     {/* Badge */}
-                    <div className={`absolute top-2 left-2 text-[8px] sm:text-[10px] font-extrabold uppercase tracking-widest px-2 py-0.5 sm:px-2.5 sm:py-1 rounded z-10 ${
-                      event.highlight
-                        ? 'bg-brand text-black shadow-md animate-pulse'
-                        : 'bg-black/85 border border-brand/20 text-brand'
-                    }`}>
+                    <div className="absolute top-2 left-2 text-[8px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-neutral-950/90 text-[#FF6600] border border-neutral-800">
                       {event.badge}
                     </div>
                   </div>
 
                   <div className="mt-2.5 flex justify-between items-center px-0.5">
-                    <h3 className={`font-display font-extrabold text-xs sm:text-base tracking-wide uppercase ${event.highlight ? 'text-brand drop-shadow' : 'text-neutral-300'}`}>
+                    <h3 className="font-display font-bold text-xs uppercase text-[#F8F9FA] tracking-tight">
                       {event.title}
                     </h3>
                     <a 
                       href="#contact"
-                      className="text-brand flex items-center gap-0.5 text-[9px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap ml-1 bg-black/40 hover:bg-brand hover:text-black px-2 py-1 rounded transition-colors"
+                      className="text-[#F8F9FA] flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider whitespace-nowrap ml-2 bg-[#1F242A] hover:bg-[#FF6600] hover:text-black border border-neutral-800 hover:border-[#FF6600] px-2 py-0.5 rounded transition-colors shadow-sm"
                     >
-                      Ask <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 h-3" />
+                      Ask <ArrowUpRight className="w-3 h-3 text-neutral-400 group-hover:text-black" />
                     </a>
                   </div>
                 </div>
 
                 {/* Schedule list underneath flyer if highlighted / scheduled */}
                 {event.schedule && (
-                  <div className="mt-3.5 pt-3 border-t-2 border-brand/40 bg-black/60 rounded-md sm:rounded-xl p-2.5 sm:p-3 shadow-inner">
-                    <div className="text-[9px] sm:text-[10px] uppercase font-mono tracking-wider text-brand mb-1.5 font-bold flex items-center gap-1">
-                      <span></span>
-                    </div>
+                  <div className="mt-3 pt-3 border-t border-neutral-800 bg-[#1F242A] rounded p-2 shadow-sm">
                     <ul className="space-y-1">
                       {event.schedule.map((item, sIdx) => (
-                        <li key={sIdx} className="text-[11px] sm:text-[13px] text-white font-semibold flex items-center gap-1.5 bg-neutral-900/80 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded border border-neutral-800">
-                          <span className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_8px_rgba(255,140,0,0.8)] flex-shrink-0" />
+                        <li key={sIdx} className="text-[10px] text-neutral-300 font-sans flex items-center gap-1.5 bg-[#12161A] px-2 py-1 rounded border border-neutral-800">
+                          <span className="w-1 h-1 rounded-full bg-[#FF6600] flex-shrink-0" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -145,40 +141,46 @@ export default function EventsGallery() {
       </section>
 
       {/* 2. Photo Gallery Section */}
-      <section id="gallery" className="py-6 sm:py-10 bg-neutral-900/10 border-y border-neutral-900/60 relative">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <section id="gallery" className="py-10 sm:py-14 bg-[#12161A] border-y border-neutral-800 relative">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-            <h2 className="font-display text-xs font-bold uppercase tracking-widest text-brand mb-2">
-              Action Captured
-            </h2>
-            <p className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight uppercase">
-              Photo <span className="text-brand">Gallery</span>
-            </p>
-            <div className="w-12 h-0.5 bg-brand mx-auto mt-3 rounded-full" />
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-neutral-800 pb-3 mb-6">
+            <div>
+              <span className="text-neutral-400 font-mono text-[9px] uppercase tracking-[0.15em] block mb-0.5">
+                Action Captured
+              </span>
+              <h2 className="font-display text-lg sm:text-xl font-bold text-[#F8F9FA] uppercase tracking-tight">
+                Photo <span className="text-brand italic font-extrabold">Gallery</span>
+              </h2>
+            </div>
+            <div className="text-[10px] text-neutral-400 font-mono mt-1 sm:mt-0 uppercase">
+              #RixCompound
+            </div>
           </div>
 
           {/* Grid layout - Strictly 3x3 block on all screens */}
-          <div className="grid grid-cols-3 gap-1.5 sm:gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto">
             {galleryImages.map((img, index) => (
               <div
                 key={index}
                 onClick={() => setActiveLightboxIndex(index)}
-                className="group relative aspect-square rounded-md sm:rounded-xl overflow-hidden border border-neutral-850 bg-neutral-900 cursor-pointer shadow hover:border-brand/45 transition-all duration-300"
+                className="group relative aspect-square rounded overflow-hidden border border-neutral-800 bg-[#1F242A] cursor-pointer hover:border-[#FF6600]/80 transition-all duration-300 shadow-sm"
               >
                 {/* Visual Image */}
                 <img
                   src={`${img.url}=s800`}
                   alt={img.alt}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-100"
                 />
 
                 {/* Overlaid expansion icon on hover */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="bg-brand text-black p-1 sm:p-1.5 rounded-full shadow">
-                    <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <div className="bg-neutral-900/90 text-white p-1.5 rounded-full border border-neutral-800 shadow-md">
+                    <Eye className="w-3.5 h-3.5 text-[#FF6600]" />
                   </div>
                 </div>
               </div>
@@ -191,64 +193,75 @@ export default function EventsGallery() {
               href="https://instagram.com/_rix.visuals_"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-brand transition-colors"
+              className="inline-flex items-center gap-1.5 text-[9px] font-mono tracking-widest uppercase text-neutral-400 hover:text-brand transition-colors"
             >
-              <svg viewBox="0 0 24 24" className="w-4 h-4 fill-brand">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
                 <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
               </svg>
-              rixvisuals
+              @_rix.visuals_
             </a>
           </div>
 
         </div>
       </section>
 
-      {/* Lightbox Popover Component */}
-      {activeLightboxIndex !== null && (
-        <div 
-          onClick={() => setActiveLightboxIndex(null)}
-          className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4"
-        >
-          {/* Close Trigger */}
-          <button 
+      {/* Lightbox Popover Component with GPU-Accelerated motion */}
+      <AnimatePresence>
+        {activeLightboxIndex !== null && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             onClick={() => setActiveLightboxIndex(null)}
-            className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-neutral-900 p-2 rounded-full transition-colors"
+            className="fixed inset-0 bg-neutral-950/95 z-[100] flex items-center justify-center p-4"
           >
-            <X className="w-5 h-5" />
-          </button>
+            {/* Close Trigger */}
+            <button 
+              onClick={() => setActiveLightboxIndex(null)}
+              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-neutral-900 p-2 rounded-full border border-neutral-800 transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
 
-          {/* Left Arrow */}
-          <button 
-            onClick={handlePrev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full transition-colors z-50"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
+            {/* Left Arrow */}
+            <button 
+              onClick={handlePrev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full border border-neutral-800 transition-colors z-50 cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
 
-          {/* Main Visual */}
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="max-w-4xl w-full max-h-[80vh] flex flex-col items-center justify-center relative"
-          >
-            <img 
-              src={`${galleryImages[activeLightboxIndex].url}=s1600`} 
-              alt={galleryImages[activeLightboxIndex].alt}
-              className="max-w-full max-h-[70vh] object-contain rounded-lg border border-neutral-800 shadow-2xl"
-            />
-            <p className="mt-3 font-mono text-[10px] text-neutral-450 uppercase tracking-widest text-center">
-              {activeLightboxIndex + 1} / {galleryImages.length}
-            </p>
-          </div>
+            {/* Main Visual */}
+            <motion.div 
+              initial={{ scale: 0.97, y: 5 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.97, y: 5 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-4xl w-full max-h-[80vh] flex flex-col items-center justify-center relative"
+            >
+              <img 
+                src={`${galleryImages[activeLightboxIndex].url}=s1600`} 
+                alt={galleryImages[activeLightboxIndex].alt}
+                decoding="async"
+                className="max-w-full max-h-[70vh] object-contain rounded border border-neutral-800 shadow-2xl"
+              />
+              <p className="mt-3 font-mono text-[9px] text-neutral-400 uppercase tracking-widest text-center">
+                {activeLightboxIndex + 1} / {galleryImages.length}
+              </p>
+            </motion.div>
 
-          {/* Right Arrow */}
-          <button 
-            onClick={handleNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full transition-colors z-50"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-      )}
+            {/* Right Arrow */}
+            <button 
+              onClick={handleNext}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full border border-neutral-800 transition-colors z-50 cursor-pointer"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

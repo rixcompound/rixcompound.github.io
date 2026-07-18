@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --color-brand: #ff8c00;
-  --color-brand-light: #ffa333;
-  --color-brand-dark: #cc7000;
+  --color-brand: #FF6600;
+  --color-brand-light: #ff8533;
+  --color-brand-dark: #cc5200;
 }
 
 /* Custom styles and overrides */
@@ -17,25 +16,26 @@ html {
 }
 
 body {
-  background-color: #050505;
-  color: #f3f4f6;
+  background-color: #12161A;
+  color: #F8F9FA;
   font-family: var(--font-sans);
   overflow-x: hidden;
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0d0d;
+  background: #12161A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
-  border-radius: 4px;
+  background: #1F242A;
+  border-radius: 3px;
+  border: 1px solid #12161A;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -45,7 +45,7 @@ body {
 /* Custom highlight selection */
 ::selection {
   background: var(--color-brand);
-  color: #000000;
+  color: #12161A;
 }
 
 /* GPU-Accelerated CSS Animations for Sprocket/Chain and floating bubbles */
@@ -59,7 +59,6 @@ body {
 }
 
 .animate-float-rotate {
-  will-change: transform;
   animation: float-rotate 4.5s ease-in-out infinite;
 }
 
@@ -91,36 +90,43 @@ body {
 }
 
 .animate-spin-big-slow {
-  will-change: transform;
   transform-origin: 24px 24px;
   animation: spin-big 25s linear infinite;
 }
 
 .animate-spin-big-turbo {
-  will-change: transform;
   transform-origin: 24px 24px;
   animation: spin-big 1.5s linear infinite;
 }
 
 .animate-spin-small-slow {
-  will-change: transform;
   transform-origin: 94.5px 24px;
   animation: spin-small 25s linear infinite;
 }
 
 .animate-spin-small-turbo {
-  will-change: transform;
   transform-origin: 94.5px 24px;
   animation: spin-small 1.5s linear infinite;
 }
 
 .animate-chain-slow {
-  will-change: stroke-dashoffset;
   animation: move-chain 25s linear infinite;
 }
 
 .animate-chain-turbo {
-  will-change: stroke-dashoffset;
   animation: move-chain 1.5s linear infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 

@@ -22,11 +22,20 @@ export default function Navigation() {
   };
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 40;
+          setIsScrolled((prevScrolled) => {
+            if (prevScrolled !== scrolled) {
+              return scrolled;
+            }
+            return prevScrolled;
+          });
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -47,16 +56,16 @@ export default function Navigation() {
     <>
       <nav
         id="mainNav"
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 ${
           isScrolled
-            ? 'h-16 bg-neutral-950/85 backdrop-blur-xl border-b border-brand/20 shadow-lg shadow-black/40'
-            : 'h-20 bg-transparent'
+            ? 'h-12 bg-[#12161A]/95 backdrop-blur-md border-b border-neutral-800/70 shadow-lg shadow-neutral-950/20'
+            : 'h-14 bg-[#12161A]/90 border-b border-neutral-800/40'
         }`}
       >
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Brand Logo & Profile Container */}
-          <a href="#home" onClick={triggerTurbo} className="relative w-[184px] h-12 flex-shrink-0 group z-10">
+          <a href="#home" onClick={triggerTurbo} className="relative w-[184px] h-10 flex-shrink-0 group z-10 scale-90 sm:scale-100 origin-left">
             {/* Master Sprocket and Chain SVG Container */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible" viewBox="0 0 184 48">
               {/* Mathematics for exact external tangents */}
@@ -89,11 +98,17 @@ export default function Navigation() {
 
                 return (
                   <>
+                    <defs>
+                      <clipPath id="logo-clip">
+                        <circle cx="24" cy="24" r="14.5" />
+                      </clipPath>
+                    </defs>
+
                     {/* 1. Underlying Inner Chain Plate (Dark Base Link Structure) */}
                     <path
                       d={pathD}
                       fill="none"
-                      stroke="#141414"
+                      stroke="#1F242A"
                       strokeWidth="4.5"
                       strokeLinecap="round"
                     />
@@ -103,7 +118,7 @@ export default function Navigation() {
                       className={isTurbo ? "animate-chain-turbo" : "animate-chain-slow"}
                       d={pathD}
                       fill="none"
-                      stroke="#ff8c00"
+                      stroke="#FF6600"
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeDasharray="5 3.5"
@@ -112,8 +127,8 @@ export default function Navigation() {
                     {/* 3. Big Sprocket Group (Behind we go, centered at 24, 24) */}
                     <g className={isTurbo ? "animate-spin-big-turbo" : "animate-spin-big-slow"}>
                       {/* Sprocket Base Ring */}
-                      <circle cx="24" cy="24" r="18" fill="none" stroke="#ff8c00" strokeWidth="1" className="opacity-90" />
-                      <circle cx="24" cy="24" r="14.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" className="opacity-75" />
+                      <circle cx="24" cy="24" r="18" fill="none" stroke="#FF6600" strokeWidth="1" className="opacity-90" />
+                      <circle cx="24" cy="24" r="14.5" fill="none" stroke="#FF6600" strokeWidth="0.75" className="opacity-75" />
                       
                       {/* Weight reduction drill holes */}
                       {Array.from({ length: 6 }).map((_, i) => {
@@ -126,14 +141,14 @@ export default function Navigation() {
                             cy={24 + 11 * Math.sin(rad)}
                             r="1.75"
                             fill="none"
-                            stroke="#ff8c00"
+                            stroke="#FF6600"
                             strokeWidth="0.75"
                             className="opacity-80"
                           />
                         );
                       })}
 
-                      {/* Big sprocket high-visibility solid teeth */}
+                      {/* Big sprocket solid teeth */}
                       {Array.from({ length: 18 }).map((_, i) => {
                         const angle = (i * 360) / 18;
                         const angleWidth = 6.2;
@@ -150,17 +165,28 @@ export default function Navigation() {
                               ${24 + rTip * Math.cos(radTip)},${24 + rTip * Math.sin(radTip)}
                               ${24 + rBase * Math.cos(radBaseRight)},${24 + rBase * Math.sin(radBaseRight)}
                             `}
-                            fill="#ff8c00"
+                            fill="#FF6600"
                             className="opacity-100"
                           />
                         );
                       })}
                     </g>
 
+                    {/* Centered Profile Image - Inside the SVG for 100% perfect mathematical alignment */}
+                    <image
+                      href="https://i.postimg.cc/GhTnJcSP/social-cat-instagram-instagram-5.jpg"
+                      x="9.5"
+                      y="9.5"
+                      width="29"
+                      height="29"
+                      clipPath="url(#logo-clip)"
+                      referrerPolicy="no-referrer"
+                    />
+
                     {/* 4. Small Sprocket Group (Centered at 94.5, 24) */}
                     <g className={isTurbo ? "animate-spin-small-turbo" : "animate-spin-small-slow"}>
-                      <circle cx="94.5" cy="24" r="5" fill="none" stroke="#ff8c00" strokeWidth="1" />
-                      <circle cx="94.5" cy="24" r="2.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" />
+                      <circle cx="94.5" cy="24" r="5" fill="none" stroke="#FF6600" strokeWidth="1" />
+                      <circle cx="94.5" cy="24" r="2.5" fill="none" stroke="#FF6600" strokeWidth="0.75" />
                       
                       {/* Small Sprocket Teeth */}
                       {Array.from({ length: 8 }).map((_, i) => {
@@ -179,7 +205,7 @@ export default function Navigation() {
                               ${94.5 + rTip * Math.cos(radTip)},${24 + rTip * Math.sin(radTip)}
                               ${94.5 + rBase * Math.cos(radBaseRight)},${24 + rBase * Math.sin(radBaseRight)}
                             `}
-                            fill="#ff8c00"
+                            fill="#FF6600"
                             className="opacity-100"
                           />
                         );
@@ -191,18 +217,18 @@ export default function Navigation() {
                       x="83.5"
                       y="29.5"
                       textAnchor="end"
-                      fill="#ffffff"
-                      className="font-sans font-black text-[13px] sm:text-sm uppercase italic tracking-tight"
+                      fill="#F8F9FA"
+                      className="font-display font-black text-[13px] sm:text-sm uppercase italic tracking-tight"
                     >
-                      RIX <tspan fill="#ff8c00">C</tspan>
+                      RIX <tspan fill="#FF6600">C</tspan>
                     </text>
 
                     <text
                       x="105.5"
                       y="29.5"
                       textAnchor="start"
-                      fill="#ff8c00"
-                      className="font-sans font-black text-[13px] sm:text-sm uppercase italic tracking-tight"
+                      fill="#FF6600"
+                      className="font-display font-black text-[13px] sm:text-sm uppercase italic tracking-tight"
                     >
                       MPOUND
                     </text>
@@ -211,68 +237,61 @@ export default function Navigation() {
               })()}
             </svg>
 
-            {/* Profile Image - Centered exactly inside the Big Sprocket */}
-            <img
-              src="https://i.postimg.cc/GhTnJcSP/social-cat-instagram-instagram-5.jpg"
-              alt="Rix Compound Logo"
-              className="absolute left-[6px] top-[6px] w-[36px] h-[36px] rounded-full border-1.5 border-neutral-900 object-cover z-20 pointer-events-none"
-            />
           </a>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-1">
+          {/* Desktop Navigation Links - Super compact & mono-styled */}
+          <div className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={triggerTurbo}
-                className="relative px-3.5 py-2 text-sm font-medium text-neutral-300 hover:text-black rounded-full transition-all duration-300 overflow-hidden group"
+                className="relative px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider text-neutral-300 hover:text-white transition-all duration-200 group"
               >
-                {/* Background sliding hover effect */}
-                <span className="absolute inset-0 bg-brand rounded-full scale-x-0 origin-right group-hover:scale-x-100 group-hover:origin-left transition-transform duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] z-[-1]" />
                 <span className="relative z-10">{link.name}</span>
+                <span className="absolute bottom-1 left-3 right-3 h-[1px] bg-[#FF6600] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </a>
             ))}
             <a
               href="#pricing"
               onClick={triggerTurbo}
-              className="ml-3 px-4 py-2 text-xs font-bold text-black uppercase tracking-wider bg-brand hover:bg-brand-light rounded-full shadow-lg shadow-brand/20 hover:shadow-brand/40 transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5"
+              className="ml-3 px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#FF6600] hover:bg-white text-black rounded transition-all duration-300 flex items-center gap-1"
             >
-              <Bike className="w-3.5 h-3.5" /> Call to Book
+              <Bike className="w-3 h-3" /> Call to Book
             </a>
             <a
               href="https://www.instagram.com/rix.compound.mini.dirt.track?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
               target="_blank"
               rel="noreferrer"
-              className="ml-2 p-2 text-neutral-300 hover:text-brand transition-colors rounded-full border border-neutral-800 hover:border-brand/40 bg-neutral-900/40"
+              className="ml-2 p-1.5 text-neutral-300 hover:text-[#FF6600] hover:bg-neutral-800 transition-all rounded border border-neutral-800 bg-[#1F242A]"
               title="Follow @rix.compound.mini.dirt.track on Instagram"
             >
-              <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
                 <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
               </svg>
             </a>
           </div>
 
           {/* Hamburger Mobile Toggle & Small Always-on Mobile Instagram Link */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-1.5 lg:hidden">
             <a
               href="https://www.instagram.com/rix.compound.mini.dirt.track?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
               target="_blank"
               rel="noreferrer"
-              className="p-2 text-neutral-300 hover:text-brand transition-colors rounded-full border border-neutral-850 bg-neutral-900/40"
+              className="p-1.5 text-neutral-300 hover:text-[#FF6600] transition-colors rounded-full border border-neutral-800 bg-[#1F242A]"
               title="Follow @rix.compound.mini.dirt.track on Instagram"
             >
-              <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
                 <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
               </svg>
             </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-neutral-300 hover:text-brand focus:outline-none transition-colors"
+              className="p-1.5 rounded-md text-neutral-300 hover:text-white focus:outline-none transition-colors"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -280,11 +299,11 @@ export default function Navigation() {
 
       {/* Mobile Drawer Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-lg flex flex-col justify-center transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-[#12161A] flex flex-col justify-center transition-all duration-350 lg:hidden ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="flex flex-col items-center gap-6 px-6">
+        <div className="flex flex-col items-center gap-4 px-6">
           {navLinks.map((link, idx) => (
             <a
               key={link.name}
@@ -293,10 +312,10 @@ export default function Navigation() {
                 setMobileMenuOpen(false);
                 triggerTurbo();
               }}
-              className={`font-display text-2xl font-bold tracking-tight text-white hover:text-brand transition-all duration-300 ${
-                mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+              className={`font-display text-lg font-bold uppercase tracking-wide text-neutral-200 hover:text-[#FF6600] transition-all duration-300 ${
+                mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
-              style={{ transitionDelay: `${idx * 75}ms` }}
+              style={{ transitionDelay: `${idx * 40}ms` }}
             >
               {link.name}
             </a>
@@ -307,10 +326,10 @@ export default function Navigation() {
               setMobileMenuOpen(false);
               triggerTurbo();
             }}
-            className={`mt-4 px-8 py-3.5 bg-brand hover:bg-brand-light text-black font-extrabold uppercase tracking-wide rounded-full text-center w-full max-w-xs shadow-lg shadow-brand/20 transition-all ${
-              mobileMenuOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+            className={`mt-3 px-6 py-2.5 bg-[#FF6600] text-black font-mono text-xs font-bold uppercase tracking-wider rounded text-center w-full max-w-xs shadow-md shadow-neutral-950/20 transition-all ${
+              mobileMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
             }`}
-            style={{ transitionDelay: `${navLinks.length * 75}ms` }}
+            style={{ transitionDelay: `${navLinks.length * 40}ms` }}
           >
             Call to Book
           </a>
@@ -321,15 +340,15 @@ export default function Navigation() {
             target="_blank"
             rel="noreferrer"
             onClick={() => setMobileMenuOpen(false)}
-            className={`inline-flex items-center gap-2 px-6 py-2 border border-neutral-800 hover:border-brand rounded-full text-xs font-mono tracking-wider uppercase text-neutral-300 transition-all ${
-              mobileMenuOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+            className={`inline-flex items-center gap-1.5 px-4 py-1.5 border border-neutral-800 hover:border-[#FF6600] rounded text-[10px] font-mono tracking-wider uppercase text-neutral-400 transition-all ${
+              mobileMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
             }`}
-            style={{ transitionDelay: `${(navLinks.length + 1) * 75}ms` }}
+            style={{ transitionDelay: `${(navLinks.length + 1) * 40}ms` }}
           >
-            <svg viewBox="0 0 24 24" className="w-4 h-4 fill-brand">
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
               <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
             </svg>
-            @rix.compound.mini.dirt.track
+            @rix.compound
           </a>
         </div>
       </div>
