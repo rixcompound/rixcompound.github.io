@@ -132,16 +132,16 @@ export default function Track() {
                 Compound Media Tour
               </span>
               <h4 className="font-display text-xs font-bold text-[#F8F9FA] uppercase tracking-tight">
-                Interactive Track Tour Video
+                Track Video
               </h4>
               <p className="text-[10px] text-neutral-400 leading-normal mt-1 max-w-sm">
                 Get a dirt-level view of our professional pit bike tracks, turns, and winelands scenic surroundings. See the action before you arrive.
               </p>
               <button 
                 onClick={() => setIsPlayingVideo(true)}
-                className="mt-2 inline-flex items-center gap-1.5 font-mono text-[9px] text-[#FF6600] hover:text-white font-bold uppercase tracking-wider"
+                className="mt-2 inline-flex items-center gap-1.5 font-mono text-[9px] text-[#FF6600] hover:text-white font-bold uppercase tracking-wider cursor-pointer"
               >
-                <span>▶</span> Watch Track Video
+                <Play className="w-2.5 h-2.5 fill-current" /> Watch Track Video
               </button>
             </div>
           </div>

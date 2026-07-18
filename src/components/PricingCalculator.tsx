@@ -8,7 +8,14 @@ import {
   Phone, 
   MessageSquare, 
   Calendar, 
-  Bike 
+  Bike,
+  Clock,
+  Zap,
+  AlertTriangle,
+  Lock,
+  FileText,
+  Shield,
+  Users
 } from 'lucide-react';
 
 export default function PricingCalculator() {
@@ -84,7 +91,9 @@ export default function PricingCalculator() {
             </div>
 
             <div className="mt-4 pt-3 border-t border-neutral-800/80 text-neutral-300 text-[10px] flex flex-col gap-1">
-              <span className="font-mono text-[9px] uppercase tracking-wider text-[#F8F9FA] font-semibold">⏰ Operating Hours:</span>
+              <span className="font-mono text-[9px] uppercase tracking-wider text-[#F8F9FA] font-semibold flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-[#FF6600]" /> Operating Hours:
+              </span>
               <div className="grid grid-cols-3 gap-1 text-[9px] text-neutral-400 font-mono">
                 <span>Sat: 09:00–15:00</span>
                 <span>Sun: 09:00–14:30</span>
@@ -149,7 +158,9 @@ export default function PricingCalculator() {
             </div>
 
             <div className="mt-4 pt-3 border-t border-neutral-800/80 text-neutral-400 text-[9px] font-mono flex items-center justify-between">
-              <span>🗓️ Weekdays Only (Wed–Fri)</span>
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-[#FF6600]" /> Weekdays Only (Wed–Fri)
+              </span>
               <span className="text-[#FF6600] font-bold uppercase">Advanced Booking Required</span>
             </div>
           </div>
@@ -160,8 +171,8 @@ export default function PricingCalculator() {
         <div className="bg-[#1F242A] rounded border border-neutral-800 p-4 mb-6 max-w-4xl mx-auto shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="max-w-2xl">
-              <span className="px-2 py-0.5 bg-[#12161A] border border-neutral-850 text-[#FF6600] text-[8px] font-mono uppercase tracking-wider rounded font-bold">
-                ⚡ Walk-in Guidelines
+              <span className="px-2 py-0.5 bg-[#12161A] border border-neutral-850 text-[#FF6600] text-[8px] font-mono uppercase tracking-wider rounded font-bold inline-flex items-center gap-1">
+                <Zap className="w-3 h-3 text-[#FF6600]" /> Walk-in Guidelines
               </span>
               <h4 className="font-display text-[#F8F9FA] font-bold text-xs uppercase tracking-tight mt-1.5">
                 First-Come, First-Served Basis
@@ -196,7 +207,7 @@ export default function PricingCalculator() {
                 
                 {/* MANDATORY WARNING: NO BEGINNERS PERMITTED */}
                 <div className="bg-red-950/20 border border-red-900/40 p-2.5 rounded flex items-start gap-2.5 shadow-sm">
-                  <span className="text-sm mt-0.5">🚨</span>
+                  <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
                   <div>
                     <h4 className="text-red-400 font-bold uppercase text-[9px] tracking-wider font-mono">
                       No Beginners Permitted
@@ -209,7 +220,7 @@ export default function PricingCalculator() {
 
                 {/* MANDATORY WARNING: PRIOR RIDING EXPERIENCE REQUIRED */}
                 <div className="bg-[#12161A] p-2.5 rounded border border-neutral-800 flex items-start gap-2.5 shadow-sm">
-                  <span className="text-sm mt-0.5">🔥</span>
+                  <Zap className="w-4 h-4 text-[#FF6600] mt-0.5 flex-shrink-0" />
                   <div>
                     <h4 className="text-[#F8F9FA] font-bold uppercase text-[9px] tracking-wider font-mono">
                       Prior Riding Experience Required
@@ -251,28 +262,28 @@ export default function PricingCalculator() {
 
               <ul className="space-y-2.5 pl-0.5">
                 <li className="flex items-start gap-2 text-[10px] text-neutral-400">
-                  <span className="text-[#FF6600] mt-0.5 text-[10px]">🔒</span>
+                  <Lock className="w-3.5 h-3.5 text-[#FF6600] mt-0.5 flex-shrink-0" />
                   <div>
                     <strong className="text-[#F8F9FA] block uppercase text-[8px] tracking-wider font-mono mb-0.5">Rider Responsibility</strong>
                     <span className="font-sans">All riders are responsible for the rental they sign for and operate.</span>
                   </div>
                 </li>
                 <li className="flex items-start gap-2 text-[10px] text-neutral-400">
-                  <span className="text-[#FF6600] mt-0.5 text-[10px]">✍️</span>
+                  <FileText className="w-3.5 h-3.5 text-[#FF6600] mt-0.5 flex-shrink-0" />
                   <div>
                     <strong className="text-[#F8F9FA] block uppercase text-[8px] tracking-wider font-mono mb-0.5">Liability Waiver</strong>
                     <span className="font-sans">A waiver must be completed before riding.</span>
                   </div>
                 </li>
                 <li className="flex items-start gap-2 text-[10px] text-neutral-400">
-                  <span className="text-[#FF6600] mt-0.5 text-[10px]">💥</span>
+                  <AlertTriangle className="w-3.5 h-3.5 text-[#FF6600] mt-0.5 flex-shrink-0" />
                   <div>
                     <strong className="text-[#F8F9FA] block uppercase text-[8px] tracking-wider font-mono mb-0.5">Damage Charges Policy</strong>
                     <span className="font-sans">Any damage caused to a rental unit, including broken, bent, snapped, or damaged parts, will be charged accordingly before departure.</span>
                   </div>
                 </li>
                 <li className="flex items-start gap-2 text-[10px] text-neutral-400">
-                  <span className="text-[#FF6600] mt-0.5 text-[10px]">🪖</span>
+                  <Shield className="w-3.5 h-3.5 text-[#FF6600] mt-0.5 flex-shrink-0" />
                   <div>
                     <strong className="text-[#F8F9FA] block uppercase text-[8px] tracking-wider font-mono mb-0.5">Helmets Provided</strong>
                     <span className="font-sans">Helmets are provided once registration, waiver completion, and full payment are received.</span>
@@ -284,7 +295,7 @@ export default function PricingCalculator() {
             {/* Parents & Guardians Policy */}
             <div className="mt-3 p-2.5 rounded bg-[#12161A] border border-neutral-800">
               <h4 className="text-[9px] font-bold text-[#F8F9FA] uppercase tracking-wider mb-0.5 flex items-center gap-1 font-mono">
-                <span>👨‍👩‍👦</span> Parents and Guardians
+                <Users className="w-3.5 h-3.5 text-[#FF6600]" /> Parents and Guardians
               </h4>
               <p className="text-[10px] text-neutral-400 leading-normal font-sans">
                 Children under 14 with no prior riding experience need to be accompanied by a parent or guardian as a passenger on <strong className="text-[#F8F9FA] font-semibold">ATV rentals ONLY</strong>, subject to management approval.
