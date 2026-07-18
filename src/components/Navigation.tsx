@@ -22,11 +22,20 @@ export default function Navigation() {
   };
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 40;
+          setIsScrolled((prevScrolled) => {
+            if (prevScrolled !== scrolled) {
+              return scrolled;
+            }
+            return prevScrolled;
+          });
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -100,7 +109,7 @@ export default function Navigation() {
 
                      {/* 2. Outer Chain Plates / Rollers (Dashed Moving Line) */}
                     <path
-                      className={isTurbo ? "animate-chain-turbo" : "animate-chain-slow"}
+                      className={isTurbo ? "animate-chain-turbo" : ""}
                       d={pathD}
                       fill="none"
                       stroke="#ff8c00"
@@ -110,7 +119,7 @@ export default function Navigation() {
                     />
 
                     {/* 3. Big Sprocket Group (Behind we go, centered at 24, 24) */}
-                    <g className={isTurbo ? "animate-spin-big-turbo" : "animate-spin-big-slow"}>
+                    <g className={isTurbo ? "animate-spin-big-turbo" : ""}>
                       {/* Sprocket Base Ring */}
                       <circle cx="24" cy="24" r="18" fill="none" stroke="#ff8c00" strokeWidth="1" className="opacity-90" />
                       <circle cx="24" cy="24" r="14.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" className="opacity-75" />
@@ -158,7 +167,7 @@ export default function Navigation() {
                     </g>
 
                     {/* 4. Small Sprocket Group (Centered at 94.5, 24) */}
-                    <g className={isTurbo ? "animate-spin-small-turbo" : "animate-spin-small-slow"}>
+                    <g className={isTurbo ? "animate-spin-small-turbo" : ""}>
                       <circle cx="94.5" cy="24" r="5" fill="none" stroke="#ff8c00" strokeWidth="1" />
                       <circle cx="94.5" cy="24" r="2.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" />
                       
