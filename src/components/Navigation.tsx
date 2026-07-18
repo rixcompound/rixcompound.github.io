@@ -22,11 +22,20 @@ export default function Navigation() {
   };
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 40;
+          setIsScrolled((prevScrolled) => {
+            if (prevScrolled !== scrolled) {
+              return scrolled;
+            }
+            return prevScrolled;
+          });
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });

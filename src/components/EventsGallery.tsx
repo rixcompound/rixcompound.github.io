@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { ArrowUpRight, X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function EventsGallery() {
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
@@ -203,52 +204,62 @@ export default function EventsGallery() {
         </div>
       </section>
 
-      {/* Lightbox Popover Component */}
-      {activeLightboxIndex !== null && (
-        <div 
-          onClick={() => setActiveLightboxIndex(null)}
-          className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4"
-        >
-          {/* Close Trigger */}
-          <button 
+      {/* Lightbox Popover Component with GPU-Accelerated motion */}
+      <AnimatePresence>
+        {activeLightboxIndex !== null && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             onClick={() => setActiveLightboxIndex(null)}
-            className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-neutral-900 p-2 rounded-full transition-colors"
+            className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4"
           >
-            <X className="w-5 h-5" />
-          </button>
+            {/* Close Trigger */}
+            <button 
+              onClick={() => setActiveLightboxIndex(null)}
+              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-neutral-900 p-2 rounded-full transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-          {/* Left Arrow */}
-          <button 
-            onClick={handlePrev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full transition-colors z-50"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
+            {/* Left Arrow */}
+            <button 
+              onClick={handlePrev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full transition-colors z-50"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
 
-          {/* Main Visual */}
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="max-w-4xl w-full max-h-[80vh] flex flex-col items-center justify-center relative"
-          >
-            <img 
-              src={`${galleryImages[activeLightboxIndex].url}=s1600`} 
-              alt={galleryImages[activeLightboxIndex].alt}
-              className="max-w-full max-h-[70vh] object-contain rounded-lg border border-neutral-800 shadow-2xl"
-            />
-            <p className="mt-3 font-mono text-[10px] text-neutral-450 uppercase tracking-widest text-center">
-              {activeLightboxIndex + 1} / {galleryImages.length}
-            </p>
-          </div>
+            {/* Main Visual */}
+            <motion.div 
+              initial={{ scale: 0.95, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 10 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-4xl w-full max-h-[80vh] flex flex-col items-center justify-center relative"
+            >
+              <img 
+                src={`${galleryImages[activeLightboxIndex].url}=s1600`} 
+                alt={galleryImages[activeLightboxIndex].alt}
+                className="max-w-full max-h-[70vh] object-contain rounded-lg border border-neutral-800 shadow-2xl"
+              />
+              <p className="mt-3 font-mono text-[10px] text-neutral-450 uppercase tracking-widest text-center">
+                {activeLightboxIndex + 1} / {galleryImages.length}
+              </p>
+            </motion.div>
 
-          {/* Right Arrow */}
-          <button 
-            onClick={handleNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full transition-colors z-50"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-      )}
+            {/* Right Arrow */}
+            <button 
+              onClick={handleNext}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white bg-neutral-900/60 p-2 rounded-full transition-colors z-50"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
