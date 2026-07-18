@@ -5,7 +5,6 @@
 
 import React, { useState } from 'react';
 import { Play, PlayCircle, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
 
 export default function Track() {
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
@@ -160,42 +159,28 @@ export default function Track() {
 
       </div>
 
-      {/* Video Modal Screen with GPU-Accelerated motion */}
-      <AnimatePresence>
-        {isPlayingVideo && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4"
+      {/* Video Modal Screen */}
+      {isPlayingVideo && (
+        <div className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4">
+          <button 
+            onClick={() => setIsPlayingVideo(false)}
+            className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-neutral-900 p-2 rounded-full transition-colors"
           >
-            <button 
-              onClick={() => setIsPlayingVideo(false)}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-neutral-900 p-2 rounded-full transition-colors animate-fade-in"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            
-            <motion.div 
-              initial={{ scale: 0.95, y: 15 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 15 }}
-              transition={{ type: "spring", damping: 25, stiffness: 280 }}
-              className="w-full max-w-3xl aspect-video rounded-lg overflow-hidden border border-brand/35 bg-neutral-950 shadow-2xl"
-            >
-              <iframe 
-                src="https://www.youtube.com/embed/vgHBEpjlTRU?autoplay=1"
-                title="Rix Compound Track Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="w-full h-full"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <X className="w-5 h-5" />
+          </button>
+          
+          <div className="w-full max-w-3xl aspect-video rounded-lg overflow-hidden border border-brand/35 bg-neutral-950">
+            <iframe 
+              src="https://www.youtube.com/embed/vgHBEpjlTRU?autoplay=1"
+              title="Rix Compound Track Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
