@@ -67,11 +67,12 @@ export default function Hero() {
           <div className="relative group max-w-sm lg:max-w-none w-full">
             <div className="absolute -inset-0.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-brand to-brand-dark opacity-20 blur-lg group-hover:opacity-40 transition duration-1000" />
             <div className="relative rounded-lg sm:rounded-xl overflow-hidden border border-neutral-850 p-1 sm:p-2 bg-neutral-900/40">
-              <div className="relative rounded-md sm:rounded-lg overflow-hidden aspect-[1.5]">
+              <div className="relative rounded-md sm:rounded-lg overflow-hidden aspect-[1.5] bg-neutral-900">
                 <img
                   src="https://i.postimg.cc/KYG36gnP/IMG_20251112_WA0108_1024x683.jpg"
                   alt="Riders on the dirt at Rix Compound"
                   className="w-full h-full object-cover"
+                  decoding="async"
                 />
               </div>
             </div>

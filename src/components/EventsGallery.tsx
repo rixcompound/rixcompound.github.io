@@ -97,6 +97,7 @@ export default function EventsGallery() {
                       src={`${event.imgUrl}=s800`}
                       alt={event.title}
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
                     />
                     {/* Badge */}
@@ -173,6 +174,7 @@ export default function EventsGallery() {
                   src={`${img.url}=s800`}
                   alt={img.alt}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
@@ -243,6 +245,7 @@ export default function EventsGallery() {
               <img 
                 src={`${galleryImages[activeLightboxIndex].url}=s1600`} 
                 alt={galleryImages[activeLightboxIndex].alt}
+                decoding="async"
                 className="max-w-full max-h-[70vh] object-contain rounded-lg border border-neutral-800 shadow-2xl"
               />
               <p className="mt-3 font-mono text-[10px] text-neutral-450 uppercase tracking-widest text-center">

@@ -58,7 +58,7 @@ export default function Navigation() {
         id="mainNav"
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled
-            ? 'h-16 bg-neutral-950/85 backdrop-blur-xl border-b border-brand/20 shadow-lg shadow-black/40'
+            ? 'h-16 bg-neutral-950/95 border-b border-brand/20 shadow-lg shadow-black/40'
             : 'h-20 bg-transparent'
         }`}
       >
@@ -109,7 +109,7 @@ export default function Navigation() {
 
                      {/* 2. Outer Chain Plates / Rollers (Dashed Moving Line) */}
                     <path
-                      className={isTurbo ? "animate-chain-turbo" : ""}
+                      className={isTurbo ? "animate-chain-turbo" : "animate-chain-slow"}
                       d={pathD}
                       fill="none"
                       stroke="#ff8c00"
@@ -119,7 +119,7 @@ export default function Navigation() {
                     />
 
                     {/* 3. Big Sprocket Group (Behind we go, centered at 24, 24) */}
-                    <g className={isTurbo ? "animate-spin-big-turbo" : ""}>
+                    <g className={isTurbo ? "animate-spin-big-turbo" : "animate-spin-big-slow"}>
                       {/* Sprocket Base Ring */}
                       <circle cx="24" cy="24" r="18" fill="none" stroke="#ff8c00" strokeWidth="1" className="opacity-90" />
                       <circle cx="24" cy="24" r="14.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" className="opacity-75" />
@@ -167,7 +167,7 @@ export default function Navigation() {
                     </g>
 
                     {/* 4. Small Sprocket Group (Centered at 94.5, 24) */}
-                    <g className={isTurbo ? "animate-spin-small-turbo" : ""}>
+                    <g className={isTurbo ? "animate-spin-small-turbo" : "animate-spin-small-slow"}>
                       <circle cx="94.5" cy="24" r="5" fill="none" stroke="#ff8c00" strokeWidth="1" />
                       <circle cx="94.5" cy="24" r="2.5" fill="none" stroke="#ff8c00" strokeWidth="0.75" />
                       
@@ -289,7 +289,7 @@ export default function Navigation() {
 
       {/* Mobile Drawer Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-lg flex flex-col justify-center transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-neutral-950 flex flex-col justify-center transition-all duration-500 lg:hidden ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >

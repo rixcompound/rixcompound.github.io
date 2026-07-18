@@ -70,10 +70,12 @@ export default function Track() {
               )}
 
               {/* Image Container */}
-              <div className="relative rounded-lg sm:rounded-xl overflow-hidden aspect-[1.6] mb-3 sm:mb-4 border border-neutral-800">
+              <div className="relative rounded-lg sm:rounded-xl overflow-hidden aspect-[1.6] mb-3 sm:mb-4 border border-neutral-800 bg-neutral-900">
                 <img 
                   src={track.image} 
                   alt={track.title}
+                  loading="lazy"
+                  decoding="async"
                   className={`w-full h-full object-cover transition-transform duration-500 ${
                     track.underConstruction ? 'opacity-30 filter grayscale contrast-125' : 'group-hover:scale-102'
                   }`}
@@ -144,6 +146,8 @@ export default function Track() {
             <img 
               src="https://img.youtube.com/vi/vgHBEpjlTRU/maxresdefault.jpg" 
               alt="Track video tour thumbnail"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover opacity-80"
             />
             
