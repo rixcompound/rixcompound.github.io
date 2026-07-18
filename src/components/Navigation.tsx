@@ -22,20 +22,11 @@ export default function Navigation() {
   };
 
   useEffect(() => {
-    let ticking = false;
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrolled = window.scrollY > 40;
-          setIsScrolled((prevScrolled) => {
-            if (prevScrolled !== scrolled) {
-              return scrolled;
-            }
-            return prevScrolled;
-          });
-          ticking = false;
-        });
-        ticking = true;
+      if (window.scrollY > 40) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -58,7 +49,7 @@ export default function Navigation() {
         id="mainNav"
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled
-            ? 'h-16 bg-neutral-950/95 border-b border-brand/20 shadow-lg shadow-black/40'
+            ? 'h-16 bg-neutral-950/85 backdrop-blur-xl border-b border-brand/20 shadow-lg shadow-black/40'
             : 'h-20 bg-transparent'
         }`}
       >
@@ -289,7 +280,7 @@ export default function Navigation() {
 
       {/* Mobile Drawer Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-neutral-950 flex flex-col justify-center transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-lg flex flex-col justify-center transition-all duration-500 lg:hidden ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
