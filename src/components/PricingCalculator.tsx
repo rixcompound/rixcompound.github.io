@@ -69,7 +69,7 @@ export default function PricingCalculator() {
                     <h4 className="font-bold text-[#F8F9FA] uppercase text-[11px]">Pit Bike Rental</h4>
                     <span className="text-[9px] text-neutral-400 block leading-none mt-0.5">Fun, responsive ride on our mini track</span>
                   </div>
-                  <span className="font-mono text-xs font-bold text-[#FF6600] whitespace-nowrap">R250 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ 30m</span></span>
+                  <span className="font-mono text-xs font-bold text-[#22C55E] whitespace-nowrap">R250 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ 30m</span></span>
                 </div>
 
                 <div className="bg-[#12161A] p-2.5 rounded border border-neutral-800 flex flex-row items-center justify-between gap-2 shadow-sm">
@@ -77,7 +77,7 @@ export default function PricingCalculator() {
                     <h4 className="font-bold text-[#F8F9FA] uppercase text-[11px]">ATV Rental</h4>
                     <span className="text-[9px] text-neutral-400 block leading-none mt-0.5">Stable and solid dirt quad bike action</span>
                   </div>
-                  <span className="font-mono text-xs font-bold text-[#FF6600] whitespace-nowrap">R300 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ 30m</span></span>
+                  <span className="font-mono text-xs font-bold text-[#22C55E] whitespace-nowrap">R300 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ 30m</span></span>
                 </div>
 
                 <div className="bg-[#12161A] p-2.5 rounded border border-neutral-800 flex flex-row items-center justify-between gap-2 shadow-sm">
@@ -85,7 +85,7 @@ export default function PricingCalculator() {
                     <h4 className="font-bold text-[#F8F9FA] uppercase text-[11px]">Bring Your Own Bike</h4>
                     <span className="text-[9px] text-neutral-400 block leading-none mt-0.5">All-day unlimited access to open lines</span>
                   </div>
-                  <span className="font-mono text-xs font-bold text-[#FF6600] whitespace-nowrap">R150 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ Day</span></span>
+                  <span className="font-mono text-xs font-bold text-[#22C55E] whitespace-nowrap">R150 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ Day</span></span>
                 </div>
               </div>
             </div>
@@ -127,8 +127,8 @@ export default function PricingCalculator() {
                     <span className="text-[9px] text-neutral-400 block leading-none mt-0.5">Perfect for quick, focused private runs</span>
                   </div>
                   <div className="flex flex-col items-end leading-none">
-                    <span className="font-mono text-xs font-bold text-[#FF6600] whitespace-nowrap">R1,500 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 5 bikes</span></span>
-                    <span className="font-mono text-[10px] font-semibold text-neutral-400 mt-1">R3,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 10 bikes</span></span>
+                    <span className="font-mono text-xs font-bold text-[#22C55E] whitespace-nowrap">R1,500 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 5 bikes</span></span>
+                    <span className="font-mono text-[10px] font-semibold text-[#22C55E] mt-1">R3,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 10 bikes</span></span>
                   </div>
                 </div>
 
@@ -138,8 +138,8 @@ export default function PricingCalculator() {
                     <span className="text-[9px] text-neutral-400 block leading-none mt-0.5">More track time for transitions & skill building</span>
                   </div>
                   <div className="flex flex-col items-end leading-none">
-                    <span className="font-mono text-xs font-bold text-[#FF6600] whitespace-nowrap">R3,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 5 bikes</span></span>
-                    <span className="font-mono text-[10px] font-semibold text-neutral-400 mt-1">R5,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 10 bikes</span></span>
+                    <span className="font-mono text-xs font-bold text-[#22C55E] whitespace-nowrap">R3,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 5 bikes</span></span>
+                    <span className="font-mono text-[10px] font-semibold text-[#22C55E] mt-1">R5,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 10 bikes</span></span>
                   </div>
                 </div>
 
@@ -149,8 +149,8 @@ export default function PricingCalculator() {
                     <span className="text-[9px] text-neutral-400 block leading-none mt-0.5">Exclusive facility use for events, parties, & teams</span>
                   </div>
                   <div className="flex flex-col items-end leading-none">
-                    <span className="font-mono text-xs font-bold text-[#FF6600] whitespace-nowrap">R8,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 5 bikes</span></span>
-                    <span className="font-mono text-[10px] font-semibold text-neutral-400 mt-1">R15,200 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 10 bikes</span></span>
+                    <span className="font-mono text-xs font-bold text-[#22C55E] whitespace-nowrap">R8,000 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 5 bikes</span></span>
+                    <span className="font-mono text-[10px] font-semibold text-[#22C55E] mt-1">R15,200 <span className="text-[8px] text-neutral-500 font-sans font-normal">/ 10 bikes</span></span>
                   </div>
                 </div>
 
@@ -325,9 +325,9 @@ export default function PricingCalculator() {
               {/* Voice Call CTA button (minimum 44px touch target) */}
               <a
                 href={phoneCallLink}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 bg-[#12161A] hover:bg-neutral-800 text-white font-mono font-bold rounded transition-all text-[10px] uppercase tracking-wider min-h-[44px] border border-neutral-800"
+                className="flex items-center justify-center gap-1.5 px-3 py-2 bg-[#22C55E] hover:bg-[#16a34a] text-black font-mono font-bold rounded transition-all text-[10px] uppercase tracking-wider min-h-[44px]"
               >
-                <Phone className="w-3.5 h-3.5 text-[#FF6600]" />
+                <Phone className="w-3.5 h-3.5 text-black" />
                 <span>Call {phoneDisplay}</span>
               </a>
 
@@ -336,7 +336,7 @@ export default function PricingCalculator() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-center gap-1.5 px-3 py-2 bg-[#FF6600] hover:bg-white text-black font-mono font-bold rounded transition-all text-[10px] uppercase tracking-wider min-h-[44px]"
+                className="flex items-center justify-center gap-1.5 px-3 py-2 bg-[#25D366] hover:bg-[#20ba5a] text-black font-mono font-bold rounded transition-all text-[10px] uppercase tracking-wider min-h-[44px]"
               >
                 <MessageSquare className="w-3.5 h-3.5 text-black fill-black" />
                 <span>Chat on WhatsApp</span>

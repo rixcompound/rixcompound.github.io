@@ -130,7 +130,7 @@ export default function AboutContact() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full flex items-center justify-center gap-1.5 px-4 py-2 bg-[#FF6600] hover:bg-white text-black font-mono font-bold rounded transition-all text-[11px] uppercase tracking-wider min-h-[44px] shadow-sm"
+                className="w-full flex items-center justify-center gap-1.5 px-4 py-2 bg-[#25D366] hover:bg-[#20ba5a] text-black font-mono font-bold rounded transition-all text-[11px] uppercase tracking-wider min-h-[44px] shadow-sm"
               >
                 <span>{phoneFormatted}</span>
                 <span className="text-[8px] font-mono px-1.5 py-0.5 bg-black/15 text-black group-hover:bg-white/20 rounded font-bold">Tap to Chat</span>
