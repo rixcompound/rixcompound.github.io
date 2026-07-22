@@ -37,11 +37,7 @@ export default function EventsGallery() {
       title: "Track Showcase Flyer",
       badge: "Featured Event"
     },
-    {
-      imgUrl: "https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW",
-      title: "Weekend Open Session Flyer",
-      badge: "Weekend Session"
-    }
+
   ];
 
   const handlePrev = (e: React.MouseEvent) => {
