@@ -45,7 +45,7 @@ export default function Navigation() {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'The Track', href: '#track' },
-    { name: 'Pricing & Packages', href: '#pricing' },
+    { name: 'Pricing & Hours', href: '#pricing' },
     { name: 'Events', href: '#events' },
     { name: 'Gallery', href: '#gallery' },
     { name: 'About', href: '#about' },
@@ -124,7 +124,7 @@ export default function Navigation() {
               onClick={triggerTurbo}
               className="ml-3 px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-[#FF6600] hover:bg-white text-black rounded transition-all duration-300 flex items-center gap-1"
             >
-              <Bike className="w-3 h-3" /> Call to Book
+              <Bike className="w-3 h-3" /> Show Up & Ride
             </a>
             <a
               href="https://www.instagram.com/rix.compound.mini.dirt.track?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
@@ -198,7 +198,7 @@ export default function Navigation() {
             }`}
             style={{ transitionDelay: `${navLinks.length * 40}ms` }}
           >
-            Call to Book
+            Show Up & Ride
           </a>
 
           {/* Expanded Instagram link in Mobile Tray */}

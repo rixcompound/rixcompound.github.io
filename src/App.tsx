@@ -54,10 +54,10 @@ export default function App() {
                     </span>
                   </div>
                   <h4 className="text-[#F8F9FA] font-display text-[11px] font-bold uppercase tracking-tight group-hover:text-[#FF6600] transition-colors">
-                    Rider Requirements
+                    Essential Guidelines
                   </h4>
                   <p className="text-neutral-400 text-[10px] mt-0.5 leading-relaxed font-sans">
-                    Prior off-road experience required. Tap to verify.
+                    Rider Requirements & Safety Rules. Tap to view.
                   </p>
                 </div>
               </div>

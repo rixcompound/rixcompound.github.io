@@ -119,10 +119,10 @@ export default function AboutContact() {
             <div className="bg-[#1F242A] border border-neutral-800 rounded p-4 sm:p-5 flex flex-col justify-between text-center items-center shadow-sm">
               <div className="flex flex-col items-center">
                 <h3 className="font-display text-xs sm:text-sm font-bold text-[#F8F9FA] uppercase italic tracking-tight mb-1 flex items-center justify-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#FF6600]" /> Live Booking Support
+                  <Phone className="w-3.5 h-3.5 text-[#25D366]" /> Contact & Enquiries
                 </h3>
                 <p className="text-neutral-400 text-[10px] leading-normal mb-3 max-w-xs font-sans">
-                  For sudden weather changes, live track queries, or customized group bookings, tap to chat directly.
+                  For weather updates, live track queries, or general questions, tap to chat directly on WhatsApp.
                 </p>
               </div>
 

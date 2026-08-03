@@ -36,11 +36,6 @@ export default function EventsGallery() {
       imgUrl: "https://lh3.googleusercontent.com/d/1T1wcEUFgq5E6Gg4_SAw0wh7dvJhpCW-K",
       title: "Track Showcase Flyer",
       badge: "Featured Event"
-    },
-    {
-      imgUrl: "https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW",
-      title: "Weekend Open Session Flyer",
-      badge: "Weekend Session"
     }
   ];
 
@@ -82,8 +77,8 @@ export default function EventsGallery() {
             </div>
           </div>
 
-          {/* Compact visual grids of the event posters side-by-side or stacked on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          {/* Compact visual grids of the event posters */}
+          <div className="grid grid-cols-1 gap-4 max-w-sm mx-auto">
             {upcomingEvents.map((event, idx) => (
               <div 
                 key={idx} 

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.5
  */
 
-import { Flame, CalendarDays, Compass } from 'lucide-react';
+import { Flame, CalendarDays, Compass, ShieldAlert, AlertTriangle } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -31,8 +31,8 @@ export default function Hero() {
               <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-300 text-[9px] font-mono tracking-wider uppercase rounded">
                 <Compass className="w-3 h-3 text-[#FF6600]" /> Stellenbosch Winelands
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-400 text-[9px] font-mono tracking-wider uppercase rounded">
-                <CalendarDays className="w-3 h-3 text-[#FF6600]" /> Sat 9am-3pm • Sun 9am-2:30pm
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-300 text-[9px] font-mono tracking-wider uppercase rounded font-bold">
+                <CalendarDays className="w-3 h-3 text-[#FF6600]" /> Fri & Sat 9:00 AM–3:00 PM • Sun 9:00 AM–2:15 PM
               </span>
             </div>
 
@@ -44,7 +44,7 @@ export default function Hero() {
                 Welcome to <span className="text-[#FF6600] italic font-extrabold">RixCompound</span>
               </h1>
               <p className="mt-2 text-xs text-neutral-400 leading-relaxed font-sans max-w-lg">
-                A private pit bike and junior MX track on Bottelary Road. Bring your own bike (R150) or rent ours for a thrilling, secure day out on the dirt. Simple as that!
+                A private pit bike and junior MX track on Bottelary Road. Bring your own bike (R150/day) or rent ours for a thrilling day on the dirt. No bookings needed — show up and pay on site!
               </p>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function Hero() {
               href="#pricing"
               className="w-full sm:w-auto text-center px-4 py-2.5 bg-[#FF6600] hover:bg-white text-black font-mono text-[10px] font-semibold uppercase tracking-wider rounded transition-all duration-300"
             >
-              Packages & Contact
+              Pricing & Hours
             </a>
             <a
               href="#track"
@@ -81,6 +81,109 @@ export default function Hero() {
             <span>📍 PROTEA FARMS, STELLENBOSCH</span>
             <span className="text-neutral-500">EST. 2024</span>
           </div>
+        </div>
+
+        {/* Essential Guidelines & Rules (Rider Requirements & Rental Info) */}
+        <div id="rental-requirements" className="lg:col-span-12 bg-[#1F242A] border border-neutral-800 rounded p-5 sm:p-6 shadow-md relative overflow-hidden scroll-mt-20">
+          <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-[#FF6600]" />
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-neutral-800 pb-3 mb-4 gap-2">
+            <div>
+              <span className="text-neutral-400 font-mono text-[9px] uppercase tracking-[0.15em] block mb-0.5">
+                Essential Guidelines & Rules
+              </span>
+              <h2 className="font-display text-base sm:text-lg font-bold text-[#F8F9FA] uppercase tracking-tight">
+                Rider Requirements & <span className="text-[#FF6600] italic font-extrabold">Rental Info</span>
+              </h2>
+            </div>
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-red-950/40 border border-red-800/60 text-red-400 font-mono text-[9px] font-bold uppercase tracking-wider rounded self-start sm:self-auto">
+              <ShieldAlert className="w-3.5 h-3.5 text-red-500" /> Safety First
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* Pit Bike Rentals (110cc) */}
+            <div className="bg-[#12161A] p-4 rounded border border-neutral-800 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-display font-bold text-xs sm:text-sm uppercase text-[#F8F9FA] tracking-wide flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#FF6600]" /> Pit Bike Rentals (110cc)
+                  </h3>
+                  <span className="px-1.5 py-0.5 bg-red-950/60 border border-red-900/60 text-red-400 text-[8px] font-mono font-bold uppercase rounded">
+                    Experience Required
+                  </span>
+                </div>
+
+                <div className="bg-red-950/20 border border-red-900/40 p-2.5 rounded mb-3">
+                  <p className="text-[#F8F9FA] text-[11px] font-semibold leading-relaxed font-sans">
+                    Prior dirt bike riding experience is mandatory. Beginners are strictly NOT permitted on rental pit bikes (no lessons offered).
+                  </p>
+                </div>
+
+                <ul className="space-y-1.5 text-[11px] text-neutral-300 font-sans">
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#FF6600] font-bold">•</span>
+                    <span><strong className="text-white">110cc semi-automatic pit bike</strong></span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#FF6600] font-bold">•</span>
+                    <span><strong>Age 14+ years old</strong></span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#FF6600] font-bold">•</span>
+                    <span><strong>Max weight:</strong> 100 kg</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Quad Bike Rentals (80cc) */}
+            <div className="bg-[#12161A] p-4 rounded border border-neutral-800 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-display font-bold text-xs sm:text-sm uppercase text-[#F8F9FA] tracking-wide flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#22C55E]" /> Quad Bike Rentals (80cc)
+                  </h3>
+                  <span className="px-1.5 py-0.5 bg-green-950/60 border border-green-900/60 text-[#22C55E] text-[8px] font-mono font-bold uppercase rounded">
+                    Beginners Welcome
+                  </span>
+                </div>
+
+                <div className="bg-green-950/20 border border-green-900/40 p-2.5 rounded mb-3">
+                  <p className="text-[#F8F9FA] text-[11px] font-semibold leading-relaxed font-sans">
+                    Beginners ARE permitted on rental quad bikes! 80cc quad bike riding for beginners and experienced riders alike.
+                  </p>
+                </div>
+
+                <ul className="space-y-1.5 text-[11px] text-neutral-300 font-sans">
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#22C55E] font-bold">•</span>
+                    <span><strong className="text-white">80cc quad bike.</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#22C55E] font-bold mt-0.5">•</span>
+                    <span>Kids under 14 with no experience may ride as passenger with a guardian (prior approval required).</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Rules & Damage Responsibility */}
+          <div className="mt-4 bg-[#12161A] p-4 rounded border border-neutral-800">
+            <h3 className="font-display font-bold text-xs sm:text-sm uppercase text-[#F8F9FA] tracking-wide mb-2 flex items-center gap-1.5">
+              <AlertTriangle className="w-4 h-4 text-[#FF6600]" /> Rules & Damage Responsibility
+            </h3>
+            <p className="text-neutral-300 text-[11px] leading-relaxed font-sans mb-2">
+              One rider per vehicle (sharing strictly prohibited). If a rider falls twice or rides recklessly, the ride will be terminated immediately without refund.
+            </p>
+            <p className="text-[#F8F9FA] text-[11px] font-semibold leading-relaxed font-sans border-t border-neutral-800 pt-2">
+              Riders are fully responsible for any loss or damage to bikes, ATVs, or equipment.
+            </p>
+          </div>
+
         </div>
 
       </div>
