@@ -64,7 +64,7 @@ export default function PricingCalculator() {
                 <div className="bg-[#12161A] p-3 rounded border border-neutral-800 flex flex-row items-center justify-between gap-2 shadow-sm">
                   <div>
                     <h4 className="font-bold text-[#F8F9FA] uppercase text-[12px]">Pit Bike Rental</h4>
-                    <span className="text-[10px] text-neutral-400 block leading-tight mt-0.5">110cc semi-automatic pit bike</span>
+                    <span className="text-[10px] text-neutral-400 block leading-tight mt-0.5">110cc semi-automatic pit bike • Max weight: 100 kg</span>
                   </div>
                   <span className="font-mono text-sm font-bold text-[#22C55E] whitespace-nowrap">R250 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ 30m</span></span>
                 </div>
@@ -72,7 +72,7 @@ export default function PricingCalculator() {
                 <div className="bg-[#12161A] p-3 rounded border border-neutral-800 flex flex-row items-center justify-between gap-2 shadow-sm">
                   <div>
                     <h4 className="font-bold text-[#F8F9FA] uppercase text-[12px]">ATV Quad Rental</h4>
-                    <span className="text-[10px] text-neutral-400 block leading-tight mt-0.5">80cc quad bike.</span>
+                    <span className="text-[10px] text-neutral-400 block leading-tight mt-0.5">80cc quad bike • Max weight: 80 kg</span>
                   </div>
                   <span className="font-mono text-sm font-bold text-[#22C55E] whitespace-nowrap">R300 <span className="text-[9px] text-neutral-500 font-sans font-normal">/ 30m</span></span>
                 </div>

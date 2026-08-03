@@ -161,6 +161,10 @@ export default function Hero() {
                     <span className="text-[#22C55E] font-bold">•</span>
                     <span><strong className="text-white">80cc quad bike.</strong></span>
                   </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#22C55E] font-bold">•</span>
+                    <span><strong>Max weight:</strong> 80 kg</span>
+                  </li>
                   <li className="flex items-start gap-2">
                     <span className="text-[#22C55E] font-bold mt-0.5">•</span>
                     <span>Kids under 14 with no experience may ride as passenger with a guardian (prior approval required).</span>
