@@ -48,6 +48,7 @@ export default function Navigation() {
     { name: 'Pricing & Hours', href: '#pricing' },
     { name: 'Events', href: '#events' },
     { name: 'Gallery', href: '#gallery' },
+    { name: 'T&C', href: '#terms' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#contact' },
   ];

@@ -159,6 +159,21 @@ export default function AboutContact() {
             </p>
           </div>
 
+          {/* Quick Footer Links */}
+          <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
+            <a href="#home" className="hover:text-[#FF6600] transition-colors">Home</a>
+            <span>•</span>
+            <a href="#track" className="hover:text-[#FF6600] transition-colors">The Track</a>
+            <span>•</span>
+            <a href="#pricing" className="hover:text-[#FF6600] transition-colors">Pricing & Hours</a>
+            <span>•</span>
+            <a href="#events" className="hover:text-[#FF6600] transition-colors">Events</a>
+            <span>•</span>
+            <a href="#terms" className="text-[#FF6600] hover:underline font-bold">Terms & Conditions</a>
+            <span>•</span>
+            <a href="#contact" className="hover:text-[#FF6600] transition-colors">Contact</a>
+          </div>
+
           <div className="w-6 h-px bg-neutral-800 mx-auto" />
 
           {/* Copyright description */}

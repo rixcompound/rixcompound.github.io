@@ -9,6 +9,7 @@ import Hero from './components/Hero';
 import Track from './components/Track';
 import PricingCalculator from './components/PricingCalculator';
 import EventsGallery from './components/EventsGallery';
+import TermsConditions from './components/TermsConditions';
 import AboutContact from './components/AboutContact';
 import { ShieldAlert, X } from 'lucide-react';
 
@@ -82,6 +83,7 @@ export default function App() {
           <Track />
           <PricingCalculator />
           <EventsGallery />
+          <TermsConditions />
           <AboutContact />
         </main>
       </div>

@@ -124,6 +124,11 @@ export default function PricingCalculator() {
               <p className="text-neutral-400 text-[11px] leading-relaxed mt-1 font-sans">
                 Rix Compound operates strictly on a first-come, first-served basis. No advance bookings are needed or taken. Simply show up during open hours, pay on site, and enjoy your 30-minute riding sessions!
               </p>
+              <div className="mt-2">
+                <a href="#terms" className="text-[10px] font-mono text-[#FF6600] hover:underline font-semibold inline-flex items-center gap-1">
+                  View Track Terms & Conditions →
+                </a>
+              </div>
             </div>
             <div className="flex-shrink-0 bg-[#12161A] border border-neutral-800 rounded p-3 text-left sm:text-right min-w-[140px] shadow-sm">
               <span className="text-[8px] text-neutral-500 font-mono block uppercase tracking-wider">ENTRY FORMAT</span>
