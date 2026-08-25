@@ -115,7 +115,7 @@ export default function AboutContact() {
           
           <div className="max-w-md mx-auto">
             
-            {/* Live Booking Support */}
+            {/* Contact & Enquiries */}
             <div className="bg-[#1F242A] border border-neutral-800 rounded p-4 sm:p-5 flex flex-col justify-between text-center items-center shadow-sm">
               <div className="flex flex-col items-center">
                 <h3 className="font-display text-xs sm:text-sm font-bold text-[#F8F9FA] uppercase italic tracking-tight mb-1 flex items-center justify-center gap-1.5">
