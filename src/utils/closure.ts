@@ -69,9 +69,7 @@ export async function fetchRemoteClosureConfig(): Promise<TrackClosureConfig | n
 
 export function isClosureActive(config: TrackClosureConfig): boolean {
   if (!config.isClosed) return false;
-  const hasDates = Boolean(config.startDate && config.startDate.trim().length > 0);
-  const hasCustomText = Boolean(config.customText && config.customText.trim().length > 0);
-  return hasDates || hasCustomText;
+  return true;
 }
 
 export function getClosureBannerText(config: TrackClosureConfig): string {
@@ -84,7 +82,7 @@ export function getClosureBannerText(config: TrackClosureConfig): string {
   }
 
   if (!config.startDate) {
-    return 'Closed';
+    return 'Track Temporarily Closed';
   }
 
   try {

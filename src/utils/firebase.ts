@@ -8,6 +8,7 @@ import {
   getFirestore, 
   doc, 
   setDoc, 
+  getDoc,
   onSnapshot, 
   getDocFromServer 
 } from 'firebase/firestore';
@@ -15,20 +16,21 @@ import { TrackClosureConfig } from '../types';
 import { DEFAULT_CLOSURE_CONFIG } from './closure';
 import configData from '../../firebase-applet-config.json';
 
+// Ensure exact production-ready credentials are always available
 export const firebaseConfig = {
-  projectId: configData.projectId,
-  appId: configData.appId,
-  apiKey: configData.apiKey,
-  authDomain: configData.authDomain,
-  firestoreDatabaseId: configData.firestoreDatabaseId || undefined,
-  storageBucket: configData.storageBucket,
-  messagingSenderId: configData.messagingSenderId,
+  projectId: configData?.projectId || 'gen-lang-client-0120765724',
+  appId: configData?.appId || '1:575775759368:web:273c0704f585a51b1bc5bd',
+  apiKey: configData?.apiKey || 'AIzaSyDlAaDvww--DMOnP1DkMAZXtIN8DY2CjT8',
+  authDomain: configData?.authDomain || 'gen-lang-client-0120765724.firebaseapp.com',
+  firestoreDatabaseId: configData?.firestoreDatabaseId || 'ai-studio-rixcompound-1e8aa6f1-9a3e-4762-a271-4a9890c8f143',
+  storageBucket: configData?.storageBucket || 'gen-lang-client-0120765724.firebasestorage.app',
+  messagingSenderId: configData?.messagingSenderId || '575775759368',
 };
 
 // Initialize Firebase App
 export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Initialize Firestore (utilizing custom provisioned database ID if present)
+// Initialize Firestore (utilizing custom provisioned database ID)
 export const db = firebaseConfig.firestoreDatabaseId
   ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
   : getFirestore(app);
@@ -52,6 +54,28 @@ export async function testFirebaseConnection(): Promise<boolean> {
     }
     return false;
   }
+}
+
+/**
+ * Directly queries the current closure configuration from Firestore.
+ * Used on page mount for instant retrieval.
+ */
+export async function getClosureConfigFromFirebase(): Promise<TrackClosureConfig | null> {
+  try {
+    const docRef = doc(db, CLOSURE_DOC_PATH.collection, CLOSURE_DOC_PATH.doc);
+    const snapshot = await getDoc(docRef);
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+      return {
+        ...DEFAULT_CLOSURE_CONFIG,
+        ...data,
+        isClosed: Boolean(data.isClosed),
+      };
+    }
+  } catch (err) {
+    console.warn('Could not fetch closure configuration from Firestore:', err);
+  }
+  return null;
 }
 
 /**

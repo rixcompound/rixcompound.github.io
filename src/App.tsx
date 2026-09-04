@@ -14,8 +14,8 @@ import AboutContact from './components/AboutContact';
 import AdminClosureMenu from './components/AdminClosureMenu';
 import { ShieldAlert, X } from 'lucide-react';
 import { TrackClosureConfig } from './types';
-import { loadClosureConfig, saveClosureConfig, isClosureActive, fetchRemoteClosureConfig } from './utils/closure';
-import { subscribeToClosureConfig, testFirebaseConnection } from './utils/firebase';
+import { loadClosureConfig, saveClosureConfig, isClosureActive } from './utils/closure';
+import { subscribeToClosureConfig, testFirebaseConnection, getClosureConfigFromFirebase } from './utils/firebase';
 
 export default function App() {
   const [showNotification, setShowNotification] = useState(true);
@@ -23,21 +23,23 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
   // Real-time synchronization with Firebase Cloud Firestore
-  // When you update the closure dates on your phone, all visitors worldwide
-  // see the updated banner instantly in real time without refreshing.
+  // When you update the closure dates on your phone, every phone and laptop
+  // across the globe sees the updated banner instantly in real time.
   useEffect(() => {
     testFirebaseConnection();
 
+    // 1. Immediate fetch from Firestore
+    getClosureConfigFromFirebase().then((remoteConfig) => {
+      if (remoteConfig) {
+        setClosureConfig(remoteConfig);
+        saveClosureConfig(remoteConfig);
+      }
+    });
+
+    // 2. Real-time live listener (updates all devices worldwide within ~1 second)
     const unsubscribe = subscribeToClosureConfig((remoteConfig) => {
       setClosureConfig(remoteConfig);
       saveClosureConfig(remoteConfig);
-    });
-
-    // Fallback static check if offline or initial load
-    fetchRemoteClosureConfig().then((staticConfig) => {
-      if (staticConfig) {
-        setClosureConfig((prev) => (prev.lastUpdated ? prev : staticConfig));
-      }
     });
 
     return () => unsubscribe();
