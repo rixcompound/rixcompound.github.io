@@ -3,10 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, Bike } from 'lucide-react';
+import { TrackClosureConfig } from '../types';
+import TopClosureBanner from './TopClosureBanner';
 
-export default function Navigation() {
+interface NavigationProps {
+  closureConfig?: TrackClosureConfig;
+}
+
+export default function Navigation({ closureConfig }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -67,15 +73,17 @@ export default function Navigation() {
         </defs>
       </svg>
 
-      <nav
-        id="mainNav"
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 ${
-          isScrolled
-            ? 'h-12 bg-[#12161A]/95 backdrop-blur-md border-b border-neutral-800/70 shadow-lg shadow-neutral-950/20'
-            : 'h-14 bg-[#12161A]/90 border-b border-neutral-800/40'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <header className="fixed top-0 left-0 w-full z-50">
+        {closureConfig && <TopClosureBanner config={closureConfig} />}
+        <nav
+          id="mainNav"
+          className={`w-full transition-all duration-350 ${
+            isScrolled
+              ? 'h-12 bg-[#12161A]/95 backdrop-blur-md border-b border-neutral-800/70 shadow-lg shadow-neutral-950/20'
+              : 'h-14 bg-[#12161A]/90 border-b border-neutral-800/40'
+          }`}
+        >
+          <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Brand Logo & Monogram Container */}
           <a href="#home" onClick={triggerTurbo} className="flex items-center gap-2.5 group z-10 scale-90 sm:scale-100 origin-left">
@@ -164,6 +172,7 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
+      </header>
 
       {/* Mobile Drawer Overlay */}
       <div

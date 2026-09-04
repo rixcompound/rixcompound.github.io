@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Track from './components/Track';
@@ -11,10 +11,39 @@ import PricingCalculator from './components/PricingCalculator';
 import EventsGallery from './components/EventsGallery';
 import TermsConditions from './components/TermsConditions';
 import AboutContact from './components/AboutContact';
+import AdminClosureMenu from './components/AdminClosureMenu';
 import { ShieldAlert, X } from 'lucide-react';
+import { TrackClosureConfig } from './types';
+import { loadClosureConfig, saveClosureConfig, isClosureActive, fetchRemoteClosureConfig } from './utils/closure';
 
 export default function App() {
   const [showNotification, setShowNotification] = useState(true);
+  const [closureConfig, setClosureConfig] = useState<TrackClosureConfig>(loadClosureConfig);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+
+  // When hosted on GitHub Pages or custom domain, fetch public/closure.json
+  // so any updates published to GitHub are automatically seen by all visitors worldwide.
+  useEffect(() => {
+    fetchRemoteClosureConfig().then((remoteConfig) => {
+      if (remoteConfig) {
+        setClosureConfig(remoteConfig);
+      }
+    });
+  }, []);
+
+  const hasClosure = isClosureActive(closureConfig);
+
+  const handleOpenAdmin = () => {
+    setIsAdminOpen(true);
+    setTimeout(() => {
+      document.getElementById('admin-closure-menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  };
+
+  const handleSaveClosure = (newConfig: TrackClosureConfig) => {
+    saveClosureConfig(newConfig);
+    setClosureConfig(newConfig);
+  };
 
   return (
     <div className="min-h-screen bg-[#12161A] text-[#F8F9FA] relative overflow-x-hidden">
@@ -24,8 +53,8 @@ export default function App() {
         id="appRoot" 
         className="min-h-screen bg-[#12161A] text-[#F8F9FA] flex flex-col relative font-sans antialiased selection:bg-[#FF6600] selection:text-[#12161A] animate-fade-in"
       >
-        {/* Navigation Menu */}
-        <Navigation />
+        {/* Navigation Menu with optional top closure block */}
+        <Navigation closureConfig={closureConfig} />
 
         {/* Floating Notification Bubble for Rental Requirements */}
         {showNotification && (
@@ -79,12 +108,20 @@ export default function App() {
 
         {/* Main Sections */}
         <main className="flex-1 w-full flex flex-col">
-          <Hero />
+          <Hero hasClosure={hasClosure} />
           <Track />
           <PricingCalculator />
           <EventsGallery />
           <TermsConditions />
-          <AboutContact />
+          <AboutContact 
+            onUnlockAdmin={handleOpenAdmin} 
+          />
+          <AdminClosureMenu 
+            isOpen={isAdminOpen} 
+            onClose={() => setIsAdminOpen(false)} 
+            config={closureConfig} 
+            onSave={handleSaveClosure} 
+          />
         </main>
       </div>
     </div>

@@ -5,11 +5,15 @@
 
 import { Flame, CalendarDays, Compass, ShieldAlert, AlertTriangle } from 'lucide-react';
 
-export default function Hero() {
+interface HeroProps {
+  hasClosure?: boolean;
+}
+
+export default function Hero({ hasClosure }: HeroProps) {
   return (
     <section 
       id="home" 
-      className="relative pt-20 pb-10 sm:pt-24 sm:pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#12161A]"
+      className={`relative ${hasClosure ? 'pt-28 sm:pt-32' : 'pt-20 sm:pt-24'} pb-10 sm:pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#12161A] transition-all duration-300`}
     >
       {/* Precision hairline grid lines */}
       <div className="absolute inset-0 opacity-15 pointer-events-none">

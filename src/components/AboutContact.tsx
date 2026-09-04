@@ -3,18 +3,40 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState, useRef } from 'react';
 import { 
   MapPin, 
   Phone, 
   ShieldAlert, 
-  Bike
+  Bike,
+  ShieldCheck
 } from 'lucide-react';
 
-export default function AboutContact() {
+interface AboutContactProps {
+  onUnlockAdmin?: () => void;
+}
+
+export default function AboutContact({ onUnlockAdmin }: AboutContactProps) {
   const socialInstagramHandle = "rix.compound.mini.dirt.track";
   const emailAddress = "rixcompound@gmail.com";
   const phoneFormatted = "0768299919";
   const whatsappLink = "https://wa.me/27768299919";
+
+  const clickTimestampsRef = useRef<number[]>([]);
+
+  const handleRixCompoundClick = () => {
+    const now = Date.now();
+    // Sliding 4 second window
+    const validClicks = [...clickTimestampsRef.current, now].filter(t => now - t <= 4000);
+    clickTimestampsRef.current = validClicks;
+
+    if (validClicks.length >= 10) {
+      clickTimestampsRef.current = [];
+      if (onUnlockAdmin) {
+        onUnlockAdmin();
+      }
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -148,13 +170,17 @@ export default function AboutContact() {
           
           {/* Logo & Trademark */}
           <div className="flex flex-col items-center gap-1">
-            <div className="flex items-center gap-1.5">
+            <div
+              onClick={handleRixCompoundClick}
+              style={{ touchAction: 'manipulation' }}
+              className="flex items-center gap-1.5 select-none cursor-default"
+            >
               <Bike className="w-3.5 h-3.5 text-[#FF6600]" />
               <h4 className="font-display font-black text-[#F8F9FA] uppercase tracking-wider italic text-xs">
                 RIX<span className="text-[#FF6600]">COMPOUND</span>
               </h4>
             </div>
-            <p className="text-[8px] text-neutral-400 uppercase tracking-[0.15em] font-mono">
+            <p className="text-[8px] text-neutral-400 uppercase tracking-[0.15em] font-mono select-none">
               Ride • Race • Repeat
             </p>
           </div>
@@ -177,8 +203,14 @@ export default function AboutContact() {
           <div className="w-6 h-px bg-neutral-800 mx-auto" />
 
           {/* Copyright description */}
-          <div className="space-y-0.5 text-[9px] text-neutral-400 font-sans leading-normal">
-            <p>© 2026 Rix Compound. All rights reserved.</p>
+          <div className="space-y-0.5 text-[9px] text-neutral-400 font-sans leading-normal select-none">
+            <p 
+              onClick={handleRixCompoundClick}
+              style={{ touchAction: 'manipulation' }}
+              className="cursor-default"
+            >
+              © 2026 Rix Compound. All rights reserved.
+            </p>
             <p>Made for motorsport enthusiasts in Stellenbosch, Western Cape, South Africa.</p>
           </div>
 

@@ -28,3 +28,12 @@ export interface BookingFormState {
   date: string;
   time: string;
 }
+
+export interface TrackClosureConfig {
+  isClosed: boolean;
+  startDate: string;
+  endDate: string;
+  customText: string;
+  reason?: string;
+  lastUpdated?: string;
+}
