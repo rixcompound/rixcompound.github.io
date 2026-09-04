@@ -5,7 +5,6 @@
 
 import { useState, useEffect } from 'react';
 import { 
-  CalendarX, 
   CheckCircle2, 
   X, 
   Trash2, 
@@ -15,20 +14,19 @@ import {
   Save, 
   CalendarDays,
   AlertCircle,
-  Download,
-  Copy,
-  Check,
-  GitBranch,
-  UploadCloud
+  Cloud,
+  Loader2,
+  Smartphone,
+  Check
 } from 'lucide-react';
 import { TrackClosureConfig } from '../types';
 import { 
   isClosureActive, 
-  getClosureBannerText, 
-  downloadClosureJson, 
-  pushClosureToGitHub,
-  STORAGE_KEY_GH_SETTINGS
+  getClosureBannerText
 } from '../utils/closure';
+import { 
+  saveClosureConfigToFirebase 
+} from '../utils/firebase';
 
 interface AdminClosureMenuProps {
   isOpen: boolean;
@@ -48,29 +46,11 @@ export default function AdminClosureMenu({
   const [customText, setCustomText] = useState(config.customText || '');
   const [reason, setReason] = useState(config.reason || '');
   const [isClosed, setIsClosed] = useState(config.isClosed);
-  const [savedMessage, setSavedMessage] = useState<string | null>(null);
-
-  // GitHub integration state
-  const [copied, setCopied] = useState(false);
-  const [showGithubSync, setShowGithubSync] = useState(false);
-  const [ghRepo, setGhRepo] = useState('');
-  const [ghToken, setGhToken] = useState('');
-  const [ghPushing, setGhPushing] = useState(false);
-  const [ghStatus, setGhStatus] = useState<{ success?: boolean; message?: string } | null>(null);
-
-  // Load stored GitHub credentials on admin open
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY_GH_SETTINGS);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (parsed.repo) setGhRepo(parsed.repo);
-        if (parsed.token) setGhToken(parsed.token);
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
+  const [isSaving, setIsSaving] = useState(false);
+  const [statusFeedback, setStatusFeedback] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   // Sync state when config changes or when opened
   useEffect(() => {
@@ -80,8 +60,7 @@ export default function AdminClosureMenu({
       setCustomText(config.customText || '');
       setReason(config.reason || '');
       setIsClosed(config.isClosed);
-      setSavedMessage(null);
-      setGhStatus(null);
+      setStatusFeedback(null);
     }
   }, [isOpen, config]);
 
@@ -121,7 +100,7 @@ export default function AdminClosureMenu({
       setIsClosed(true);
     } else if (preset === 'weekend') {
       const fri = new Date(today);
-      const dayOfWeek = today.getDay(); // 0 is Sun, 5 is Fri, 6 is Sat
+      const dayOfWeek = today.getDay();
       const diffToFri = (5 - dayOfWeek + 7) % 7;
       fri.setDate(today.getDate() + diffToFri);
 
@@ -160,22 +139,42 @@ export default function AdminClosureMenu({
     };
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const hasAnyContent = Boolean(startDate.trim() || customText.trim());
     const finalClosed = hasAnyContent ? isClosed : false;
 
     const newConfig = constructCurrentConfig(finalClosed);
+
+    setIsSaving(true);
+    setStatusFeedback(null);
+
+    // 1. Immediately update local state
     onSave(newConfig);
 
-    setSavedMessage(
-      finalClosed
-        ? '✓ Track closure saved and published to homepage!'
-        : '✓ Track marked as open. Closure banner removed from homepage.'
-    );
-    setTimeout(() => setSavedMessage(null), 4000);
+    // 2. Persist directly to Firebase Firestore
+    const result = await saveClosureConfigToFirebase(newConfig);
+    setIsSaving(false);
+
+    if (result.success) {
+      setStatusFeedback({
+        type: 'success',
+        message: finalClosed
+          ? '✓ Track closure successfully saved to Firebase Cloud! The alert banner is now live for all visitors worldwide.'
+          : '✓ Track marked as open in Firebase Cloud! Closure banner removed for all visitors.',
+      });
+    } else {
+      setStatusFeedback({
+        type: 'error',
+        message: result.message || 'Error saving to Firebase cloud database.',
+      });
+    }
+
+    setTimeout(() => {
+      setStatusFeedback(null);
+    }, 6000);
   };
 
-  const handleClear = () => {
+  const handleClear = async () => {
     setStartDate('');
     setEndDate('');
     setCustomText('');
@@ -191,58 +190,31 @@ export default function AdminClosureMenu({
       lastUpdated: new Date().toISOString(),
     };
 
+    setIsSaving(true);
+    setStatusFeedback(null);
+
+    // 1. Update local state
     onSave(clearedConfig);
-    setSavedMessage('✓ All closed dates cleared! Top block removed from homepage.');
-    setTimeout(() => setSavedMessage(null), 4000);
-  };
 
-  const handleDownload = () => {
-    const currentCfg = constructCurrentConfig();
-    downloadClosureJson(currentCfg);
-  };
+    // 2. Clear in Firebase
+    const result = await saveClosureConfigToFirebase(clearedConfig);
+    setIsSaving(false);
 
-  const handleCopyJson = async () => {
-    const currentCfg = constructCurrentConfig();
-    try {
-      await navigator.clipboard.writeText(JSON.stringify(currentCfg, null, 2));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    } catch {
-      // fallback
-    }
-  };
-
-  const handlePushToGithub = async () => {
-    if (!ghRepo.trim() || !ghToken.trim()) {
-      setGhStatus({ 
-        success: false, 
-        message: 'Please provide both your GitHub Repository (e.g. your-username/repo) and a Personal Access Token.' 
+    if (result.success) {
+      setStatusFeedback({
+        type: 'success',
+        message: '✓ All closed dates cleared in Firebase! Top alert block removed from the website.',
       });
-      return;
+    } else {
+      setStatusFeedback({
+        type: 'error',
+        message: result.message || 'Error updating Firebase cloud database.',
+      });
     }
 
-    setGhPushing(true);
-    setGhStatus(null);
-
-    const currentCfg = constructCurrentConfig();
-
-    // Persist repo & token locally for convenience
-    try {
-      localStorage.setItem(STORAGE_KEY_GH_SETTINGS, JSON.stringify({
-        repo: ghRepo.trim(),
-        token: ghToken.trim(),
-      }));
-    } catch {
-      // ignore
-    }
-
-    // Save locally first
-    onSave(currentCfg);
-
-    // Call GitHub API
-    const result = await pushClosureToGitHub(ghRepo, ghToken, currentCfg);
-    setGhPushing(false);
-    setGhStatus(result);
+    setTimeout(() => {
+      setStatusFeedback(null);
+    }, 6000);
   };
 
   return (
@@ -255,16 +227,23 @@ export default function AdminClosureMenu({
         {/* Header Bar */}
         <div className="flex items-start justify-between border-b border-neutral-800 pb-4">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#FF6600]/10 border border-[#FF6600]/30 text-[#FF6600] text-[9px] font-mono font-bold uppercase tracking-wider rounded">
                 <ShieldCheck className="w-3 h-3" /> Admin Portal
               </span>
+
+              {/* Live Firebase Cloud sync status badge */}
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#22C55E] text-[9px] font-mono font-bold uppercase tracking-wider rounded">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
+                <Cloud className="w-3 h-3" /> Firebase Cloud Synced
+              </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-display font-black uppercase tracking-tight text-[#F8F9FA] mt-1 flex items-center gap-2">
+
+            <h2 className="text-xl sm:text-2xl font-display font-black uppercase tracking-tight text-[#F8F9FA] mt-1.5 flex items-center gap-2">
               Track Closure <span className="text-[#FF6600] italic">Manager</span>
             </h2>
             <p className="text-neutral-400 text-xs mt-0.5 font-sans">
-              Choose which dates the track is closed. When no dates are closed, the top banner is hidden from the website.
+              Change track closed dates directly from your phone. When no dates are closed, the top banner is hidden from the website.
             </p>
           </div>
 
@@ -279,11 +258,19 @@ export default function AdminClosureMenu({
         </div>
 
         {/* Feedback alert */}
-        {savedMessage && (
-          <div className="p-3 bg-[#22C55E]/15 border border-[#22C55E]/40 rounded text-[#22C55E] text-xs font-mono flex items-center justify-between animate-fadeIn">
+        {statusFeedback && (
+          <div className={`p-3 rounded text-xs font-mono flex items-center justify-between animate-fadeIn ${
+            statusFeedback.type === 'success'
+              ? 'bg-[#22C55E]/15 border border-[#22C55E]/40 text-[#22C55E]'
+              : 'bg-red-500/15 border border-red-500/40 text-red-400'
+          }`}>
             <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-              {savedMessage}
+              {statusFeedback.type === 'success' ? (
+                <CheckCircle2 className="w-4 h-4 text-[#22C55E] flex-shrink-0" />
+              ) : (
+                <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+              )}
+              {statusFeedback.message}
             </span>
           </div>
         )}
@@ -293,17 +280,17 @@ export default function AdminClosureMenu({
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
               <Eye className="w-3.5 h-3.5 text-[#FF6600]" />
-              Live Homepage Preview:
+              Live Website Preview:
             </span>
             <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
               previewActive ? 'bg-[#EF4444]/20 text-[#EF4444] border border-[#EF4444]/30' : 'bg-neutral-800 text-neutral-400'
             }`}>
-              {previewActive ? 'Banner Active' : 'Banner Hidden (Track Open)'}
+              {previewActive ? 'Banner Active (Visible)' : 'Banner Hidden (Track Open)'}
             </span>
           </div>
 
           {previewActive ? (
-            <div className="bg-[#B91C1C] border border-[#DC2626] text-white px-4 py-2 rounded flex items-center justify-between text-xs font-mono shadow-inner animate-pulse">
+            <div className="bg-[#B91C1C] border border-[#DC2626] text-white px-4 py-2.5 rounded flex items-center justify-between text-xs font-mono shadow-inner">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                 <span className="font-bold tracking-wide uppercase">{previewText}</span>
@@ -345,7 +332,7 @@ export default function AdminClosureMenu({
                       }
                       setIsClosed(true);
                     }}
-                    className="w-full bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
+                    className="w-full min-h-[42px] bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
                   />
                 </div>
 
@@ -359,7 +346,7 @@ export default function AdminClosureMenu({
                       setEndDate(e.target.value);
                       setIsClosed(true);
                     }}
-                    className="w-full bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
+                    className="w-full min-h-[42px] bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -374,23 +361,23 @@ export default function AdminClosureMenu({
                 <button
                   type="button"
                   onClick={() => setQuickPreset('tomorrow')}
-                  className="px-2.5 py-1 bg-[#1F242A] hover:bg-neutral-700 text-neutral-300 rounded text-[10px] font-mono border border-neutral-700 transition-colors flex items-center gap-1"
+                  className="min-h-[36px] px-3 py-1.5 bg-[#1F242A] hover:bg-neutral-700 active:scale-95 text-neutral-300 rounded text-xs font-mono border border-neutral-700 transition-colors flex items-center gap-1.5"
                 >
-                  <Sparkles className="w-2.5 h-2.5 text-[#FF6600]" /> Tomorrow
+                  <Sparkles className="w-3 h-3 text-[#FF6600]" /> Tomorrow
                 </button>
                 <button
                   type="button"
                   onClick={() => setQuickPreset('weekend')}
-                  className="px-2.5 py-1 bg-[#1F242A] hover:bg-neutral-700 text-neutral-300 rounded text-[10px] font-mono border border-neutral-700 transition-colors flex items-center gap-1"
+                  className="min-h-[36px] px-3 py-1.5 bg-[#1F242A] hover:bg-neutral-700 active:scale-95 text-neutral-300 rounded text-xs font-mono border border-neutral-700 transition-colors flex items-center gap-1.5"
                 >
-                  <Sparkles className="w-2.5 h-2.5 text-[#FF6600]" /> This Weekend
+                  <Sparkles className="w-3 h-3 text-[#FF6600]" /> This Weekend
                 </button>
                 <button
                   type="button"
                   onClick={() => setQuickPreset('next-weekend')}
-                  className="px-2.5 py-1 bg-[#1F242A] hover:bg-neutral-700 text-neutral-300 rounded text-[10px] font-mono border border-neutral-700 transition-colors flex items-center gap-1"
+                  className="min-h-[36px] px-3 py-1.5 bg-[#1F242A] hover:bg-neutral-700 active:scale-95 text-neutral-300 rounded text-xs font-mono border border-neutral-700 transition-colors flex items-center gap-1.5"
                 >
-                  <Sparkles className="w-2.5 h-2.5 text-[#FF6600]" /> Next Weekend
+                  <Sparkles className="w-3 h-3 text-[#FF6600]" /> Next Weekend
                 </button>
               </div>
             </div>
@@ -401,7 +388,7 @@ export default function AdminClosureMenu({
               <button
                 type="button"
                 onClick={() => setIsClosed(!isClosed)}
-                className={`px-3 py-1 rounded text-xs font-mono uppercase tracking-wider transition-colors font-bold ${
+                className={`min-h-[36px] px-3.5 py-1.5 rounded text-xs font-mono uppercase tracking-wider transition-colors font-bold ${
                   isClosed
                     ? 'bg-[#EF4444] text-white'
                     : 'bg-[#22C55E]/20 text-[#22C55E] border border-[#22C55E]/40'
@@ -426,7 +413,7 @@ export default function AdminClosureMenu({
                   setCustomText(e.target.value);
                   setIsClosed(true);
                 }}
-                className="w-full bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
+                className="w-full min-h-[42px] bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
               />
               <span className="text-[10px] text-neutral-500 font-sans mt-1 block">
                 Leave blank to automatically format from the chosen dates above.
@@ -442,130 +429,18 @@ export default function AdminClosureMenu({
                 placeholder="e.g. Track Maintenance, Heavy Rain, etc."
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                className="w-full bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
+                className="w-full min-h-[42px] bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-2 text-xs font-mono text-[#F8F9FA] outline-none transition-colors"
               />
             </div>
 
-            <div className="p-2.5 bg-[#1F242A] rounded border border-neutral-800 flex items-start gap-2 text-[10px] text-neutral-400 font-sans">
-              <AlertCircle className="w-3.5 h-3.5 text-[#FF6600] flex-shrink-0 mt-0.5" />
+            <div className="p-3 bg-[#1F242A] rounded border border-neutral-800 flex items-start gap-2.5 text-xs text-neutral-400 font-sans leading-relaxed">
+              <Smartphone className="w-4 h-4 text-[#FF6600] flex-shrink-0 mt-0.5" />
               <span>
-                To remove the top block from the homepage completely, click <strong>&quot;Clear Dates &amp; Open Track&quot;</strong> below.
+                <strong>Mobile Phone Friendly:</strong> Changes you save here sync directly to Firebase Cloud. Every visitor opening your site on any phone or laptop immediately sees the updated status.
               </span>
             </div>
           </div>
 
-        </div>
-
-        {/* GitHub Hosting Sync Section */}
-        <div className="bg-[#171B20] border border-neutral-800 rounded-lg p-5 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-800 pb-3">
-            <div>
-              <h3 className="text-xs font-mono uppercase tracking-wider text-[#F8F9FA] font-bold flex items-center gap-1.5">
-                <GitBranch className="w-3.5 h-3.5 text-[#FF6600]" />
-                GitHub Hosting Compatibility
-              </h3>
-              <p className="text-[11px] text-neutral-400 font-sans mt-0.5">
-                When hosted on GitHub Pages, the site loads closure data from <code className="text-[#FF6600] font-mono text-[10px]">public/closure.json</code>.
-              </p>
-            </div>
-
-            {/* Quick action buttons: Download or Copy JSON */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleCopyJson}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-[#1F242A] hover:bg-neutral-700 text-neutral-300 text-xs font-mono rounded border border-neutral-700 transition-colors"
-                title="Copy closure JSON"
-              >
-                {copied ? <Check className="w-3 h-3 text-[#22C55E]" /> : <Copy className="w-3 h-3" />}
-                {copied ? 'Copied!' : 'Copy JSON'}
-              </button>
-
-              <button
-                type="button"
-                onClick={handleDownload}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-[#1F242A] hover:bg-neutral-700 text-[#FF6600] text-xs font-mono rounded border border-neutral-700 transition-colors"
-                title="Download closure.json file"
-              >
-                <Download className="w-3 h-3" />
-                Download closure.json
-              </button>
-            </div>
-          </div>
-
-          {/* GitHub Direct Push Toggle */}
-          <div className="space-y-3">
-            <button
-              type="button"
-              onClick={() => setShowGithubSync(!showGithubSync)}
-              className="text-xs font-mono text-neutral-400 hover:text-[#FF6600] transition-colors flex items-center gap-1.5"
-            >
-              <UploadCloud className="w-3.5 h-3.5" />
-              {showGithubSync ? '▼ Hide 1-Click GitHub API Direct Push' : '▶ Publish directly to your GitHub repository in 1 click'}
-            </button>
-
-            {showGithubSync && (
-              <div className="bg-[#12161A] p-4 rounded border border-neutral-800 space-y-3 animate-fadeIn text-xs">
-                <p className="text-neutral-400 text-[11px] leading-relaxed">
-                  Enter your GitHub repository and personal access token to update <code className="text-[#FF6600]">public/closure.json</code> directly from this browser. GitHub Pages will then automatically deploy and all visitors will see the updated banner.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[10px] font-mono text-neutral-400 mb-1">
-                      GitHub Repository (owner/repo):
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. rixcompound/rixcompound.github.io"
-                      value={ghRepo}
-                      onChange={(e) => setGhRepo(e.target.value)}
-                      className="w-full bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-1.5 text-xs font-mono text-[#F8F9FA] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[10px] font-mono text-neutral-400 mb-1">
-                      Personal Access Token:
-                    </label>
-                    <input
-                      type="password"
-                      placeholder="ghp_xxxxxxxxxxxx"
-                      value={ghToken}
-                      onChange={(e) => setGhToken(e.target.value)}
-                      className="w-full bg-[#1F242A] border border-neutral-700 focus:border-[#FF6600] rounded px-3 py-1.5 text-xs font-mono text-[#F8F9FA] outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-1">
-                  <span className="text-[10px] text-neutral-500 font-sans">
-                    Requires a token with <code className="text-neutral-400">repo</code> (or <code className="text-neutral-400">contents:write</code>) permission. Stored only in your browser.
-                  </span>
-
-                  <button
-                    type="button"
-                    onClick={handlePushToGithub}
-                    disabled={ghPushing}
-                    className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#FF6600] hover:bg-[#ff7a1a] text-[#12161A] font-display font-bold uppercase italic text-xs rounded transition-colors disabled:opacity-50"
-                  >
-                    <UploadCloud className="w-3.5 h-3.5" />
-                    {ghPushing ? 'Publishing to GitHub...' : 'Commit Live to GitHub'}
-                  </button>
-                </div>
-
-                {ghStatus && (
-                  <div className={`p-2.5 rounded font-mono text-xs ${
-                    ghStatus.success 
-                      ? 'bg-[#22C55E]/15 border border-[#22C55E]/40 text-[#22C55E]' 
-                      : 'bg-red-500/15 border border-red-500/40 text-red-400'
-                  }`}>
-                    {ghStatus.message}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
         </div>
 
         {/* Action Buttons */}
@@ -573,27 +448,38 @@ export default function AdminClosureMenu({
           <button
             type="button"
             onClick={handleClear}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 rounded font-mono text-xs uppercase tracking-wider transition-colors"
+            disabled={isSaving}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 rounded font-mono text-xs uppercase tracking-wider transition-colors disabled:opacity-50"
           >
-            <Trash2 className="w-3.5 h-3.5 text-neutral-400" />
+            <Trash2 className="w-4 h-4 text-neutral-400" />
             Clear Dates &amp; Open Track
           </button>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:w-auto px-4 py-2 bg-[#1F242A] hover:bg-neutral-800 text-neutral-300 border border-neutral-700 rounded font-mono text-xs uppercase tracking-wider transition-colors"
+              className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 bg-[#1F242A] hover:bg-neutral-800 text-neutral-300 border border-neutral-700 rounded font-mono text-xs uppercase tracking-wider transition-colors"
             >
               Exit
             </button>
             <button
               type="button"
               onClick={handleSave}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2 bg-[#FF6600] hover:bg-[#ff7a1a] text-[#12161A] font-display font-black uppercase italic tracking-wider rounded transition-colors shadow-md"
+              disabled={isSaving}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 min-h-[44px] px-7 py-2.5 bg-[#FF6600] hover:bg-[#ff7a1a] text-[#12161A] font-display font-black uppercase italic tracking-wider rounded transition-colors shadow-lg disabled:opacity-50"
             >
-              <Save className="w-4 h-4" />
-              Save &amp; Publish Banner
+              {isSaving ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Saving to Cloud...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  Save &amp; Publish Banner
+                </>
+              )}
             </button>
           </div>
         </div>

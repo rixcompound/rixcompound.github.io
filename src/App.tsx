@@ -15,20 +15,32 @@ import AdminClosureMenu from './components/AdminClosureMenu';
 import { ShieldAlert, X } from 'lucide-react';
 import { TrackClosureConfig } from './types';
 import { loadClosureConfig, saveClosureConfig, isClosureActive, fetchRemoteClosureConfig } from './utils/closure';
+import { subscribeToClosureConfig, testFirebaseConnection } from './utils/firebase';
 
 export default function App() {
   const [showNotification, setShowNotification] = useState(true);
   const [closureConfig, setClosureConfig] = useState<TrackClosureConfig>(loadClosureConfig);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
-  // When hosted on GitHub Pages or custom domain, fetch public/closure.json
-  // so any updates published to GitHub are automatically seen by all visitors worldwide.
+  // Real-time synchronization with Firebase Cloud Firestore
+  // When you update the closure dates on your phone, all visitors worldwide
+  // see the updated banner instantly in real time without refreshing.
   useEffect(() => {
-    fetchRemoteClosureConfig().then((remoteConfig) => {
-      if (remoteConfig) {
-        setClosureConfig(remoteConfig);
+    testFirebaseConnection();
+
+    const unsubscribe = subscribeToClosureConfig((remoteConfig) => {
+      setClosureConfig(remoteConfig);
+      saveClosureConfig(remoteConfig);
+    });
+
+    // Fallback static check if offline or initial load
+    fetchRemoteClosureConfig().then((staticConfig) => {
+      if (staticConfig) {
+        setClosureConfig((prev) => (prev.lastUpdated ? prev : staticConfig));
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
   const hasClosure = isClosureActive(closureConfig);

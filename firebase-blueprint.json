@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "TrackClosure": {
+      "title": "Track Closure Settings",
+      "description": "Configuration for track closure notifications",
+      "type": "object",
+      "properties": {
+        "isClosed": {
+          "type": "boolean",
+          "description": "Whether the track is marked as closed"
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Starting date of closure in YYYY-MM-DD format"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "Ending date of closure in YYYY-MM-DD format"
+        },
+        "customText": {
+          "type": "string",
+          "description": "Optional custom override text"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Optional reason for closure"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "description": "ISO timestamp of when this was updated"
+        }
+      },
+      "required": ["isClosed"]
+    }
+  },
+  "firestore": {
+    "/settings/closure": {
+      "schema": "TrackClosure",
+      "description": "Global track closure state for Rix Compound"
+    }
+  }
+}

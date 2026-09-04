@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isValidClosure(data) {
+      return data.isClosed is bool &&
+        (!('startDate' in data) || data.startDate is string) &&
+        (!('endDate' in data) || data.endDate is string) &&
+        (!('customText' in data) || data.customText is string) &&
+        (!('reason' in data) || data.reason is string) &&
+        (!('lastUpdated' in data) || data.lastUpdated is string);
+    }
+
+    match /settings/closure {
+      allow read: if true;
+      allow write: if isValidClosure(request.resource.data);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
