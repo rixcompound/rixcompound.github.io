@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export default function EventsGallery() {
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
+  const [activeFlyer, setActiveFlyer] = useState<EventItem | null>(null);
 
   // Raw Google Drive hosted files provided in the original code
   const galleryImages = [
@@ -36,6 +37,11 @@ export default function EventsGallery() {
       imgUrl: "https://lh3.googleusercontent.com/d/1T1wcEUFgq5E6Gg4_SAw0wh7dvJhpCW-K",
       title: "Track Showcase Flyer",
       badge: "Featured Event"
+    },
+    {
+      imgUrl: "https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW",
+      title: "Upcoming Event Flyer",
+      badge: "Upcoming Event"
     }
   ];
 
@@ -78,7 +84,7 @@ export default function EventsGallery() {
           </div>
 
           {/* Compact visual grids of the event posters */}
-          <div className="grid grid-cols-1 gap-4 max-w-sm mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {upcomingEvents.map((event, idx) => (
               <div 
                 key={idx} 
@@ -87,7 +93,10 @@ export default function EventsGallery() {
               >
                 <div>
                   {/* Image flyer */}
-                  <div className="rounded overflow-hidden bg-[#1F242A] relative aspect-[4/5] border border-neutral-800 shadow-sm">
+                  <div 
+                    onClick={() => setActiveFlyer(event)}
+                    className="rounded overflow-hidden bg-[#1F242A] relative aspect-[4/5] border border-neutral-800 shadow-sm cursor-pointer"
+                  >
                     <img
                       src={`${event.imgUrl}=s800`}
                       alt={event.title}
@@ -99,6 +108,13 @@ export default function EventsGallery() {
                     {/* Badge */}
                     <div className="absolute top-2 left-2 text-[8px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-neutral-950/90 text-[#FF6600] border border-neutral-800">
                       {event.badge}
+                    </div>
+
+                    {/* Hover expand hint */}
+                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                      <div className="bg-neutral-900/90 text-white p-1.5 rounded-full border border-neutral-800 shadow-md">
+                        <Eye className="w-3.5 h-3.5 text-[#FF6600]" />
+                      </div>
                     </div>
                   </div>
 
@@ -202,6 +218,51 @@ export default function EventsGallery() {
 
       {/* Lightbox Popover Component with GPU-Accelerated motion */}
       <AnimatePresence>
+        {activeFlyer !== null && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={() => setActiveFlyer(null)}
+            className="fixed inset-0 bg-neutral-950/95 z-[100] flex items-center justify-center p-4"
+          >
+            {/* Close Trigger */}
+            <button 
+              onClick={() => setActiveFlyer(null)}
+              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-neutral-900 p-2 rounded-full border border-neutral-800 transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Flyer Visual */}
+            <motion.div 
+              initial={{ scale: 0.97, y: 5 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.97, y: 5 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-2xl w-full max-h-[85vh] flex flex-col items-center justify-center relative"
+            >
+              <img 
+                src={`${activeFlyer.imgUrl}=s1600`} 
+                alt={activeFlyer.title}
+                decoding="async"
+                referrerPolicy="no-referrer"
+                className="max-w-full max-h-[75vh] object-contain rounded border border-neutral-800 shadow-2xl"
+              />
+              <div className="mt-3 flex items-center gap-2">
+                <span className="text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-neutral-900 text-[#FF6600] border border-neutral-800">
+                  {activeFlyer.badge}
+                </span>
+                <p className="font-display font-bold text-xs uppercase text-[#F8F9FA] tracking-tight">
+                  {activeFlyer.title}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
         {activeLightboxIndex !== null && (
           <motion.div 
             initial={{ opacity: 0 }}
@@ -240,6 +301,7 @@ export default function EventsGallery() {
                 src={`${galleryImages[activeLightboxIndex].url}=s1600`} 
                 alt={galleryImages[activeLightboxIndex].alt}
                 decoding="async"
+                referrerPolicy="no-referrer"
                 className="max-w-full max-h-[70vh] object-contain rounded border border-neutral-800 shadow-2xl"
               />
               <p className="mt-3 font-mono text-[9px] text-neutral-400 uppercase tracking-widest text-center">
