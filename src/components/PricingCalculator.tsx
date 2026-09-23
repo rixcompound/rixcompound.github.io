@@ -10,7 +10,8 @@ import {
   Clock, 
   Zap,
   Bike,
-  Calendar
+  Calendar,
+  Sparkles
 } from 'lucide-react';
 
 export default function PricingCalculator() {
@@ -46,7 +47,7 @@ export default function PricingCalculator() {
             <div>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1.5 mb-4 pb-3 border-b border-neutral-800/80">
                 <span className="px-2 py-0.5 bg-[#12161A] text-white text-[9px] font-mono tracking-wider uppercase rounded border border-neutral-800">
-                  Fridays, Saturdays, Sundays & Public Holidays
+                  Weekends, Public Holidays & School Holidays
                 </span>
                 <span className="text-[#22C55E] font-mono text-[9px] uppercase font-bold tracking-wider">
                   No Bookings Needed • Pay On Site
@@ -88,22 +89,64 @@ export default function PricingCalculator() {
             </div>
 
             {/* Operating Hours Box */}
-            <div className="mt-5 pt-4 border-t border-neutral-800/80 text-neutral-300 text-[11px] flex flex-col gap-2 bg-[#12161A] p-3 rounded border border-neutral-800">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-[#F8F9FA] font-bold flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-[#FF6600]" /> Open Operating Hours:
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] text-neutral-300 font-mono">
-                <div className="bg-[#1F242A] p-2 rounded border border-neutral-800 text-center">
-                  <span className="text-neutral-400 block text-[8px] uppercase">Fri & Sat</span>
-                  <span className="font-bold text-[#F8F9FA]">09:00 AM – 03:00 PM</span>
+            <div className="mt-5 pt-4 border-t border-neutral-800/80 text-neutral-300 text-[11px] flex flex-col gap-3.5 bg-[#12161A] p-3.5 sm:p-4 rounded border border-neutral-800">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[#F8F9FA] font-bold flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-[#FF6600]" /> Open Operating Hours:
+                </span>
+                <span className="text-[9px] font-mono text-[#22C55E] font-semibold">
+                  First-Come, First-Served
+                </span>
+              </div>
+
+              {/* Regular Term Schedule */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[9px] font-mono uppercase tracking-wider text-neutral-400">
+                  <span className="font-semibold text-neutral-300">Regular Weekend Schedule</span>
+                  <span className="text-neutral-500">Normal Terms</span>
                 </div>
-                <div className="bg-[#1F242A] p-2 rounded border border-neutral-800 text-center">
-                  <span className="text-neutral-400 block text-[8px] uppercase">Sunday</span>
-                  <span className="font-bold text-[#F8F9FA]">09:00 AM – 02:15 PM</span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] text-neutral-300 font-mono">
+                  <div className="bg-[#1F242A] p-2 rounded border border-neutral-800 text-center">
+                    <span className="text-neutral-400 block text-[8px] uppercase">Fri &amp; Sat</span>
+                    <span className="font-bold text-[#F8F9FA]">09:00 AM – 03:00 PM</span>
+                  </div>
+                  <div className="bg-[#1F242A] p-2 rounded border border-neutral-800 text-center">
+                    <span className="text-neutral-400 block text-[8px] uppercase">Sunday</span>
+                    <span className="font-bold text-[#F8F9FA]">09:00 AM – 02:15 PM</span>
+                  </div>
+                  <div className="bg-[#1F242A] p-2 rounded border border-neutral-800 text-center">
+                    <span className="text-neutral-400 block text-[8px] uppercase">Public Holidays</span>
+                    <span className="font-bold text-[#F8F9FA]">09:00 AM – 03:00 PM</span>
+                  </div>
                 </div>
-                <div className="bg-[#1F242A] p-2 rounded border border-neutral-800 text-center">
-                  <span className="text-neutral-400 block text-[8px] uppercase">Public Holidays</span>
-                  <span className="font-bold text-[#F8F9FA]">09:00 AM – 03:00 PM</span>
+              </div>
+
+              {/* School Holidays Extended Schedule */}
+              <div className="space-y-1.5 pt-2.5 border-t border-neutral-800/80">
+                <div className="flex items-center justify-between text-[9px] font-mono uppercase tracking-wider">
+                  <span className="text-[#FF6600] font-bold flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#FF6600]" /> School Holidays Schedule
+                  </span>
+                  <span className="px-2 py-0.5 bg-[#FF6600]/15 text-[#FF6600] border border-[#FF6600]/30 rounded text-[8px] font-bold">
+                    Wed – Sun Open
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] text-neutral-300 font-mono">
+                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#FF6600]/40 text-center relative overflow-hidden shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#FF6600]" />
+                    <span className="text-neutral-400 block text-[8px] uppercase font-semibold">Wed – Fri</span>
+                    <span className="font-bold text-[#F8F9FA] text-[11px]">09:00 AM – 04:00 PM</span>
+                  </div>
+                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#FF6600]/40 text-center relative overflow-hidden shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#FF6600]" />
+                    <span className="text-neutral-400 block text-[8px] uppercase font-semibold">Saturday</span>
+                    <span className="font-bold text-[#F8F9FA] text-[11px]">09:00 AM – 03:30 PM</span>
+                  </div>
+                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#FF6600]/40 text-center relative overflow-hidden shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#FF6600]" />
+                    <span className="text-neutral-400 block text-[8px] uppercase font-semibold">Sunday</span>
+                    <span className="font-bold text-[#F8F9FA] text-[11px]">09:00 AM – 03:00 PM</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -175,9 +218,9 @@ export default function PricingCalculator() {
               </a>
             </div>
 
-            <div className="mt-3 flex flex-col sm:flex-row items-center gap-1 sm:gap-4 text-[9px] text-neutral-400 font-mono">
+            <div className="mt-3 flex flex-col sm:flex-row items-center gap-1 sm:gap-4 text-[9px] text-neutral-400 font-mono text-center">
               <span className="flex items-center gap-1">
-                <Calendar className="w-3 h-3 text-[#FF6600]" /> Fri & Sat 9:00 AM–3:00 PM • Sun 9:00 AM–2:15 PM
+                <Calendar className="w-3 h-3 text-[#FF6600]" /> Open Weekends &amp; School Holidays (Wed–Sun)
               </span>
               <span className="hidden sm:inline text-neutral-800">|</span>
               <span className="flex items-center gap-1">

@@ -36,7 +36,7 @@ export default function Hero({ hasClosure }: HeroProps) {
                 <Compass className="w-3 h-3 text-[#FF6600]" /> Stellenbosch Winelands
               </span>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-300 text-[9px] font-mono tracking-wider uppercase rounded font-bold">
-                <CalendarDays className="w-3 h-3 text-[#FF6600]" /> Fri & Sat 9:00 AM–3:00 PM • Sun 9:00 AM–2:15 PM
+                <CalendarDays className="w-3 h-3 text-[#FF6600]" /> Open Weekends &amp; School Holidays (Wed–Sun)
               </span>
             </div>
 
