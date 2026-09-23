@@ -124,26 +124,26 @@ export default function PricingCalculator() {
               {/* School Holidays Extended Schedule */}
               <div className="space-y-1.5 pt-2.5 border-t border-neutral-800/80">
                 <div className="flex items-center justify-between text-[9px] font-mono uppercase tracking-wider">
-                  <span className="text-[#FF6600] font-bold flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#FF6600]" /> School Holidays Schedule
+                  <span className="text-[#22C55E] font-bold flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#22C55E]" /> School Holidays Schedule
                   </span>
-                  <span className="px-2 py-0.5 bg-[#FF6600]/15 text-[#FF6600] border border-[#FF6600]/30 rounded text-[8px] font-bold">
+                  <span className="px-2 py-0.5 bg-[#22C55E]/15 text-[#22C55E] border border-[#22C55E]/30 rounded text-[8px] font-bold">
                     Wed – Sun Open
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[10px] text-neutral-300 font-mono">
-                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#FF6600]/40 text-center relative overflow-hidden shadow-sm">
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#FF6600]" />
+                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#22C55E]/40 text-center relative overflow-hidden shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#22C55E]" />
                     <span className="text-neutral-400 block text-[8px] uppercase font-semibold">Wed – Fri</span>
                     <span className="font-bold text-[#F8F9FA] text-[11px]">09:00 AM – 04:00 PM</span>
                   </div>
-                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#FF6600]/40 text-center relative overflow-hidden shadow-sm">
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#FF6600]" />
+                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#22C55E]/40 text-center relative overflow-hidden shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#22C55E]" />
                     <span className="text-neutral-400 block text-[8px] uppercase font-semibold">Saturday</span>
                     <span className="font-bold text-[#F8F9FA] text-[11px]">09:00 AM – 03:30 PM</span>
                   </div>
-                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#FF6600]/40 text-center relative overflow-hidden shadow-sm">
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#FF6600]" />
+                  <div className="bg-[#1F242A] p-2.5 rounded border border-[#22C55E]/40 text-center relative overflow-hidden shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#22C55E]" />
                     <span className="text-neutral-400 block text-[8px] uppercase font-semibold">Sunday</span>
                     <span className="font-bold text-[#F8F9FA] text-[11px]">09:00 AM – 03:00 PM</span>
                   </div>
