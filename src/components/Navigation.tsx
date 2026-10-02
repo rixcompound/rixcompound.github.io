@@ -50,8 +50,8 @@ export default function Navigation({ closureConfig }: NavigationProps) {
 
   const navLinks = [
     { name: 'Home', href: '#home' },
+    { name: 'Rental & Pricing', href: '#pricing' },
     { name: 'The Track', href: '#track' },
-    { name: 'Pricing & Hours', href: '#pricing' },
     { name: 'Events', href: '#events' },
     { name: 'Gallery', href: '#gallery' },
     { name: 'T&C', href: '#terms' },

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.5
  */
 
-import { Flame, CalendarDays, Compass, ShieldCheck, Info } from 'lucide-react';
+import { CalendarDays, Compass } from 'lucide-react';
 
 interface HeroProps {
   hasClosure?: boolean;
@@ -13,7 +13,7 @@ export default function Hero({ hasClosure }: HeroProps) {
   return (
     <section 
       id="home" 
-      className={`relative ${hasClosure ? 'pt-28 sm:pt-32' : 'pt-20 sm:pt-24'} pb-10 sm:pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#12161A] transition-all duration-300`}
+      className={`relative ${hasClosure ? 'pt-28 sm:pt-32' : 'pt-20 sm:pt-24'} pb-10 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#12161A] transition-all duration-300`}
     >
       {/* Precision hairline grid lines */}
       <div className="absolute inset-0 opacity-15 pointer-events-none">
@@ -58,7 +58,7 @@ export default function Hero({ hasClosure }: HeroProps) {
               href="#pricing"
               className="w-full sm:w-auto text-center px-4 py-2.5 bg-[#FF6600] hover:bg-white text-black font-mono text-[10px] font-semibold uppercase tracking-wider rounded transition-all duration-300"
             >
-              Pricing & Hours
+              Rental Info, Rates &amp; Hours
             </a>
             <a
               href="#track"
@@ -85,148 +85,6 @@ export default function Hero({ hasClosure }: HeroProps) {
             <span>📍 PROTEA FARMS, STELLENBOSCH</span>
             <span className="text-neutral-500">EST. 2024</span>
           </div>
-        </div>
-
-        {/* Essential Guidelines & Rules (Rider Requirements & Rental Info) */}
-        <div id="rental-requirements" className="lg:col-span-12 bg-[#1F242A] border border-neutral-800 rounded p-5 sm:p-6 shadow-md relative overflow-hidden scroll-mt-20">
-          <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-[#22C55E]" />
-          
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-neutral-800 pb-3 mb-4 gap-2">
-            <div>
-              <span className="text-neutral-400 font-mono text-[9px] uppercase tracking-[0.15em] block mb-0.5">
-                Rider Guide & Specifications
-              </span>
-              <h2 className="font-display text-base sm:text-lg font-bold text-[#F8F9FA] uppercase tracking-tight">
-                Rider Requirements & <span className="text-[#22C55E] italic font-extrabold">Rental Info</span>
-              </h2>
-            </div>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#12161A] border border-neutral-800 text-neutral-300 font-mono text-[9px] font-semibold uppercase tracking-wider rounded self-start sm:self-auto">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#22C55E]" /> Safe &amp; Fun Riding
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            {/* Pit Bike Rentals (110cc) */}
-            <div className="bg-[#12161A] p-4 rounded border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-colors">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-display font-bold text-xs sm:text-sm uppercase text-[#F8F9FA] tracking-wide flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#22C55E]" /> Pit Bike Rentals (110cc)
-                  </h3>
-                  <span className="px-1.5 py-0.5 bg-[#1F242A] border border-neutral-700 text-neutral-300 text-[8px] font-mono uppercase rounded">
-                    Experience Required
-                  </span>
-                </div>
-
-                <div className="bg-[#1F242A] border border-neutral-800 p-2.5 rounded mb-3">
-                  <p className="text-neutral-300 text-[11px] leading-relaxed font-sans">
-                    Prior dirt bike riding experience is required. For safety, beginners are invited to ride our rental quad bikes or offroad go-karts instead.
-                  </p>
-                </div>
-
-                <ul className="space-y-1.5 text-[11px] text-neutral-300 font-sans">
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong className="text-white">110cc semi-automatic pit bike</strong></span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong>Age 14+ years old</strong></span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong>Max weight:</strong> 100 kg</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Quad Bike Rentals (80cc) */}
-            <div className="bg-[#12161A] p-4 rounded border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-colors">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-display font-bold text-xs sm:text-sm uppercase text-[#F8F9FA] tracking-wide flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#22C55E]" /> Quad Bike Rentals (80cc)
-                  </h3>
-                  <span className="px-1.5 py-0.5 bg-emerald-950/40 border border-emerald-800/40 text-[#22C55E] text-[8px] font-mono font-bold uppercase rounded">
-                    Beginners Welcome
-                  </span>
-                </div>
-
-                <div className="bg-[#1F242A] border border-neutral-800 p-2.5 rounded mb-3">
-                  <p className="text-neutral-300 text-[11px] leading-relaxed font-sans">
-                    Beginners are welcome on rental quad bikes! Great 80cc quad riding for both first-timers and experienced riders.
-                  </p>
-                </div>
-
-                <ul className="space-y-1.5 text-[11px] text-neutral-300 font-sans">
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong className="text-white">80cc quad bike</strong></span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong>Max weight:</strong> 80 kg</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#22C55E] font-bold mt-0.5">•</span>
-                    <span>Kids under 14 may ride as passenger with a guardian (prior approval required).</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Offroad Go-Kart Rentals (Kids) */}
-            <div className="bg-[#12161A] p-4 rounded border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-colors">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-display font-bold text-xs sm:text-sm uppercase text-[#F8F9FA] tracking-wide flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#22C55E]" /> Offroad Go-Kart
-                  </h3>
-                  <span className="px-1.5 py-0.5 bg-[#1F242A] border border-neutral-700 text-neutral-300 text-[8px] font-mono uppercase rounded">
-                    Kids Only
-                  </span>
-                </div>
-
-                <div className="bg-[#1F242A] border border-neutral-800 p-2.5 rounded mb-3">
-                  <p className="text-neutral-300 text-[11px] leading-relaxed font-sans">
-                    Junior offroad go-karting for young drivers. Action-packed dirt driving on our junior circuit.
-                  </p>
-                </div>
-
-                <ul className="space-y-1.5 text-[11px] text-neutral-300 font-sans">
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong>Age:</strong> 7 – 13 years old</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong>Height limit:</strong> 120 cm – 160 cm</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#22C55E] font-bold">•</span>
-                    <span><strong className="text-[#22C55E]">R150</strong> for 10 minutes</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Rules & Equipment Care */}
-          <div className="mt-4 bg-[#12161A] p-4 rounded border border-neutral-800">
-            <h3 className="font-display font-bold text-xs sm:text-sm uppercase text-[#F8F9FA] tracking-wide mb-2 flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-[#22C55E]" /> Track Guidelines &amp; Care
-            </h3>
-            <p className="text-neutral-300 text-[11px] leading-relaxed font-sans mb-1.5">
-              One rider per vehicle (sharing is not permitted). Ride safely and follow track marshals at all times.
-            </p>
-            <p className="text-neutral-400 text-[11px] leading-relaxed font-sans border-t border-neutral-800 pt-1.5">
-              Riders are responsible for taking good care of bikes, ATVs, go-karts, and safety equipment.
-            </p>
-          </div>
-
         </div>
 
       </div>

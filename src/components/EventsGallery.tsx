@@ -61,8 +61,9 @@ export default function EventsGallery() {
       badge: "Upcoming Event"
     },
     {
+      // Replace with your Google Drive flyer link anytime (e.g. https://drive.google.com/file/d/YOUR_FILE_ID/view)
       imgUrl: "https://lh3.googleusercontent.com/d/1XtrUxRsNDP1ECAdFRdG2Egm-fzF4NL3x",
-      title: "New Event Flyer",
+      title: "New Offroad Go-Karts",
       badge: "Coming Soon"
     }
   ];
