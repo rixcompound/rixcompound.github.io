@@ -32,6 +32,23 @@ export default function EventsGallery() {
     schedule?: string[];
   };
 
+  // Helper to ensure Google Drive share links, drive IDs, or direct URLs render at full quality
+  const formatImageUrl = (url: string, size = 1200): string => {
+    if (!url) return '';
+    const trimmed = url.trim();
+    const driveIdMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || 
+                         trimmed.match(/\/d\/([a-zA-Z0-9_-]+)/) || 
+                         trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (driveIdMatch && driveIdMatch[1]) {
+      return `https://lh3.googleusercontent.com/d/${driveIdMatch[1]}=s${size}`;
+    }
+    if (trimmed.includes('googleusercontent.com')) {
+      const cleanUrl = trimmed.split('=')[0];
+      return `${cleanUrl}=s${size}`;
+    }
+    return trimmed;
+  };
+
   const upcomingEvents: EventItem[] = [
     {
       imgUrl: "https://lh3.googleusercontent.com/d/1T1wcEUFgq5E6Gg4_SAw0wh7dvJhpCW-K",
@@ -42,6 +59,11 @@ export default function EventsGallery() {
       imgUrl: "https://lh3.googleusercontent.com/d/1kZyLMKXdsabDqyivA9mGQ3exA1YXYNdW",
       title: "Upcoming Event Flyer",
       badge: "Upcoming Event"
+    },
+    {
+      imgUrl: "https://lh3.googleusercontent.com/d/1XtrUxRsNDP1ECAdFRdG2Egm-fzF4NL3x",
+      title: "New Event Flyer",
+      badge: "Coming Soon"
     }
   ];
 
@@ -83,43 +105,44 @@ export default function EventsGallery() {
             </div>
           </div>
 
-          {/* Compact visual grids of the event posters */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          {/* Compact visual grids of the event posters - Adapts to image size and displays all 3 flyers */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto items-start">
             {upcomingEvents.map((event, idx) => (
               <div 
                 key={idx} 
                 id={event.highlight ? "public-holidays-flyer" : undefined}
-                className="group relative overflow-hidden rounded p-3 transition-all duration-300 flex flex-col justify-between border border-neutral-800 bg-[#12161A] hover:border-brand/60 shadow-sm"
+                className="group relative overflow-hidden rounded-lg p-2.5 sm:p-3 transition-all duration-300 flex flex-col border border-neutral-800 bg-[#12161A] hover:border-brand/60 shadow-sm hover:shadow-md"
               >
                 <div>
-                  {/* Image flyer */}
+                  {/* Image flyer - Card adapts strictly to the image size so the full picture is shown without any cropping */}
                   <div 
                     onClick={() => setActiveFlyer(event)}
-                    className="rounded overflow-hidden bg-[#1F242A] relative aspect-[4/5] border border-neutral-800 shadow-sm cursor-pointer"
+                    className="rounded overflow-hidden bg-[#1F242A] relative border border-neutral-800 shadow-sm cursor-pointer"
                   >
                     <img
-                      src={`${event.imgUrl}=s800`}
+                      src={formatImageUrl(event.imgUrl, 1000)}
                       alt={event.title}
                       loading="lazy"
                       decoding="async"
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover transition-transform duration-550 group-hover:scale-[1.03]"
+                      className="w-full h-auto block object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                     {/* Badge */}
-                    <div className="absolute top-2 left-2 text-[8px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-neutral-950/90 text-[#FF6600] border border-neutral-800">
+                    <div className="absolute top-2 left-2 text-[8px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-neutral-950/90 text-[#FF6600] border border-neutral-800 backdrop-blur-xs">
                       {event.badge}
                     </div>
 
                     {/* Hover expand hint */}
-                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                      <div className="bg-neutral-900/90 text-white p-1.5 rounded-full border border-neutral-800 shadow-md">
+                    <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                      <div className="bg-neutral-900/90 text-white p-1.5 rounded-full border border-neutral-800 shadow-md flex items-center gap-1.5 px-2.5 py-1">
                         <Eye className="w-3.5 h-3.5 text-[#FF6600]" />
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-200">Expand</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-2.5 flex justify-between items-center px-0.5">
-                    <h3 className="font-display font-bold text-xs uppercase text-[#F8F9FA] tracking-tight">
+                    <h3 className="font-display font-bold text-xs uppercase text-[#F8F9FA] tracking-tight truncate">
                       {event.title}
                     </h3>
                     <a 
@@ -245,7 +268,7 @@ export default function EventsGallery() {
               className="max-w-2xl w-full max-h-[85vh] flex flex-col items-center justify-center relative"
             >
               <img 
-                src={`${activeFlyer.imgUrl}=s1600`} 
+                src={formatImageUrl(activeFlyer.imgUrl, 1600)} 
                 alt={activeFlyer.title}
                 decoding="async"
                 referrerPolicy="no-referrer"
