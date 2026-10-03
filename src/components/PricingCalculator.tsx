@@ -51,7 +51,7 @@ export default function PricingCalculator() {
           </div>
         </div>
 
-        {/* 3 Main Rental Vehicle Cards - Combining Specs, Rules & Pricing */}
+        {/* 3 Main Rental Vehicle Cards - Combining Specs, Rules & Pricing (No price on Go-Karts) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           
           {/* Card 1: Pit Bike Rentals (110cc) */}
@@ -72,7 +72,7 @@ export default function PricingCalculator() {
 
               <div className="bg-[#12161A] border border-neutral-800/80 p-2.5 rounded mb-3">
                 <p className="text-neutral-300 text-[11px] leading-relaxed font-sans">
-                  Prior dirt bike riding experience is required. For safety, beginners are invited to ride our rental quad bikes or offroad go-karts instead.
+                  Prior dirt bike riding experience is required. For safety, beginners are welcomed on our rental quad bikes or offroad go-karts instead.
                 </p>
               </div>
 
@@ -140,20 +140,15 @@ export default function PricingCalculator() {
             </div>
           </div>
 
-          {/* Card 3: Offroad Go-Kart (Kids) */}
+          {/* Card 3: Offroad Go-Kart (Kids) - Kept on website with NO PRICE */}
           <div className="bg-[#1F242A] p-4 sm:p-5 rounded border border-neutral-800 flex flex-col justify-between hover:border-neutral-700 transition-all shadow-sm">
             <div>
               <div className="flex items-center justify-between gap-1 mb-2.5">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-300 text-[8px] font-mono uppercase rounded">
-                    Kids Only
-                  </span>
-                  <span className="px-2 py-0.5 bg-[#22C55E]/15 border border-[#22C55E]/30 text-[#22C55E] text-[8px] font-mono font-bold uppercase rounded">
-                    Sat &amp; Sun Only
-                  </span>
-                </div>
-                <span className="font-mono text-sm font-bold text-[#22C55E] whitespace-nowrap">
-                  R150 <span className="text-[9px] text-neutral-400 font-sans font-normal">/ 10m</span>
+                <span className="px-2 py-0.5 bg-[#12161A] border border-neutral-800 text-neutral-300 text-[8px] font-mono uppercase rounded">
+                  Kids Only
+                </span>
+                <span className="px-2 py-0.5 bg-[#22C55E]/15 border border-[#22C55E]/30 text-[#22C55E] text-[8px] font-mono font-bold uppercase rounded">
+                  Sat &amp; Sun Only
                 </span>
               </div>
 
@@ -182,7 +177,7 @@ export default function PricingCalculator() {
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="text-[#22C55E] font-bold">•</span>
-                  <span><strong>Session:</strong> 10 minutes on track</span>
+                  <span><strong>Circuit:</strong> Dedicated junior dirt track</span>
                 </li>
               </ul>
             </div>
@@ -278,11 +273,11 @@ export default function PricingCalculator() {
 
           </div>
 
-          {/* Dedicated Go-Karts Availability Notice */}
+          {/* Dedicated Go-Karts Availability Notice (No Price) */}
           <div className="mt-3.5 pt-3 border-t border-neutral-800/80 flex items-center gap-2 text-[10px] font-mono text-neutral-300">
             <Info className="w-3.5 h-3.5 text-[#22C55E] flex-shrink-0" />
             <span>
-              <strong>Go-Kart Availability:</strong> Offroad go-karts operate on <strong>Saturdays and Sundays only</strong> (not open Wednesdays through Fridays).
+              <strong>Offroad Go-Karts:</strong> Available on <strong>Saturdays and Sundays only</strong> for kids age 7–13 (height 120cm–160cm).
             </span>
           </div>
         </div>

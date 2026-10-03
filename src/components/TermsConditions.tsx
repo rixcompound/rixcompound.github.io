@@ -9,9 +9,9 @@ export default function TermsConditions() {
   const termsList = [
     "No refunds will be issued under any circumstances.",
     "If Rix Compound closes due to unsafe weather conditions, riding sessions will be rescheduled or transferred to the next available open track day.",
-    "Rix Compound operates strictly on a walk-in, first-come, first-served basis (no advance bookings). Rental sessions run strictly on the clock (30 minutes for pit bikes and quad bikes, 10 minutes for kids go-karts).",
+    "Rix Compound operates strictly on a walk-in, first-come, first-served basis (no advance bookings). Rental sessions run strictly for 30 minutes on the clock.",
     "All pit bike riders must have prior dirt bike riding experience. Beginners are strictly not permitted on rental pit bikes (beginners are welcome on rental quad bikes).",
-    "Riders must be 14 years or older for pit bikes and quad rentals. Kids offroad go-kart drivers must be between 7–13 years old with a height between 120 cm – 160 cm. Max rider weight is 100 kg for pit bikes and 80 kg for quad bikes.",
+    "Riders must be 14 years or older for pit bikes and quads (kids offroad go-karts: age 7–13, height 120cm–160cm). Max rider weight is 100 kg for pit bikes and 80 kg for quad bikes.",
     "Children under 14 with no riding experience may only ride as a passenger on a Rix Compound ATV quad with a parent or legal guardian, and only with prior management approval.",
     "One rider per rental vehicle. Sharing is strictly prohibited.",
     "If a rider falls twice, the rental will be stopped immediately without refund.",
