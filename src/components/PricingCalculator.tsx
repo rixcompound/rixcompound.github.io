@@ -72,7 +72,7 @@ export default function PricingCalculator() {
 
               <div className="bg-[#12161A] border border-neutral-800/80 p-2.5 rounded mb-3">
                 <p className="text-neutral-300 text-[11px] leading-relaxed font-sans">
-                  Prior dirt bike riding experience is required. For safety, beginners are welcomed on our rental quad bikes or offroad go-karts instead.
+                  Prior dirt bike riding experience is required like changing gears and riding in the dirt. For safety, beginners are welcomed on our rental quad bikes or offroad go-karts instead.
                 </p>
               </div>
 
